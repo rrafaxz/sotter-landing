@@ -55,7 +55,16 @@
       <p class="subtitulo">Preencha e você vai aparecer no painel do Netlify (e depois no Google Sheets via Zapier).</p>
 
       <!-- Netlify Forms: data-netlify="true" faz a Netlify capturar -->
-      <form class="form" name="lead-sotter" method="POST" data-netlify="true">
+      <form 
+  class="form"
+  name="lead-sotter"
+  method="POST"
+  data-netlify="true"
+  action="/obrigado.html"
+>
+  
+  <input type="hidden" name="form-name" value="lead-sotter">
+
         <label>
           Nome
           <input type="text" name="nome" placeholder="Seu nome" required>
