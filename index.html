@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sotter — Landing de Teste</title>
+
+  <!-- Liga o CSS (style.css) no HTML -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Cabeçalho / topo -->
+  <header class="topo">
+    <div class="container">
+      <p class="logo">Sotter</p>
+
+      <h1>Marketing simples para crescer com consistência</h1>
+      <p class="subtitulo">
+        Landing page de teste para aprender o fluxo: GitHub → Netlify → Formulário → Zapier → Google Sheets.
+      </p>
+
+      <a class="botao" href="#formulario">Quero uma análise gratuita</a>
+    </div>
+  </header>
+
+  <!-- Benefícios -->
+  <section class="secao">
+    <div class="container">
+      <h2>O que a Sotter faz</h2>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Tráfego</h3>
+          <p>Anúncios e campanhas para trazer pessoas certas.</p>
+        </div>
+
+        <div class="card">
+          <h3>Conversão</h3>
+          <p>Páginas e ofertas que transformam visitas em leads.</p>
+        </div>
+
+        <div class="card">
+          <h3>Organização</h3>
+          <p>Leads em planilha/CRM para o time vender com clareza.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulário -->
+  <section class="secao" id="formulario">
+    <div class="container">
+      <h2>Peça sua análise</h2>
+      <p class="subtitulo">Preencha e você vai aparecer no painel do Netlify (e depois no Google Sheets via Zapier).</p>
+
+      <!-- Netlify Forms: data-netlify="true" faz a Netlify capturar -->
+      <form class="form" name="lead-sotter" method="POST" data-netlify="true">
+        <label>
+          Nome
+          <input type="text" name="nome" placeholder="Seu nome" required>
+        </label>
+
+        <label>
+          E-mail
+          <input type="email" name="email" placeholder="seuemail@exemplo.com" required>
+        </label>
+
+        <label>
+          WhatsApp
+          <input type="tel" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
+        </label>
+
+        <label>
+          Instagram
+          <input type="text" name="instagram" placeholder="@seuinstagram">
+        </label>
+
+        <button class="botao" type="submit">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <div class="container">
+      <p>© <span id="ano"></span> Sotter — página teste</p>
+    </div>
+  </footer>
+
+  <script>
+    // Só pra colocar o ano automaticamente no rodapé
+    document.getElementById("ano").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

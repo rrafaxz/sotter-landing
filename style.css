@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* CSS Document */
+/* Reset simples (pra ficar consistente) */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  color: #111;
+  background: #f6f7fb;
+}
+
+.container {
+  width: 92%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Topo */
+.topo {
+  padding: 56px 0;
+  background: #0b1220;
+  color: #fff;
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0 0 18px;
+  opacity: 0.9;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 34px;
+}
+
+.subtitulo {
+  margin: 0 0 18px;
+  opacity: 0.85;
+}
+
+/* Botão */
+.botao {
+  display: inline-block;
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: #2dd4bf;
+  color: #041015;
+  font-weight: 700;
+}
+
+/* Seções */
+.secao {
+  padding: 42px 0;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 24px;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  margin: 0 0 6px;
+}
+
+/* Formulário */
+.form {
+  background: #fff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  display: grid;
+  gap: 12px;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.form input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d8dbe6;
+  font-size: 14px;
+}
+
+/* Rodapé */
+.rodape {
+  padding: 24px 0;
+  text-align: center;
+  color: #445;
+}
+
+/* Responsivo (celular x computador) */
+@media (min-width: 780px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  h1 {
+    font-size: 44px;
+  }
+}
+
