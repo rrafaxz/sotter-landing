@@ -5,26 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sotter — Landing de Teste</title>
 
-  <!-- Liga o CSS (style.css) no HTML -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Cabeçalho / topo -->
+
+  <!-- TOPO -->
   <header class="topo">
     <div class="container">
       <p class="logo">Sotter</p>
 
       <h1>Marketing simples para crescer com consistência</h1>
+
       <p class="subtitulo">
-        Landing page de teste para aprender o fluxo: GitHub → Netlify → Formulário → Zapier → Google Sheets.
+        Landing page de teste para aprender o fluxo:
+        GitHub → Netlify → Formulário → Zapier → Google Sheets.
       </p>
 
       <a class="botao" href="#formulario">Quero uma análise gratuita</a>
     </div>
   </header>
 
-  <!-- Benefícios -->
+  <!-- BENEFÍCIOS -->
   <section class="secao">
     <div class="container">
       <h2>O que a Sotter faz</h2>
@@ -48,22 +50,29 @@
     </div>
   </section>
 
-  <!-- Formulário -->
+  <!-- FORMULÁRIO -->
   <section class="secao" id="formulario">
     <div class="container">
       <h2>Peça sua análise</h2>
-      <p class="subtitulo">Preencha e você vai aparecer no painel do Netlify (e depois no Google Sheets via Zapier).</p>
 
-      <!-- Netlify Forms: data-netlify="true" faz a Netlify capturar -->
-      <form 
-  class="form"
-  name="lead-sotter"
-  method="POST"
-  data-netlify="true"
-  action="/obrigado.html"
->
-  
-  <input type="hidden" name="form-name" value="lead-sotter">
+      <p class="subtitulo">
+        Preencha o formulário abaixo e entraremos em contato.
+      </p>
+
+      <!-- MENSAGEM DE SUCESSO -->
+      <div class="msg-sucesso" id="msgSucesso" style="display:none;">
+        ✅ Formulário enviado com sucesso! Em breve entraremos em contato.
+      </div>
+
+      <!-- NETLIFY FORM (SEM REDIRECT) -->
+      <form
+        class="form"
+        name="lead-sotter"
+        method="POST"
+        data-netlify="true"
+      >
+
+        <input type="hidden" name="form-name" value="lead-sotter">
 
         <label>
           Nome
@@ -90,16 +99,23 @@
     </div>
   </section>
 
-  <!-- Rodapé -->
+  <!-- RODAPÉ -->
   <footer class="rodape">
     <div class="container">
-      <p>© <span id="ano"></span> Sotter — página teste</p>
+      <p>© <span id="ano"></span> Sotter — página de teste</p>
     </div>
   </footer>
 
+  <!-- JS -->
   <script>
-    // Só pra colocar o ano automaticamente no rodapé
     document.getElementById("ano").textContent = new Date().getFullYear();
+
+    // mostra mensagem de sucesso quando o Netlify recarregar a página
+    if (window.location.search.includes("submitted")) {
+      const msg = document.getElementById("msgSucesso");
+      if (msg) msg.style.display = "block";
+    }
   </script>
+
 </body>
 </html>
