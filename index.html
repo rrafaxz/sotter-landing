@@ -1,121 +1,306 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sotter — Landing de Teste</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zacxys - Landing Page</title>
 
-  <link rel="stylesheet" href="style.css">
+  <!-- Fonte Sora -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- TOPO -->
-  <header class="topo">
-    <div class="container">
-      <p class="logo">Sotter</p>
+  <!-- =========================
+       MENU FIXO
+       ========================= -->
+  <header class="topbar-wrap">
+    <nav class="topbar" aria-label="Menu principal">
+      <a class="brand" href="#home" aria-label="ZGCX">
+        <img
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEiqS93HwfTnAdxQWeOJR_U2XCwAFLTJ85Pbo37nInltAh-qq3mi2Z0PvxYpe90pmrwBEf4hEw1fIyWhoRyOR7iRtuIC70ZTxQGbKcpUa6qrmQo3u10_msqSCYLG9vaf_XYqLhygOXoT1E2WFgdcfuhfl6rIwfnVMmmuxjuvca11wviyxicQndsfTi_BJ3Y"
+          alt="ZGCX"
+        />
+      </a>
 
-      <h1>Marketing simples para crescer com consistência</h1>
+      <button class="hamburger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+        <img
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEiaMOHhiIXYLuqEJmBfvDUSmMMg4lYeXNTXiXYqCryWz2YWGIS-bf9V2HzRRxjltvVmowCoOzLqEDRTLE3dwrzlCvQUtvnaSpkUwx5DuBH7h4uHRoV2t60ZLf3UoRxZo6e4UsZFAp_FbkREl0qY3o5PBbDED2SERG3kKZ_shkfMIzpzjGkBJFiU-bOF_GM"
+          alt=""
+        />
+      </button>
 
-      <p class="subtitulo">
-        Landing page de teste para aprender o fluxo:
-        GitHub → Netlify → Formulário → Zapier → Google Sheets.
-      </p>
+      <ul class="navlinks" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#cases">Cases</a></li>
+      </ul>
 
-      <a class="botao" href="#formulario">Quero uma análise gratuita</a>
+      <!-- CTA DESKTOP -->
+      <a class="cta-outline cta-desktop" href="#contato">
+        FALE COM A ZACX
+        <img
+          class="cta-arrow"
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEgHBkzkCLleZlLkTtSzu5KDIyEKsrhKtqiNjFl3TOm3Sjf7GN7vYkMjj6IrE-NpihDmDBzO0NB0nEflFwCy9I5B1_rVfWfngdmXmtjchS9_X72UbZM1lt7f_xR3IKQQYGEWj9W_HQwbHgb3Xz4LCacfaYHePh1WLcnhUF5EQ5zhXGs5HK1rMhQVrxyl9UE"
+          alt=""
+        />
+      </a>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="#home">Home</a>
+      <a href="#blog">Blog</a>
+      <a href="#cases">Cases</a>
+
+      <!-- CTA MOBILE (somente aqui dentro) -->
+      <a class="mobile-cta" href="#contato">
+        FALE COM A ZACX
+        <img
+          class="cta-arrow"
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEgHBkzkCLleZlLkTtSzu5KDIyEKsrhKtqiNjFl3TOm3Sjf7GN7vYkMjj6IrE-NpihDmDBzO0NB0nEflFwCy9I5B1_rVfWfngdmXmtjchS9_X72UbZM1lt7f_xR3IKQQYGEWj9W_HQwbHgb3Xz4LCacfaYHePh1WLcnhUF5EQ5zhXGs5HK1rMhQVrxyl9UE"
+          alt=""
+        />
+      </a>
     </div>
   </header>
 
-  <!-- BENEFÍCIOS -->
-  <section class="secao">
-    <div class="container">
-      <h2>O que a Sotter faz</h2>
+  <div class="topbar-spacer" aria-hidden="true"></div>
 
-      <div class="cards">
-        <div class="card">
-          <h3>Tráfego</h3>
-          <p>Anúncios e campanhas para trazer pessoas certas.</p>
-        </div>
+  <main id="home">
+    <!-- =========================
+         SEÇÃO 01 (HERO)
+         ========================= -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">
+          <span class="hero-title-thin">Aceleradora do ecossistema</span><br>
+          <span class="hero-green hero-title-strong">imobiliário</span>
+          <span class="hero-e-thin"> e </span>
+          <span class="hero-green hero-title-strong">condominial</span>
+        </h1>
 
-        <div class="card">
-          <h3>Conversão</h3>
-          <p>Páginas e ofertas que transformam visitas em leads.</p>
-        </div>
+        <p class="hero-sub">
+          Marketing, posicionamento digital e estrutura comercial integrados para
+          <span class="hl">imobiliárias, incorporadoras e administradoras de condomínios</span>
+          que querem previsibilidade de vendas e escala de faturamento VGV + MRR
+        </p>
 
-        <div class="card">
-          <h3>Organização</h3>
-          <p>Leads em planilha/CRM para o time vender com clareza.</p>
+        <a class="cta-solid" href="#contato">
+          <span class="cta-solid-text">CONTRATE A ZACX</span>
+          <img
+            class="cta-arrow cta-arrow--solid"
+            src="https://blogger.googleusercontent.com/img/a/AVvXsEgHBkzkCLleZlLkTtSzu5KDIyEKsrhKtqiNjFl3TOm3Sjf7GN7vYkMjj6IrE-NpihDmDBzO0NB0nEflFwCy9I5B1_rVfWfngdmXmtjchS9_X72UbZM1lt7f_xR3IKQQYGEWj9W_HQwbHgb3Xz4LCacfaYHePh1WLcnhUF5EQ5zhXGs5HK1rMhQVrxyl9UE"
+            alt=""
+          />
+        </a>
+      </div>
+    </section>
+
+    <!-- =========================
+         SEÇÃO 02 (FORM)
+         ========================= -->
+    <section class="sec2" id="contato">
+      <div class="sec2-shell">
+        <div class="sec2-card">
+
+          <!-- Lado esquerdo -->
+          <div class="sec2-left">
+            <h2 class="sec2-title">
+              <span class="t-medium">Decida alavancar seu</span><br>
+              <span class="t-medium">negócio</span> <span class="t-light">em menos</span><br>
+              <span class="t-light">de 1 minuto</span>
+            </h2>
+
+            <div class="sec2-steps">
+              <img
+                class="sec2-steps-img"
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEgRMnqyyyuHLXU5pQKFSozqPIu6GTq59J7_eYTVveUZVyQz2cyG_t8_6sN1KKOkaV8B85KmWlMkNd_4VL7zcjG46xCdqUR_qkipLoERIyJYp7SAIrl-tCteJHVhFcR7sL9duzeqO8J5JBODiK5_xMM-pjcfoOhE_5paX3YrytlAyfcX55I92sPPCQKoU2U"
+                alt=""
+              />
+
+              <div class="sec2-steps-text">
+                <div class="step">
+                  <p class="step-title">Preencha o formulário</p>
+                  <p class="step-desc">
+                    Seus dados estão protegidos, as informações<br>
+                    enviadas serão usadas exclusivamente para<br>
+                    nosso contato direto com você.
+                  </p>
+                </div>
+
+                <div class="step">
+                  <p class="step-title">Receba uma ligação personalizada</p>
+                  <p class="step-desc">
+                    Um de nossos especialistas entrará em contato<br>
+                    diretamente com você para agendar uma conversa<br>
+                    estratégica e essencial para o seu próximo passo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lado direito -->
+          <div class="sec2-right">
+            <div class="form-area">
+              <div class="form-wrap">
+                <form name="zacxys-leads" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="zacxys-leads">
+                  <p class="hidden">
+                    <label>Não preencha: <input name="bot-field"></label>
+                  </p>
+
+                  <div class="field">
+                    <input
+                      type="text"
+                      name="nome"
+                      placeholder="Qual é o seu nome e sobrenome?"
+                      autocomplete="name"
+                      required
+                    >
+                  </div>
+
+                  <div class="field">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Qual seu e-mail corporativo?"
+                      autocomplete="email"
+                      required
+                    >
+                  </div>
+
+                  <div class="field">
+                    <input
+                      type="text"
+                      name="empresa"
+                      placeholder="Qual é o nome da sua empresa?"
+                      required
+                    >
+                  </div>
+
+                  <div class="field field--phone">
+                    <img class="flag" src="https://blogger.googleusercontent.com/img/a/AVvXsEgB3ktkyPvgZs-61wYzhV0bYCp3QLaU9isTRAxAdXMckUmuukbGoYgURq536QYIkB7QsKhOtC7Jh8GbESjHyAsZwhWRAL5JsZMYyN3vlhX03JRTlYasvr9eoProP0YA1JayH9WdJMsiSrHVbfE5cbEIyvs8HR5gm5U5srA7EOCpMzYP9uBA0O81pSv0NLI" alt="">
+                    <input
+                      type="tel"
+                      name="telefone"
+                      placeholder="Qual é o seu telefone?"
+                      inputmode="tel"
+                      autocomplete="tel"
+                      required
+                    >
+                  </div>
+
+                  <div class="field field--select">
+                    <input type="hidden" name="segmento" id="segmentoValue" required>
+                    <button id="segmentoBtn" class="select-btn" type="button" aria-expanded="false">
+                      <span id="segmentoLabel" class="select-label">Qual é o segmento da sua empresa?</span>
+                      <img class="chev" src="https://blogger.googleusercontent.com/img/a/AVvXsEiFZnM6QUSi_Zx6Yi93rHmaa0AT_GM2qn6-3TFNlJO3ihqI-14NRKQ6bGLkv15-d1K48OjD1NWa7uSJ_o5d7uNbfCODtBbFCcBPKHq4vCcAhVvQFXDd_zXlKzcAvHF93bYkSZg_ZOzesNgan8yynJm4muWbd25hZduVpK7Aszix_x3npfB1aFLvMqshvc4" alt="">
+                    </button>
+
+                    <div id="segmentoList" class="select-list" role="listbox" aria-label="Segmento">
+                      <div class="select-item" data-value="Incorporadora" role="option">Incorporadora</div>
+                      <div class="select-item" data-value="Imobiliária" role="option">Imobiliária</div>
+                      <div class="select-item" data-value="Administradora de condomínios" role="option">Administradora de condomínios</div>
+                      <div class="select-item" data-value="Outro" role="option">Outro</div>
+                    </div>
+                  </div>
+
+                  <p class="form-note" id="formNote" aria-live="polite"></p>
+
+                  <button class="hidden-submit" type="submit" aria-hidden="true" tabindex="-1">Enviar</button>
+                </form>
+              </div>
+
+              <button class="form-submit-out" id="submitBtn" type="button">
+                Agendar uma Reunião
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FORMULÁRIO -->
-  <section class="secao" id="formulario">
-    <div class="container">
-      <h2>Peça sua análise</h2>
+    <!-- =========================
+         SEÇÃO 03 (LOGOS - CARROSSEL INFINITO)
+         (SOMENTE AQUI EU ALTEREI: coloquei <a> com links)
+         ========================= -->
+    <section class="sec3" id="empresas">
+      <div class="sec3-shell">
+        <h3 class="sec3-title">
+          Empresas que <span class="sec3-green">aceleram</span> com a Zacx:
+        </h3>
 
-      <p class="subtitulo">
-        Preencha o formulário abaixo e entraremos em contato.
-      </p>
+        <div class="sec3-carousel" aria-label="Carrossel de empresas">
+          <button class="sec3-nav sec3-nav--left" id="logosPrev" type="button" aria-label="Anterior">
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhTcDPg3vzVjpnAwjTB7Cq1KicYYjM5Pq9hYkFrlb0jbMQ3pXfQ_ZwCGR_SKT42mNjgxK60iJBkSZj-7urhe4bln3yMoKGvMvvblLmgdqrn_uGTZshOuJBDcm24WZUAYXOPDWAZCZHHoRI0gZTxYo-8x8B03QDS7io1h-co92urUP5gD7Qrn4KY2cZAv6A" alt="">
+          </button>
 
-      <!-- MENSAGEM DE SUCESSO -->
-      <div class="msg-sucesso" id="msgSucesso" style="display:none;">
-        ✅ Formulário enviado com sucesso! Em breve entraremos em contato.
+          <div class="sec3-viewport" id="logosViewport">
+            <div class="sec3-track" id="logosTrack" role="list">
+
+              <!-- 1) Leões da Corretagem (LINK) -->
+              <div class="sec3-item" role="listitem">
+                <a class="sec3-link" href="https://www.leoesdacorretagem.net.br/" target="_blank" rel="noopener noreferrer">
+                  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi_teidPs4NJvLkd8DwCQbRAB9YXfuu104I8f9_IbMqvL18CDzEGpZ1YlZDzlKEvHVVEiQ3ED-c-wSuXRcN3DCB0Qx5btPAci7DAMS7UukxZwX6fY9PN7ioIlHcaiqrfSMpde0lyiIf9i6iu1EvavySytyEDrF5HYI-SAYSpXYH5O8u4w2La4szUuHCMFw" alt="">
+                </a>
+              </div>
+
+              <!-- 2) (placeholder) -->
+              <div class="sec3-item" role="listitem">
+                <a class="sec3-link" href="#">
+                  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEimMX21Qe31OixCKqIkCN5_o5AhWHTmbjiz-OKKQfBiId4M6vL-rq1OTRs2Nt-1x9zP_YwIrMfulG_c4nYw5t4fG1Nbu-9CjLIC5GPb3Pa-ArHSf8lOsjEwvA3HsIKKAFeUVu86bmaTAFkayI412uWAZhc3OQWOAgtFL5JPsx7AXpWJs-9yff9W48HPWa8" alt="">
+                </a>
+              </div>
+
+              <!-- 3) (placeholder) -->
+              <div class="sec3-item" role="listitem">
+                <a class="sec3-link" href="#">
+                  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEh-gBKv3mGdcpGXm0ZIrTtySAMOXbQIbvP4Zaf5EUV_C9Jc-eYQezn5fD1Rv5I1xoJy7PhkBngFB2qIaeMi559fEbErycAcS6lUUHQopiMS2LY_Zt4zQWr2V4v63fYFRfW6tb_2NGmfU4UIwyCqe88N-8jSn8L93ghFPBLTztgdRKLq1r4dWx-8Tj-L-Xg" alt="">
+                </a>
+              </div>
+
+              <!-- 4) Âncora Condomínios (LINK) -->
+              <div class="sec3-item" role="listitem">
+                <a class="sec3-link" href="https://ancoracondominios.com.br/" target="_blank" rel="noopener noreferrer">
+                  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhojrAKOhJ18Tgg1JTJS_2AQRgXWdc5U5odQF_HBJyx-5FP2IQgd_SX92vYZiA6OoN5O1phuibYCQKJGl1FkHlcIL7UgfKkQyF1u2HGxEc7eCxrVGFA_T0CeBO2lep7v0727EnYCfgPgsTEcEnQIkSSG3f_HISIRYMeAHErkQuhDc7-71yEGCJ2_wTwzBk" alt="">
+                </a>
+              </div>
+
+              <!-- 5) Jales Advogados (LINK) -->
+              <div class="sec3-item" role="listitem">
+                <a class="sec3-link" href="https://jalesadvogados.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjRjKtxdoisgI1rUtPBWHq75urquI8Nqg3njvyWGrxoXhq_EWxBiFc1KOTsIp3MhEtAAshfOMWxoVRbrb4TivJQceAA5IcOk-VZuOtsGApIeF7_A82rLInLh1TQ4hwNDbBBuqav9NqVTqGtNUSF7a7nKOwsmOTDVlgWIciAmk492b3yIVO1fhQ84ET05vE" alt="">
+                </a>
+              </div>
+
+              <!-- 6) (placeholder) -->
+              <div class="sec3-item" role="listitem">
+                <a class="sec3-link" href="#">
+                  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgkYvhm8lFqsGjBfDRLc7DtC9AjxN6rhbi4na4Bkzdm9A_KbbcKCoEXKGLwL4EUnjYAsW0qbT4iEhIaKXs3Jt0GeIZCrrzF2uSCmlM-8xep-Y0CwmZ5b7ulvtOY5OKcIva7eyKPqmnOgVc3rlkmwCRXv7MCnJNUHBsiW70bdNv9RcEBIo28eZStAzceyhc" alt="">
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="sec3-nav sec3-nav--right" id="logosNext" type="button" aria-label="Próximo">
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhQTvy7CwKm2kVOGaZ3CPXAlChRWAFyrsHnyNs8KJ8LBVZlYjZvVBejHW6WGhD7Z_OCAjaZzCIFtTMYC8WjUbZcwAr2ixOQ6aEbcOhgf1Th81mabKbCpxST3mr-VOR8byzDa19UoQzg-eYjVV7a6NR6ycsSFk7gYRcZ86rFMxb1ZehI6KJiCJ-WwKeU1fE" alt="">
+          </button>
+        </div>
       </div>
+    </section>
 
-      <!-- NETLIFY FORM (SEM REDIRECT) -->
-      <form
-        class="form"
-        name="lead-sotter"
-        method="POST"
-        data-netlify="true"
-      >
+    <section id="blog" class="placeholder"></section>
+    <section id="cases" class="placeholder"></section>
+  </main>
 
-        <input type="hidden" name="form-name" value="lead-sotter">
-
-        <label>
-          Nome
-          <input type="text" name="nome" placeholder="Seu nome" required>
-        </label>
-
-        <label>
-          E-mail
-          <input type="email" name="email" placeholder="seuemail@exemplo.com" required>
-        </label>
-
-        <label>
-          WhatsApp
-          <input type="tel" name="whatsapp" placeholder="(xx) xxxxx-xxxx">
-        </label>
-
-        <label>
-          Instagram
-          <input type="text" name="instagram" placeholder="@seuinstagram">
-        </label>
-
-        <button class="botao" type="submit">Enviar</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- RODAPÉ -->
-  <footer class="rodape">
-    <div class="container">
-      <p>© <span id="ano"></span> Sotter — página de teste</p>
-    </div>
-  </footer>
-
-  <!-- JS -->
-  <script>
-    document.getElementById("ano").textContent = new Date().getFullYear();
-
-    // mostra mensagem de sucesso quando o Netlify recarregar a página
-    if (window.location.search.includes("submitted")) {
-      const msg = document.getElementById("msgSucesso");
-      if (msg) msg.style.display = "block";
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
