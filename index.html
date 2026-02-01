@@ -2,7 +2,11 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- ✅ TRAVA ZOOM NO MOBILE -->
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+  />
   <title>Zacxys - Landing Page</title>
 
   <!-- Fonte Sora -->
@@ -20,6 +24,23 @@
        ========================= -->
   <header class="topbar-wrap">
     <nav class="topbar" aria-label="Menu principal">
+
+      <!-- ✅ ESQUERDA: PÁGINAS (DESKTOP) -->
+      <ul class="navlinks" role="list" aria-label="Páginas">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#cases">Cases</a></li>
+      </ul>
+
+      <!-- ✅ ESQUERDA (APENAS NO SCROLL DESKTOP): vira ícone 3 traços -->
+      <button class="hamburger hamburger--desktop" type="button" aria-label="Abrir páginas" aria-expanded="false" aria-controls="mobileMenu">
+        <img
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEiaMOHhiIXYLuqEJmBfvDUSmMMg4lYeXNTXiXYqCryWz2YWGIS-bf9V2HzRRxjltvVmowCoOzLqEDRTLE3dwrzlCvQUtvnaSpkUwx5DuBH7h4uHRoV2t60ZLf3UoRxZo6e4UsZFAp_FbkREl0qY3o5PBbDED2SERG3kKZ_shkfMIzpzjGkBJFiU-bOF_GM"
+          alt=""
+        />
+      </button>
+
+      <!-- ✅ CENTRO: LOGO -->
       <a class="brand" href="#home" aria-label="ZGCX">
         <img
           src="https://blogger.googleusercontent.com/img/a/AVvXsEiqS93HwfTnAdxQWeOJR_U2XCwAFLTJ85Pbo37nInltAh-qq3mi2Z0PvxYpe90pmrwBEf4hEw1fIyWhoRyOR7iRtuIC70ZTxQGbKcpUa6qrmQo3u10_msqSCYLG9vaf_XYqLhygOXoT1E2WFgdcfuhfl6rIwfnVMmmuxjuvca11wviyxicQndsfTi_BJ3Y"
@@ -27,20 +48,7 @@
         />
       </a>
 
-      <button class="hamburger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
-        <img
-          src="https://blogger.googleusercontent.com/img/a/AVvXsEiaMOHhiIXYLuqEJmBfvDUSmMMg4lYeXNTXiXYqCryWz2YWGIS-bf9V2HzRRxjltvVmowCoOzLqEDRTLE3dwrzlCvQUtvnaSpkUwx5DuBH7h4uHRoV2t60ZLf3UoRxZo6e4UsZFAp_FbkREl0qY3o5PBbDED2SERG3kKZ_shkfMIzpzjGkBJFiU-bOF_GM"
-          alt=""
-        />
-      </button>
-
-      <ul class="navlinks" role="list">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#cases">Cases</a></li>
-      </ul>
-
-      <!-- CTA DESKTOP -->
+      <!-- ✅ DIREITA: CTA -->
       <a class="cta-outline cta-desktop" href="#contato">
         FALE COM A ZACX
         <img
@@ -49,6 +57,14 @@
           alt=""
         />
       </a>
+
+      <!-- ✅ MOBILE: botão do menu -->
+      <button class="hamburger hamburger--mobile" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+        <img
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEiaMOHhiIXYLuqEJmBfvDUSmMMg4lYeXNTXiXYqCryWz2YWGIS-bf9V2HzRRxjltvVmowCoOzLqEDRTLE3dwrzlCvQUtvnaSpkUwx5DuBH7h4uHRoV2t60ZLf3UoRxZo6e4UsZFAp_FbkREl0qY3o5PBbDED2SERG3kKZ_shkfMIzpzjGkBJFiU-bOF_GM"
+          alt=""
+        />
+      </button>
     </nav>
 
     <!-- Menu mobile -->
@@ -229,7 +245,6 @@
 
     <!-- =========================
          SEÇÃO 03 (LOGOS - CARROSSEL INFINITO)
-         (SOMENTE AQUI EU ALTEREI: coloquei <a> com links)
          ========================= -->
     <section class="sec3" id="empresas">
       <div class="sec3-shell">
@@ -245,42 +260,36 @@
           <div class="sec3-viewport" id="logosViewport">
             <div class="sec3-track" id="logosTrack" role="list">
 
-              <!-- 1) Leões da Corretagem (LINK) -->
               <div class="sec3-item" role="listitem">
                 <a class="sec3-link" href="https://www.leoesdacorretagem.net.br/" target="_blank" rel="noopener noreferrer">
                   <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi_teidPs4NJvLkd8DwCQbRAB9YXfuu104I8f9_IbMqvL18CDzEGpZ1YlZDzlKEvHVVEiQ3ED-c-wSuXRcN3DCB0Qx5btPAci7DAMS7UukxZwX6fY9PN7ioIlHcaiqrfSMpde0lyiIf9i6iu1EvavySytyEDrF5HYI-SAYSpXYH5O8u4w2La4szUuHCMFw" alt="">
                 </a>
               </div>
 
-              <!-- 2) (placeholder) -->
               <div class="sec3-item" role="listitem">
                 <a class="sec3-link" href="#">
                   <img src="https://blogger.googleusercontent.com/img/a/AVvXsEimMX21Qe31OixCKqIkCN5_o5AhWHTmbjiz-OKKQfBiId4M6vL-rq1OTRs2Nt-1x9zP_YwIrMfulG_c4nYw5t4fG1Nbu-9CjLIC5GPb3Pa-ArHSf8lOsjEwvA3HsIKKAFeUVu86bmaTAFkayI412uWAZhc3OQWOAgtFL5JPsx7AXpWJs-9yff9W48HPWa8" alt="">
                 </a>
               </div>
 
-              <!-- 3) (placeholder) -->
               <div class="sec3-item" role="listitem">
                 <a class="sec3-link" href="#">
                   <img src="https://blogger.googleusercontent.com/img/a/AVvXsEh-gBKv3mGdcpGXm0ZIrTtySAMOXbQIbvP4Zaf5EUV_C9Jc-eYQezn5fD1Rv5I1xoJy7PhkBngFB2qIaeMi559fEbErycAcS6lUUHQopiMS2LY_Zt4zQWr2V4v63fYFRfW6tb_2NGmfU4UIwyCqe88N-8jSn8L93ghFPBLTztgdRKLq1r4dWx-8Tj-L-Xg" alt="">
                 </a>
               </div>
 
-              <!-- 4) Âncora Condomínios (LINK) -->
               <div class="sec3-item" role="listitem">
                 <a class="sec3-link" href="https://ancoracondominios.com.br/" target="_blank" rel="noopener noreferrer">
                   <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhojrAKOhJ18Tgg1JTJS_2AQRgXWdc5U5odQF_HBJyx-5FP2IQgd_SX92vYZiA6OoN5O1phuibYCQKJGl1FkHlcIL7UgfKkQyF1u2HGxEc7eCxrVGFA_T0CeBO2lep7v0727EnYCfgPgsTEcEnQIkSSG3f_HISIRYMeAHErkQuhDc7-71yEGCJ2_wTwzBk" alt="">
                 </a>
               </div>
 
-              <!-- 5) Jales Advogados (LINK) -->
               <div class="sec3-item" role="listitem">
                 <a class="sec3-link" href="https://jalesadvogados.com/" target="_blank" rel="noopener noreferrer">
                   <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjRjKtxdoisgI1rUtPBWHq75urquI8Nqg3njvyWGrxoXhq_EWxBiFc1KOTsIp3MhEtAAshfOMWxoVRbrb4TivJQceAA5IcOk-VZuOtsGApIeF7_A82rLInLh1TQ4hwNDbBBuqav9NqVTqGtNUSF7a7nKOwsmOTDVlgWIciAmk492b3yIVO1fhQ84ET05vE" alt="">
                 </a>
               </div>
 
-              <!-- 6) (placeholder) -->
               <div class="sec3-item" role="listitem">
                 <a class="sec3-link" href="#">
                   <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgkYvhm8lFqsGjBfDRLc7DtC9AjxN6rhbi4na4Bkzdm9A_KbbcKCoEXKGLwL4EUnjYAsW0qbT4iEhIaKXs3Jt0GeIZCrrzF2uSCmlM-8xep-Y0CwmZ5b7ulvtOY5OKcIva7eyKPqmnOgVc3rlkmwCRXv7MCnJNUHBsiW70bdNv9RcEBIo28eZStAzceyhc" alt="">
@@ -293,6 +302,215 @@
           <button class="sec3-nav sec3-nav--right" id="logosNext" type="button" aria-label="Próximo">
             <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhQTvy7CwKm2kVOGaZ3CPXAlChRWAFyrsHnyNs8KJ8LBVZlYjZvVBejHW6WGhD7Z_OCAjaZzCIFtTMYC8WjUbZcwAr2ixOQ6aEbcOhgf1Th81mabKbCpxST3mr-VOR8byzDa19UoQzg-eYjVV7a6NR6ycsSFk7gYRcZ86rFMxb1ZehI6KJiCJ-WwKeU1fE" alt="">
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SEÇÃO 04 (DIAGRAMA)
+         ========================= -->
+    <section class="sec4" id="sec4">
+      <div class="sec4-shell">
+        <div class="sec4-card">
+
+          <h2 class="sec4-title">
+            Máquina de <span class="sec4-underline">Demanda Qualificada</span>
+          </h2>
+
+          <p class="sec4-sub">
+            Construímos uma operação contínua para gerar <strong>oportunidades reais de negócio</strong>,<br>
+            conectando sua empresa a pessoas com <strong>intenção de compra ou contratação</strong>, todos os dias.
+          </p>
+
+          <h3 class="sec4-how">Como funciona:</h3>
+
+          <div class="sec4-diagram" aria-label="Diagrama como funciona">
+            <img class="sec4-layer sec4-step" data-step="1" src="https://i.ibb.co/FL3JfDb6/1.png" alt="">
+            <img class="sec4-layer sec4-step" data-step="2" src="https://i.ibb.co/4w50gFH6/2.png" alt="">
+            <img class="sec4-layer sec4-step" data-step="3" src="https://i.ibb.co/FqndYbY7/3.png" alt="">
+            <img class="sec4-layer sec4-step" data-step="4" src="https://i.ibb.co/5gMtxBSW/4.png" alt="">
+            <img class="sec4-layer sec4-step" data-step="5" src="https://i.ibb.co/b5bYnNg4/5.png" alt="">
+
+            <img class="sec4-layer sec4-z" src="https://i.ibb.co/GQkBHBB2/B.png" alt="">
+            <img class="sec4-gear" src="https://i.ibb.co/wrjVD1Hc/b.png" alt="">
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SEÇÃO 05 (INTERATIVA - CAMINHOS)
+         ========================= -->
+    <section class="sec5" id="sec5">
+      <div class="sec5-shell">
+        <h3 class="sec5-title">Escolha qual <strong>caminho</strong> vai seguir:</h3>
+
+        <div class="sec5-grid" aria-label="Escolha de caminhos">
+
+          <!-- ESQUERDA: SEM A ZACX -->
+          <div class="sec5-col">
+            <button class="sec5-topbtn sec5-topbtn--gray" type="button" data-target="without" aria-expanded="false">
+              CAMINHO SEM A ZACX
+            </button>
+
+            <div class="sec5-panel sec5-panel--without sec5-panel--peek" id="panelWithout" data-panel="without" aria-hidden="false">
+              <div class="sec5-panel-inner">
+                <div class="sec5-items" data-items="without">
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Marca sem posicionamento<br>claro.</strong></p>
+                    <p class="sec5-item-sub">O cliente não entende<br>o diferencial.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Anúncios atraem público fora do<br>perfil.</strong></p>
+                    <p class="sec5-item-sub">Tempo e investimento<br>desperdiçados.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Conteúdo genérico e sem<br>estratégia.</strong></p>
+                    <p class="sec5-item-sub">Não chama atenção<br>nem gera ação.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Atendimento<br>reativo.</strong></p>
+                    <p class="sec5-item-sub">O cliente conduz<br>a conversa.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Processo de venda confuso ou<br>inexistente.</strong></p>
+                    <p class="sec5-item-sub">Cada negociação<br>acontece de um jeito.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Visitas não se<br>convertem.</strong></p>
+                    <p class="sec5-item-sub">Fechamentos<br>irregulares.</p>
+                  </div>
+                </div>
+
+                <button class="sec5-walk" type="button" data-walk="without" aria-label="Mostrar próximo item">
+                  <img src="https://i.ibb.co/Fkp0ncRq/Elipse-2.png" alt="">
+                </button>
+
+                <button class="sec5-bottom sec5-bottom--without" type="button" data-bottom="without">
+                  SÓ MAIS UMA NO MERCADO
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DIREITA: COM A ZACX -->
+          <div class="sec5-col">
+            <button class="sec5-topbtn sec5-topbtn--green" type="button" data-target="with" aria-expanded="false">
+              CAMINHO COM A ZACX
+              <img class="sec5-verified" src="https://i.ibb.co/bg86zjry/Camada-14.png" alt="">
+            </button>
+
+            <div class="sec5-panel sec5-panel--with sec5-panel--peek" id="panelWith" data-panel="with" aria-hidden="false">
+              <div class="sec5-panel-inner">
+                <div class="sec5-items" data-items="with">
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Marca bem definida e<br>reconhecível.</strong></p>
+                    <p class="sec5-item-sub">O cliente entende o valor<br>antes do contato.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Tráfego direcionado ao público<br>comprador.</strong></p>
+                    <p class="sec5-item-sub">Menos ruído,<br>mais intenção.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Design, vídeo e criativos com<br>objetivo claro.</strong></p>
+                    <p class="sec5-item-sub">Cada peça<br>existe para vender.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Comunicação alinhada à<br>estratégia.</strong></p>
+                    <p class="sec5-item-sub">O corretor conduz<br>com segurança.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Processo de venda definido e<br>replicável.</strong></p>
+                    <p class="sec5-item-sub">Controle total<br>da jornada.</p>
+                  </div>
+
+                  <div class="sec5-item">
+                    <p class="sec5-item-title"><strong>Cliente mais<br>preparado.</strong></p>
+                    <p class="sec5-item-sub">Negociação objetiva.<br>Fechamentos previsíveis.</p>
+                  </div>
+                </div>
+
+                <button class="sec5-walk" type="button" data-walk="with" aria-label="Mostrar próximo item">
+                  <img src="https://i.ibb.co/Fkp0ncRq/Elipse-2.png" alt="">
+                </button>
+
+                <button class="sec5-bottom sec5-bottom--with" type="button" data-bottom="with">
+                  EMPRESA DE SUCESSO
+                  <img class="sec5-verified sec5-verified--bottom" src="https://i.ibb.co/bg86zjry/Camada-14.png" alt="">
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SEÇÃO 06 (COMO A ZACX TRABALHA)
+         ========================= -->
+    <section class="sec6" id="sec6">
+      <div class="sec6-shell">
+        <h3 class="sec6-title">Como a Zacx trabalha na sua empresa?</h3>
+
+        <div class="sec6-card" aria-label="Serviços Zacx">
+          <div class="sec6-row sec6-row--1" data-sec6-row>
+            <div class="sec6-row-inner">
+              <img class="sec6-ico" src="https://i.ibb.co/sz2SgN8/Camada-21.png" alt="">
+              <p class="sec6-h">Campanhas e Mídia Paga</p>
+              <p class="sec6-p">Segmentação avançada + copy testada para imóveis,<br>empreendimentos e serviços condominiais.</p>
+            </div>
+          </div>
+
+          <div class="sec6-row sec6-row--2" data-sec6-row>
+            <div class="sec6-row-inner">
+              <img class="sec6-ico" src="https://i.ibb.co/dw4fKHqy/Camada-20.png" alt="">
+              <p class="sec6-h">Copywriting e Oferta Irresistível</p>
+              <p class="sec6-p">Textos que convertem curiosos<br>em compradores e decisores.</p>
+            </div>
+          </div>
+
+          <div class="sec6-row sec6-row--3" data-sec6-row>
+            <div class="sec6-row-inner">
+              <img class="sec6-ico" src="https://i.ibb.co/whnLtH9h/Camada-19.png" alt="">
+              <p class="sec6-h">Criativos de Alta Performance</p>
+              <p class="sec6-p">Vídeo + imagem + narrativa projetada<br>para vendas (não só engajamento).</p>
+            </div>
+          </div>
+
+          <div class="sec6-row sec6-row--4" data-sec6-row>
+            <div class="sec6-row-inner">
+              <img class="sec6-ico" src="https://i.ibb.co/TDYrpsNN/Camada-16.png" alt="">
+              <p class="sec6-h">Ambientes Digitais Otimizados</p>
+              <p class="sec6-p">Landing pages que conduzem à ação.</p>
+            </div>
+          </div>
+
+          <div class="sec6-row sec6-row--5" data-sec6-row>
+            <div class="sec6-row-inner">
+              <img class="sec6-ico" src="https://i.ibb.co/rKDDMHH3/Camada-17.png" alt="">
+              <p class="sec6-h">CRM &amp; Funil Integrado</p>
+              <p class="sec6-p">Toda jornada do cliente<br>organizada e mensurada.</p>
+            </div>
+          </div>
+
+          <div class="sec6-row sec6-row--6" data-sec6-row>
+            <div class="sec6-row-inner">
+              <img class="sec6-ico" src="https://i.ibb.co/NnLWyTKy/Camada-18.png" alt="">
+              <p class="sec6-h sec6-h--dark">Consultoria Comercial e Treinamento</p>
+              <p class="sec6-p sec6-p--dark">Transformamos sua equipe em<br>máquina de fechamento.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
