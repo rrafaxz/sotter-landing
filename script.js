@@ -537,6 +537,77 @@
   }
 
   // =========================
+  // SEÇÃO 08: animação Primeio Anexo
+  // =========================
+  var sec8 = document.getElementById("sec8");
+  var sec8Blocks = sec8 ? sec8.querySelectorAll(".sec8-block") : [];
+  var sec8Gear = sec8 ? sec8.querySelector(".sec8-gear") : null;
+  var sec8Lines = sec8 ? sec8.querySelector(".sec8-lines") : null;
+  var sec8HasRun = false;
+
+  var startSec8 = function () {
+    if (sec8HasRun) return;
+    sec8HasRun = true;
+
+    if (sec8Gear) sec8Gear.classList.add("is-spinning");
+    if (sec8Lines) sec8Lines.classList.add("is-on");
+
+    var ordered8 = [];
+    var k;
+    for (k = 0; k < sec8Blocks.length; k++) ordered8.push(sec8Blocks[k]);
+    ordered8.sort(function (a, b) {
+      var aa = parseInt(a.getAttribute("data-step") || "0", 10);
+      var bb = parseInt(b.getAttribute("data-step") || "0", 10);
+      return aa - bb;
+    });
+
+    var baseDelay8 = 400;
+    var gap8 = 360;
+
+    var showAt8 = function (el, delayMs) {
+      window.setTimeout(function () {
+        el.classList.add("is-visible");
+      }, delayMs);
+    };
+
+    for (k = 0; k < ordered8.length; k++) {
+      showAt8(ordered8[k], baseDelay8 + (k * gap8));
+    }
+  };
+
+  var inViewport8 = function (el) {
+    if (!el) return false;
+    var r = el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    return (r.top <= vh * 0.7) && (r.bottom >= vh * 0.2);
+  };
+
+  if (sec8 && "IntersectionObserver" in window) {
+    var io8 = new IntersectionObserver(function (entries) {
+      var m;
+      for (m = 0; m < entries.length; m++) {
+        if (entries[m] && entries[m].isIntersecting) {
+          startSec8();
+          io8.disconnect();
+          break;
+        }
+      }
+    }, { threshold: 0.25 });
+
+    io8.observe(sec8);
+  } else if (sec8) {
+    var onScroll8 = function () {
+      if (inViewport8(sec8)) {
+        startSec8();
+        window.removeEventListener("scroll", onScroll8);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll8);
+    onScroll8();
+  }
+
+  // =========================
   // SEÇÃO 05: Interação dos caminhos
   // ✅ cada um abre sozinho (sem abrir o outro automaticamente)
   // =========================
