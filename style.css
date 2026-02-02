@@ -1000,13 +1000,42 @@ a{ color:inherit; text-decoration:none; }
   margin: 0 auto;
 }
 
-.sec6-header{
-  max-width: 860px;
-  margin: 0 auto 44px;
-  text-align: center;
+.sec6-card{
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 48px;
+  padding: 56px;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(12, 12, 14, 0.9);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.sec6-card::after{
+  content:"";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(223, 255, 6, 0.18), transparent 55%),
+    radial-gradient(circle at 86% 22%, rgba(223, 255, 6, 0.1), transparent 60%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.sec6-left,
+.sec6-right{
+  position: relative;
+  z-index: 1;
+}
+
+.sec6-left{
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .sec6-kicker{
@@ -1019,7 +1048,7 @@ a{ color:inherit; text-decoration:none; }
 .sec6-title{
   margin: 0;
   font-weight: 600;
-  font-size: clamp(28px, 3.2vw, 38px);
+  font-size: clamp(32px, 4.1vw, 48px);
   letter-spacing: -0.6px;
   color: #e9eaee;
 }
@@ -1029,128 +1058,80 @@ a{ color:inherit; text-decoration:none; }
   font-size: 14.5px;
   line-height: 1.6;
   color: rgba(233, 234, 238, 0.7);
+  max-width: 420px;
 }
 
-.sec6-slider{
+.sec6-right{
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.sec6-track{
+.sec6-item{
   display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding: 4px 2px 12px;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  flex: 1;
-}
-
-.sec6-track::-webkit-scrollbar{
-  display: none;
-}
-
-.sec6-arrow{
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(66, 226, 110, 0.5);
-  background: rgba(12, 36, 22, 0.75);
-  color: #42e26e;
-  font-size: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
-}
-
-.sec6-arrow:hover{
-  transform: translateY(-2px);
-  border-color: rgba(66, 226, 110, 0.9);
-  box-shadow: 0 10px 24px rgba(7, 20, 12, 0.45);
-}
-
-.sec6-tile{
-  position: relative;
-  padding: 22px 22px 26px;
-  border-radius: 24px;
-  background: rgba(12, 62, 30, 0.82);
-  border: 1px solid rgba(66, 226, 110, 0.35);
-  box-shadow: 0 24px 60px rgba(4, 18, 10, 0.5);
-  overflow: hidden;
+  flex-direction: column;
+  gap: 10px;
   opacity: 0;
-  transform: translate3d(18px, 0, 0);
-  filter: blur(8px);
-  transition: opacity 640ms ease, transform 640ms ease, filter 640ms ease, border-color 420ms ease, box-shadow 420ms ease;
-  min-width: 260px;
-  flex: 0 0 clamp(240px, 26vw, 320px);
-  scroll-snap-align: start;
+  transform: translate3d(0, 18px, 0);
+  filter: blur(6px);
+  transition: opacity 520ms ease, transform 520ms ease, filter 520ms ease;
 }
 
-.sec6-tile::before{
-  content:"";
-  position: absolute;
-  inset: -40% 0 60% 0;
-  background: radial-gradient(circle at 20% 20%, rgba(66, 226, 110, 0.22), transparent 65%);
-  opacity: 0.35;
-  pointer-events: none;
-}
-
-.sec6-tile--accent{
-  border-color: rgba(66, 226, 110, 0.75);
-  background: rgba(16, 74, 36, 0.9);
-  box-shadow: 0 30px 70px rgba(4, 18, 10, 0.55);
-}
-
-.sec6-tile.is-in{
+.sec6-item.is-in{
   opacity: 1;
   transform: translate3d(0, 0, 0);
   filter: blur(0);
 }
 
-.sec6-tile-top{
+.sec6-item-label{
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: rgba(233, 234, 238, 0.88);
+  text-align: center;
+}
+
+.sec6-pill{
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #dfff06;
+  box-shadow: 0 12px 30px rgba(223, 255, 6, 0.25);
+  max-width: 520px;
+  width: 100%;
+  align-self: center;
 }
 
 .sec6-icon-wrap{
-  width: auto;
-  height: auto;
-  border-radius: 0;
+  width: 26px;
+  height: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
+  flex: 0 0 auto;
 }
 
 .sec6-ico{
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
   display: block;
-  filter: brightness(0) saturate(100%) invert(28%) sepia(82%) saturate(3025%) hue-rotate(213deg) brightness(103%) contrast(109%);
+  filter: brightness(0) saturate(100%) invert(18%) sepia(4%) saturate(0%) hue-rotate(180deg) brightness(60%) contrast(110%);
 }
 
-.sec6-h{
-  margin: 0 0 8px;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: -0.2px;
-  color: #e9eaee;
-}
-
-.sec6-p{
+.sec6-pill-text{
   margin: 0;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 13.5px;
-  line-height: 1.5;
-  color: rgba(233, 234, 238, 0.68);
+  line-height: 1.45;
+  color: #0b0c10;
+}
+
+.sec6-item:last-child{
+  filter: none;
 }
 
 /* =========================
@@ -1392,9 +1373,8 @@ a{ color:inherit; text-decoration:none; }
   .sec5-col{ width: 340px; max-width: 340px; }
   .sec5-title{ font-size: 28px; }
 
-  .sec6-title{ font-size: 30px; }
-  .sec6-track{ gap: 16px; }
-  .sec6-arrow{ width: 40px; height: 40px; font-size: 18px; }
+  .sec6-card{ grid-template-columns: 1fr; padding: 44px; }
+  .sec6-sub{ max-width: none; }
 
   .sec7-card{
     grid-template-columns: 1fr;
@@ -1415,8 +1395,8 @@ a{ color:inherit; text-decoration:none; }
     max-width: 420px;
   }
 
-  .sec6-track{ gap: 14px; }
-  .sec6-arrow{ width: 38px; height: 38px; font-size: 17px; }
+  .sec6-card{ padding: 38px; }
+  .sec6-right{ gap: 16px; }
 
   .sec7-card{ padding: 36px; gap: 32px; }
   .sec7-title{ font-size: 30px; }
@@ -1544,14 +1524,12 @@ a{ color:inherit; text-decoration:none; }
 
   /* SEC6 mobile */
   .sec6{ padding-top: 76px; padding-bottom: 72px; }
+  .sec6-card{ padding: 28px 22px; border-radius: 26px; }
   .sec6-title{ font-size: 26px; }
-  .sec6-header{ margin-bottom: 30px; }
-  .sec6-slider{ gap: 10px; }
-  .sec6-track{ gap: 12px; }
-  .sec6-arrow{ width: 34px; height: 34px; font-size: 16px; }
-  .sec6-tile{ padding: 20px 18px 22px; border-radius: 20px; flex-basis: 72vw; }
-  .sec6-h{ font-size: 15px; }
-  .sec6-p{ font-size: 13px; }
+  .sec6-item-label{ font-size: 13px; }
+  .sec6-pill{ padding: 11px 14px; border-radius: 22px; align-items: flex-start; }
+  .sec6-pill-text{ font-size: 13px; }
+  .sec6-icon-wrap{ margin-top: 2px; }
 
   .sec7{ padding-top: 84px; padding-bottom: 84px; }
   .sec7-card{ padding: 28px 22px; border-radius: 26px; }
