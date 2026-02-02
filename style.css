@@ -1176,6 +1176,10 @@ a{ color:inherit; text-decoration:none; }
 
 .sec7-card{
   --focus: 0;
+  --mx: 50%;
+  --my: 20%;
+  --tiltX: 0deg;
+  --tiltY: 0deg;
   position: relative;
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
@@ -1187,9 +1191,14 @@ a{ color:inherit; text-decoration:none; }
   box-shadow: 0 40px 120px rgba(0,0,0,.55);
   overflow: hidden;
   backdrop-filter: blur(18px);
-  transform: translateY(calc((1 - var(--focus)) * 20px)) scale(calc(.985 + (var(--focus) * .02)));
+  transform:
+    translateY(calc((1 - var(--focus)) * 20px))
+    scale(calc(.985 + (var(--focus) * .02)))
+    perspective(900px)
+    rotateX(var(--tiltX))
+    rotateY(var(--tiltY));
   opacity: calc(.75 + (var(--focus) * .25));
-  transition: transform 520ms ease, opacity 520ms ease, box-shadow 520ms ease;
+  transition: transform 520ms ease, opacity 520ms ease, box-shadow 520ms ease, background 520ms ease;
   will-change: transform, opacity, box-shadow;
   box-shadow:
     0 40px 120px rgba(0,0,0,.55),
@@ -1201,6 +1210,19 @@ a{ color:inherit; text-decoration:none; }
   position:absolute;
   inset:0;
   pointer-events:none;
+}
+
+.sec7-card::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:
+    radial-gradient(420px 320px at var(--mx) var(--my), rgba(223,255,6,.18), transparent 60%),
+    radial-gradient(540px 360px at calc(var(--mx) + 18%) calc(var(--my) + 12%), rgba(29,16,215,.22), transparent 70%);
+  opacity: calc(.35 + (var(--focus) * .45));
+  transition: opacity 420ms ease;
+  pointer-events:none;
+  z-index: 0;
 }
 
 .sec7-noise{
@@ -1317,13 +1339,19 @@ a{ color:inherit; text-decoration:none; }
   backdrop-filter: blur(12px);
   opacity: .5;
   transform: translateY(8px);
-  transition: opacity 520ms ease, transform 520ms ease, border-color 520ms ease;
+  transition: opacity 520ms ease, transform 520ms ease, border-color 520ms ease, box-shadow 520ms ease;
 }
 
 .sec7-card.is-on .sec7-item{
   opacity: 1;
   transform: translateY(0);
   border-color: rgba(223,255,6,.4);
+}
+
+.sec7-item:hover{
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(223,255,6,.6);
+  box-shadow: 0 30px 70px rgba(0,0,0,.45), 0 0 18px rgba(223,255,6,.18);
 }
 
 .sec7-item-top{

@@ -811,6 +811,7 @@
 
     var state = "off";
     var ticking = false;
+    var isHovering = false;
 
     function setOn() {
       if (state === "on") return;
@@ -852,6 +853,33 @@
       else setOff();
     }
 
+    function setTilt(x, y) {
+      card.style.setProperty("--tiltX", x.toFixed(2) + "deg");
+      card.style.setProperty("--tiltY", y.toFixed(2) + "deg");
+    }
+
+    function resetTilt() {
+      setTilt(0, 0);
+      card.style.setProperty("--mx", "50%");
+      card.style.setProperty("--my", "20%");
+    }
+
+    function handlePointerMove(e) {
+      if (!card) return;
+      var rect = card.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      var px = (e.clientX - rect.left) / rect.width;
+      var py = (e.clientY - rect.top) / rect.height;
+
+      var tiltX = (0.5 - py) * 6;
+      var tiltY = (px - 0.5) * 8;
+
+      card.style.setProperty("--mx", Math.round(px * 100) + "%");
+      card.style.setProperty("--my", Math.round(py * 100) + "%");
+      setTilt(tiltX, tiltY);
+    }
+
     function scheduleFocus() {
       if (ticking) return;
       ticking = true;
@@ -884,8 +912,25 @@
       scheduleFocus();
     });
 
+    if (window.matchMedia && window.matchMedia("(min-width: 981px)").matches) {
+      card.addEventListener("mouseenter", function () {
+        isHovering = true;
+      });
+
+      card.addEventListener("mousemove", function (e) {
+        if (!isHovering) return;
+        handlePointerMove(e);
+      });
+
+      card.addEventListener("mouseleave", function () {
+        isHovering = false;
+        resetTilt();
+      });
+    }
+
     // estado inicial
     setOff();
     applyFocus();
+    resetTilt();
   })();
 })();
