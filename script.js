@@ -812,6 +812,7 @@
     var state = "off";
     var ticking = false;
 
+
     function setOn() {
       if (state === "on") return;
       state = "on";
@@ -861,6 +862,7 @@
       });
     }
 
+main
     // IntersectionObserver (preferido)
     if ("IntersectionObserver" in window) {
       var io7 = new IntersectionObserver(function (entries) {
@@ -884,8 +886,6 @@
       scheduleFocus();
     });
 
-    // estado inicial
-    setOff();
-    applyFocus();
+
   })();
 })();

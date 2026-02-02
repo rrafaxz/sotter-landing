@@ -1176,27 +1176,14 @@ a{ color:inherit; text-decoration:none; }
 
 .sec7-card{
   --focus: 0;
+
   position: relative;
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
   gap: 48px;
   padding: 56px;
   border-radius: 32px;
-  background: rgba(15,16,25,.55);
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 40px 120px rgba(0,0,0,.55);
-  overflow: hidden;
-  backdrop-filter: blur(18px);
-  transform: translateY(calc((1 - var(--focus)) * 24px)) scale(calc(.985 + (var(--focus) * .02)));
-  filter: blur(calc((1 - var(--focus)) * 10px));
-  opacity: calc(.65 + (var(--focus) * .35));
-  transition: filter 520ms ease, transform 520ms ease, opacity 520ms ease;
-  will-change: transform, filter, opacity;
-}
 
-.sec7-card.is-on{
-  filter: blur(0px);
-}
 
 .sec7-noise,
 .sec7-glow{
@@ -1205,18 +1192,13 @@ a{ color:inherit; text-decoration:none; }
   pointer-events:none;
 }
 
-.sec7-noise{
-  background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-  opacity: .18;
+
   mix-blend-mode: screen;
 }
 
 .sec7-glow{
   background:
-    radial-gradient(520px 320px at 12% 18%, rgba(223,255,6,.20), transparent 70%),
-    radial-gradient(520px 320px at 92% 24%, rgba(29,16,215,.28), transparent 70%),
-    radial-gradient(560px 420px at 50% 100%, rgba(223,255,6,.12), transparent 78%);
-  opacity: calc(.35 + (var(--focus) * .45));
+
   transition: opacity 520ms ease;
 }
 
@@ -1232,8 +1214,7 @@ a{ color:inherit; text-decoration:none; }
   font-size: 12px;
   letter-spacing: .28em;
   text-transform: uppercase;
-  color: rgba(233,234,238,.7);
-}
+
 
 .sec7-title{
   margin: 0;
@@ -1251,7 +1232,7 @@ a{ color:inherit; text-decoration:none; }
   margin: 0;
   font-size: 14.5px;
   line-height: 1.6;
-  color: rgba(233,234,238,.76);
+
   max-width: 430px;
 }
 
@@ -1264,11 +1245,7 @@ a{ color:inherit; text-decoration:none; }
 .sec7-chip{
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.12);
-  font-size: 11.5px;
-  font-weight: 500;
-  color: rgba(233,234,238,.85);
+
   backdrop-filter: blur(10px);
 }
 
@@ -1313,13 +1290,7 @@ a{ color:inherit; text-decoration:none; }
 .sec7-item{
   border-radius: 18px;
   padding: 16px 18px;
-  background: rgba(10,11,18,.6);
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 24px 60px rgba(0,0,0,.35);
-  backdrop-filter: blur(12px);
-  opacity: .5;
-  transform: translateY(8px);
-  transition: opacity 520ms ease, transform 520ms ease, border-color 520ms ease;
+
 }
 
 .sec7-card.is-on .sec7-item{
@@ -1327,6 +1298,7 @@ a{ color:inherit; text-decoration:none; }
   transform: translateY(0);
   border-color: rgba(223,255,6,.4);
 }
+
 
 .sec7-item-top{
   display:flex;
@@ -1352,14 +1324,14 @@ a{ color:inherit; text-decoration:none; }
   margin: 0;
   font-size: 15px;
   font-weight: 600;
-  color: #eef0ff;
+
 }
 
 .sec7-p{
   margin: 8px 0 0;
   font-size: 13px;
   line-height: 1.5;
-  color: rgba(233,234,238,.74);
+
 }
 
 .sec7-item:nth-child(1){ transition-delay: 40ms; }
