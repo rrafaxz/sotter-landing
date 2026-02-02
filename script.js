@@ -796,84 +796,54 @@
   }
 
   // ==========================================================
-  // ✅ SEÇÃO 07: APARECE / DESAPARECE COM O SCROLL (GLASS / BLUR)
-  // Requisito: o HTML da seção 07 precisa ter:
-  // <section class="sec7" id="sec7">
-  //   <div class="sec7-card" data-sec7-card>...</div>
-  // </section>
+  // ✅ SEÇÃO 07: ENTRADA DOS BLOCOS + LINHAS
   // ==========================================================
   (function () {
     var sec7 = document.getElementById("sec7");
     if (!sec7) return;
 
-    var card = sec7.querySelector("[data-sec7-card]") || sec7.querySelector(".sec7-card");
-    if (!card) return;
-
-    var state = "off";
-
     function setOn() {
-      if (state === "on") return;
-      state = "on";
-      card.classList.add("is-on");
-      card.classList.remove("is-off");
+      sec7.classList.add("is-in");
     }
 
     function setOff() {
-      if (state === "off") return;
-      state = "off";
-      card.classList.remove("is-on");
-      card.classList.add("is-off");
+      sec7.classList.remove("is-in");
     }
 
-    function centerInFocus(el) {
+    function inView(el) {
       if (!el) return false;
       var r = el.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-
-      // visível no viewport?
       if (r.bottom <= 0 || r.top >= vh) return false;
-
-      // centro da seção dentro do range do viewport (efeito "liga/desliga")
-      var center = r.top + (r.height * 0.5);
-      var min = vh * 0.30;
-      var max = vh * 0.70;
-
-      return (center >= min && center <= max);
+      return r.top < (vh * 0.7);
     }
 
     function tick() {
-      if (centerInFocus(sec7)) setOn();
+      if (inView(sec7)) setOn();
       else setOff();
     }
 
-    // IntersectionObserver (preferido)
     if ("IntersectionObserver" in window) {
       var io7 = new IntersectionObserver(function (entries) {
         var i;
         for (i = 0; i < entries.length; i++) {
           if (!entries[i]) continue;
-          if (!entries[i].isIntersecting) {
-            setOff();
-          } else {
-            tick();
-          }
+          if (entries[i].isIntersecting) setOn();
+          else setOff();
         }
-      }, { threshold: [0.12, 0.25, 0.35, 0.45, 0.55] });
+      }, { threshold: 0.25 });
 
       io7.observe(sec7);
+    } else {
+      window.addEventListener("scroll", function () {
+        tick();
+      }, { passive: true });
+
+      window.addEventListener("resize", function () {
+        tick();
+      });
     }
 
-    // scroll fallback "tátil"
-    window.addEventListener("scroll", function () {
-      tick();
-    }, { passive: true });
-
-    window.addEventListener("resize", function () {
-      tick();
-    });
-
-    // estado inicial
-    setOff();
     tick();
   })();
 })();
