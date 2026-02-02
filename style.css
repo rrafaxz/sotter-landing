@@ -1031,39 +1031,78 @@ a{ color:inherit; text-decoration:none; }
   color: rgba(233, 234, 238, 0.7);
 }
 
-.sec6-grid{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.sec6-slider{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sec6-track{
+  display: flex;
   gap: 20px;
+  overflow-x: auto;
+  padding: 4px 2px 12px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  flex: 1;
+}
+
+.sec6-track::-webkit-scrollbar{
+  display: none;
+}
+
+.sec6-arrow{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(66, 226, 110, 0.5);
+  background: rgba(12, 36, 22, 0.75);
+  color: #42e26e;
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.sec6-arrow:hover{
+  transform: translateY(-2px);
+  border-color: rgba(66, 226, 110, 0.9);
+  box-shadow: 0 10px 24px rgba(7, 20, 12, 0.45);
 }
 
 .sec6-tile{
   position: relative;
   padding: 22px 22px 26px;
   border-radius: 24px;
-  background: rgba(15, 16, 22, 0.78);
-  border: 1px solid rgba(223, 255, 6, 0.16);
-  box-shadow: 0 24px 60px rgba(6, 8, 18, 0.35);
+  background: rgba(12, 62, 30, 0.82);
+  border: 1px solid rgba(66, 226, 110, 0.35);
+  box-shadow: 0 24px 60px rgba(4, 18, 10, 0.5);
   overflow: hidden;
   opacity: 0;
-  transform: translate3d(0, 16px, 0);
+  transform: translate3d(18px, 0, 0);
   filter: blur(8px);
   transition: opacity 640ms ease, transform 640ms ease, filter 640ms ease, border-color 420ms ease, box-shadow 420ms ease;
+  min-width: 260px;
+  flex: 0 0 clamp(240px, 26vw, 320px);
+  scroll-snap-align: start;
 }
 
 .sec6-tile::before{
   content:"";
   position: absolute;
   inset: -40% 0 60% 0;
-  background: radial-gradient(circle at 20% 20%, rgba(223, 255, 6, 0.22), transparent 65%);
+  background: radial-gradient(circle at 20% 20%, rgba(66, 226, 110, 0.22), transparent 65%);
   opacity: 0.35;
   pointer-events: none;
 }
 
 .sec6-tile--accent{
-  border-color: rgba(223, 255, 6, 0.55);
-  background: rgba(18, 20, 26, 0.85);
-  box-shadow: 0 30px 70px rgba(12, 14, 24, 0.45);
+  border-color: rgba(66, 226, 110, 0.75);
+  background: rgba(16, 74, 36, 0.9);
+  box-shadow: 0 30px 70px rgba(4, 18, 10, 0.55);
 }
 
 .sec6-tile.is-in{
@@ -1080,14 +1119,14 @@ a{ color:inherit; text-decoration:none; }
 }
 
 .sec6-icon-wrap{
-  width: 44px;
-  height: 44px;
-  border-radius: 16px;
+  width: auto;
+  height: auto;
+  border-radius: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(223, 255, 6, 0.12);
-  border: 1px solid rgba(223, 255, 6, 0.28);
+  background: transparent;
+  border: none;
 }
 
 .sec6-ico{
@@ -1095,7 +1134,7 @@ a{ color:inherit; text-decoration:none; }
   height: 28px;
   object-fit: contain;
   display: block;
-  filter: brightness(0) saturate(100%) invert(88%) sepia(93%) saturate(980%) hue-rotate(16deg) brightness(110%) contrast(104%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(82%) saturate(3025%) hue-rotate(213deg) brightness(103%) contrast(109%);
 }
 
 .sec6-h{
@@ -1354,7 +1393,8 @@ a{ color:inherit; text-decoration:none; }
   .sec5-title{ font-size: 28px; }
 
   .sec6-title{ font-size: 30px; }
-  .sec6-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sec6-track{ gap: 16px; }
+  .sec6-arrow{ width: 40px; height: 40px; font-size: 18px; }
 
   .sec7-card{
     grid-template-columns: 1fr;
@@ -1375,7 +1415,8 @@ a{ color:inherit; text-decoration:none; }
     max-width: 420px;
   }
 
-  .sec6-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sec6-track{ gap: 14px; }
+  .sec6-arrow{ width: 38px; height: 38px; font-size: 17px; }
 
   .sec7-card{ padding: 36px; gap: 32px; }
   .sec7-title{ font-size: 30px; }
@@ -1505,8 +1546,10 @@ a{ color:inherit; text-decoration:none; }
   .sec6{ padding-top: 76px; padding-bottom: 72px; }
   .sec6-title{ font-size: 26px; }
   .sec6-header{ margin-bottom: 30px; }
-  .sec6-grid{ grid-template-columns: 1fr; }
-  .sec6-tile{ padding: 20px 18px 22px; border-radius: 20px; }
+  .sec6-slider{ gap: 10px; }
+  .sec6-track{ gap: 12px; }
+  .sec6-arrow{ width: 34px; height: 34px; font-size: 16px; }
+  .sec6-tile{ padding: 20px 18px 22px; border-radius: 20px; flex-basis: 72vw; }
   .sec6-h{ font-size: 15px; }
   .sec6-p{ font-size: 13px; }
 
