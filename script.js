@@ -862,7 +862,6 @@
       });
     }
 
-main
     // IntersectionObserver (preferido)
     if ("IntersectionObserver" in window) {
       var io7 = new IntersectionObserver(function (entries) {
