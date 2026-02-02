@@ -552,7 +552,7 @@
       panel.classList.remove("is-open");
       panel.classList.add("sec5-panel--peek");
       panel.style.maxHeight = "120px";
-      panel.setAttribute("aria-hidden", "true");
+      panel.setAttribute("aria-hidden", "false");
       return;
     }
 
@@ -795,40 +795,6 @@
     }
   }
 
-  // =========================
-  // SEÇÃO 06: setas horizontais
-  // =========================
-  (function () {
-    var track = document.querySelector("[data-sec6-track]");
-    if (!track) return;
-
-    var arrows = document.querySelectorAll("[data-sec6-arrow]");
-    if (!arrows.length) return;
-
-    function getScrollAmount() {
-      var firstTile = track.querySelector(".sec6-tile");
-      if (firstTile) {
-        var trackStyle = window.getComputedStyle(track);
-        var gap = parseFloat(trackStyle.columnGap || trackStyle.gap || 0);
-        return firstTile.offsetWidth + gap;
-      }
-      return Math.max(track.clientWidth * 0.8, 240);
-    }
-
-    function handleArrowClick(dir) {
-      var amount = getScrollAmount();
-      track.scrollBy({ left: dir === "next" ? amount : -amount, behavior: "smooth" });
-    }
-
-    var a;
-    for (a = 0; a < arrows.length; a++) {
-      arrows[a].addEventListener("click", function () {
-        var dir = this.getAttribute("data-sec6-arrow");
-        handleArrowClick(dir);
-      });
-    }
-  })();
-
   // ==========================================================
   // ✅ SEÇÃO 07: APARECE / DESAPARECE COM O SCROLL (GLASS / BLUR)
   // Requisito: o HTML da seção 07 precisa ter:
@@ -844,8 +810,6 @@
     if (!card) return;
 
     var state = "off";
-    var ticking = false;
-
 
     function setOn() {
       if (state === "on") return;
@@ -861,39 +825,25 @@
       card.classList.add("is-off");
     }
 
-    function clamp(value, min, max) {
-      return Math.min(max, Math.max(min, value));
-    }
-
-    function computeFocus() {
-      var r = sec7.getBoundingClientRect();
+    function centerInFocus(el) {
+      if (!el) return false;
+      var r = el.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight || 0;
 
-      if (r.bottom <= 0 || r.top >= vh) return 0;
+      // visível no viewport?
+      if (r.bottom <= 0 || r.top >= vh) return false;
 
+      // centro da seção dentro do range do viewport (efeito "liga/desliga")
       var center = r.top + (r.height * 0.5);
-      var distance = Math.abs(center - (vh * 0.5));
-      var maxDistance = vh * 0.45;
-      var focus = 1 - (distance / maxDistance);
+      var min = vh * 0.30;
+      var max = vh * 0.70;
 
-      return clamp(focus, 0, 1);
+      return (center >= min && center <= max);
     }
 
-    function applyFocus() {
-      var focus = computeFocus();
-      card.style.setProperty("--focus", focus.toFixed(3));
-
-      if (focus > 0.55) setOn();
+    function tick() {
+      if (centerInFocus(sec7)) setOn();
       else setOff();
-    }
-
-    function scheduleFocus() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(function () {
-        applyFocus();
-        ticking = false;
-      });
     }
 
     // IntersectionObserver (preferido)
@@ -902,8 +852,11 @@
         var i;
         for (i = 0; i < entries.length; i++) {
           if (!entries[i]) continue;
-          if (!entries[i].isIntersecting) setOff();
-          scheduleFocus();
+          if (!entries[i].isIntersecting) {
+            setOff();
+          } else {
+            tick();
+          }
         }
       }, { threshold: [0.12, 0.25, 0.35, 0.45, 0.55] });
 
@@ -912,13 +865,15 @@
 
     // scroll fallback "tátil"
     window.addEventListener("scroll", function () {
-      scheduleFocus();
+      tick();
     }, { passive: true });
 
     window.addEventListener("resize", function () {
-      scheduleFocus();
+      tick();
     });
 
-
+    // estado inicial
+    setOff();
+    tick();
   })();
 })();
