@@ -802,90 +802,10 @@
   //   <div class="sec7-card" data-sec7-card>...</div>
   // </section>
   // ==========================================================
-  (function () {
-    var sec7 = document.getElementById("sec7");
-    if (!sec7) return;
 
-    var card = sec7.querySelector("[data-sec7-card]") || sec7.querySelector(".sec7-card");
-    if (!card) return;
-
-    var state = "off";
-    var ticking = false;
-
-
-    function setOn() {
-      if (state === "on") return;
-      state = "on";
-      card.classList.add("is-on");
       card.classList.remove("is-off");
     }
 
     function setOff() {
       if (state === "off") return;
       state = "off";
-      card.classList.remove("is-on");
-      card.classList.add("is-off");
-    }
-
-    function clamp(value, min, max) {
-      return Math.min(max, Math.max(min, value));
-    }
-
-    function computeFocus() {
-      var r = sec7.getBoundingClientRect();
-      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-
-      if (r.bottom <= 0 || r.top >= vh) return 0;
-
-      var center = r.top + (r.height * 0.5);
-      var distance = Math.abs(center - (vh * 0.5));
-      var maxDistance = vh * 0.45;
-      var focus = 1 - (distance / maxDistance);
-
-      return clamp(focus, 0, 1);
-    }
-
-    function applyFocus() {
-      var focus = computeFocus();
-      card.style.setProperty("--focus", focus.toFixed(3));
-
-      if (focus > 0.55) setOn();
-      else setOff();
-    }
-
-    function scheduleFocus() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(function () {
-        applyFocus();
-        ticking = false;
-      });
-    }
-
-main
-    // IntersectionObserver (preferido)
-    if ("IntersectionObserver" in window) {
-      var io7 = new IntersectionObserver(function (entries) {
-        var i;
-        for (i = 0; i < entries.length; i++) {
-          if (!entries[i]) continue;
-          if (!entries[i].isIntersecting) setOff();
-          scheduleFocus();
-        }
-      }, { threshold: [0.12, 0.25, 0.35, 0.45, 0.55] });
-
-      io7.observe(sec7);
-    }
-
-    // scroll fallback "tátil"
-    window.addEventListener("scroll", function () {
-      scheduleFocus();
-    }, { passive: true });
-
-    window.addEventListener("resize", function () {
-      scheduleFocus();
-    });
-
-
-  })();
-})();
