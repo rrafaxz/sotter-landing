@@ -811,7 +811,7 @@
 
     var state = "off";
     var ticking = false;
-    var isHovering = false;
+
 
     function setOn() {
       if (state === "on") return;
@@ -862,17 +862,7 @@
       });
     }
 
-    function handlePointerMove(e) {
-      var rect = card.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-
-      var px = (e.clientX - rect.left) / rect.width;
-      var py = (e.clientY - rect.top) / rect.height;
-
-      card.style.setProperty("--mx", Math.round(px * 100) + "%");
-      card.style.setProperty("--my", Math.round(py * 100) + "%");
-    }
-
+main
     // IntersectionObserver (preferido)
     if ("IntersectionObserver" in window) {
       var io7 = new IntersectionObserver(function (entries) {
@@ -896,27 +886,6 @@
       scheduleFocus();
     });
 
-    if (window.matchMedia && window.matchMedia("(min-width: 981px)").matches) {
-      card.addEventListener("mouseenter", function () {
-        isHovering = true;
-      });
 
-      card.addEventListener("mousemove", function (e) {
-        if (!isHovering) return;
-        handlePointerMove(e);
-      });
-
-      card.addEventListener("mouseleave", function () {
-        isHovering = false;
-        card.style.setProperty("--mx", "50%");
-        card.style.setProperty("--my", "20%");
-      });
-    }
-
-    // estado inicial
-    setOff();
-    applyFocus();
-    card.style.setProperty("--mx", "50%");
-    card.style.setProperty("--my", "20%");
   })();
 })();
