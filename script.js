@@ -844,6 +844,31 @@
       });
     }
 
+    var blocks = sec7.querySelectorAll("[data-sec7-block]");
+    var b;
+    for (b = 0; b < blocks.length; b++) {
+      (function (block) {
+        if (!block) return;
+
+        block.style.setProperty("--glow-x", "50%");
+        block.style.setProperty("--glow-y", "50%");
+
+        block.addEventListener("mousemove", function (e) {
+          var rect = block.getBoundingClientRect();
+          if (!rect || !rect.width || !rect.height) return;
+          var x = ((e.clientX - rect.left) / rect.width) * 100;
+          var y = ((e.clientY - rect.top) / rect.height) * 100;
+          block.style.setProperty("--glow-x", Math.max(0, Math.min(100, x)) + "%");
+          block.style.setProperty("--glow-y", Math.max(0, Math.min(100, y)) + "%");
+        });
+
+        block.addEventListener("mouseleave", function () {
+          block.style.setProperty("--glow-x", "50%");
+          block.style.setProperty("--glow-y", "50%");
+        });
+      })(blocks[b]);
+    }
+
     tick();
   })();
 })();
