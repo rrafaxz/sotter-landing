@@ -885,6 +885,18 @@
       scheduleFocus();
     });
 
+    card.addEventListener("mousemove", function (event) {
+      var rect = card.getBoundingClientRect();
+      var x = ((event.clientX - rect.left) / rect.width) * 100;
+      var y = ((event.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty("--mx", x.toFixed(2) + "%");
+      card.style.setProperty("--my", y.toFixed(2) + "%");
+    });
+
+    card.addEventListener("mouseleave", function () {
+      card.style.setProperty("--mx", "50%");
+      card.style.setProperty("--my", "50%");
+    });
 
   })();
 })();
