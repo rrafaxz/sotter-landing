@@ -794,4 +794,86 @@
       }
     }
   }
+
+  // ==========================================================
+  // ✅ SEÇÃO 07: APARECE / DESAPARECE COM O SCROLL (GLASS / BLUR)
+  // Requisito: o HTML da seção 07 precisa ter:
+  // <section class="sec7" id="sec7">
+  //   <div class="sec7-card" data-sec7-card>...</div>
+  // </section>
+  // ==========================================================
+  (function () {
+    var sec7 = document.getElementById("sec7");
+    if (!sec7) return;
+
+    var card = sec7.querySelector("[data-sec7-card]") || sec7.querySelector(".sec7-card");
+    if (!card) return;
+
+    var state = "off";
+
+    function setOn() {
+      if (state === "on") return;
+      state = "on";
+      card.classList.add("is-on");
+      card.classList.remove("is-off");
+    }
+
+    function setOff() {
+      if (state === "off") return;
+      state = "off";
+      card.classList.remove("is-on");
+      card.classList.add("is-off");
+    }
+
+    function centerInFocus(el) {
+      if (!el) return false;
+      var r = el.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+
+      // visível no viewport?
+      if (r.bottom <= 0 || r.top >= vh) return false;
+
+      // centro da seção dentro do range do viewport (efeito "liga/desliga")
+      var center = r.top + (r.height * 0.5);
+      var min = vh * 0.30;
+      var max = vh * 0.70;
+
+      return (center >= min && center <= max);
+    }
+
+    function tick() {
+      if (centerInFocus(sec7)) setOn();
+      else setOff();
+    }
+
+    // IntersectionObserver (preferido)
+    if ("IntersectionObserver" in window) {
+      var io7 = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (!entries[i]) continue;
+          if (!entries[i].isIntersecting) {
+            setOff();
+          } else {
+            tick();
+          }
+        }
+      }, { threshold: [0.12, 0.25, 0.35, 0.45, 0.55] });
+
+      io7.observe(sec7);
+    }
+
+    // scroll fallback "tátil"
+    window.addEventListener("scroll", function () {
+      tick();
+    }, { passive: true });
+
+    window.addEventListener("resize", function () {
+      tick();
+    });
+
+    // estado inicial
+    setOff();
+    tick();
+  })();
 })();
