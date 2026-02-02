@@ -552,7 +552,7 @@
       panel.classList.remove("is-open");
       panel.classList.add("sec5-panel--peek");
       panel.style.maxHeight = "120px";
-      panel.setAttribute("aria-hidden", "false");
+      panel.setAttribute("aria-hidden", "true");
       return;
     }
 
