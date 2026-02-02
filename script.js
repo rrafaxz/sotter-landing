@@ -845,28 +845,29 @@
     }
 
     var blocks = sec7.querySelectorAll("[data-sec7-block]");
-    var b;
-    for (b = 0; b < blocks.length; b++) {
-      (function (block) {
-        if (!block) return;
+    var stage = sec7.querySelector("[data-sec7-stage]") || sec7;
+    var maxMove = 8;
 
-        block.style.setProperty("--glow-x", "50%");
-        block.style.setProperty("--glow-y", "50%");
+    function setMove(x, y) {
+      var i;
+      for (i = 0; i < blocks.length; i++) {
+        blocks[i].style.setProperty("--move-x", x + "px");
+        blocks[i].style.setProperty("--move-y", y + "px");
+      }
+    }
 
-        block.addEventListener("mousemove", function (e) {
-          var rect = block.getBoundingClientRect();
-          if (!rect || !rect.width || !rect.height) return;
-          var x = ((e.clientX - rect.left) / rect.width) * 100;
-          var y = ((e.clientY - rect.top) / rect.height) * 100;
-          block.style.setProperty("--glow-x", Math.max(0, Math.min(100, x)) + "%");
-          block.style.setProperty("--glow-y", Math.max(0, Math.min(100, y)) + "%");
-        });
+    if (stage) {
+      stage.addEventListener("mousemove", function (e) {
+        var rect = stage.getBoundingClientRect();
+        if (!rect || !rect.width || !rect.height) return;
+        var nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        var ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        setMove(nx * maxMove, ny * (maxMove * 0.6));
+      });
 
-        block.addEventListener("mouseleave", function () {
-          block.style.setProperty("--glow-x", "50%");
-          block.style.setProperty("--glow-y", "50%");
-        });
-      })(blocks[b]);
+      stage.addEventListener("mouseleave", function () {
+        setMove(0, 0);
+      });
     }
 
     tick();
