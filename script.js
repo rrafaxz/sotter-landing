@@ -810,6 +810,8 @@
     if (!card) return;
 
     var state = "off";
+    var ticking = false;
+    var isHovering = false;
 
     function setOn() {
       if (state === "on") return;
@@ -825,25 +827,50 @@
       card.classList.add("is-off");
     }
 
-    function centerInFocus(el) {
-      if (!el) return false;
-      var r = el.getBoundingClientRect();
-      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-
-      // visível no viewport?
-      if (r.bottom <= 0 || r.top >= vh) return false;
-
-      // centro da seção dentro do range do viewport (efeito "liga/desliga")
-      var center = r.top + (r.height * 0.5);
-      var min = vh * 0.30;
-      var max = vh * 0.70;
-
-      return (center >= min && center <= max);
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
     }
 
-    function tick() {
-      if (centerInFocus(sec7)) setOn();
+    function computeFocus() {
+      var r = sec7.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+
+      if (r.bottom <= 0 || r.top >= vh) return 0;
+
+      var center = r.top + (r.height * 0.5);
+      var distance = Math.abs(center - (vh * 0.5));
+      var maxDistance = vh * 0.45;
+      var focus = 1 - (distance / maxDistance);
+
+      return clamp(focus, 0, 1);
+    }
+
+    function applyFocus() {
+      var focus = computeFocus();
+      card.style.setProperty("--focus", focus.toFixed(3));
+
+      if (focus > 0.55) setOn();
       else setOff();
+    }
+
+    function scheduleFocus() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        applyFocus();
+        ticking = false;
+      });
+    }
+
+    function handlePointerMove(e) {
+      var rect = card.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      var px = (e.clientX - rect.left) / rect.width;
+      var py = (e.clientY - rect.top) / rect.height;
+
+      card.style.setProperty("--mx", Math.round(px * 100) + "%");
+      card.style.setProperty("--my", Math.round(py * 100) + "%");
     }
 
     // IntersectionObserver (preferido)
@@ -852,11 +879,8 @@
         var i;
         for (i = 0; i < entries.length; i++) {
           if (!entries[i]) continue;
-          if (!entries[i].isIntersecting) {
-            setOff();
-          } else {
-            tick();
-          }
+          if (!entries[i].isIntersecting) setOff();
+          scheduleFocus();
         }
       }, { threshold: [0.12, 0.25, 0.35, 0.45, 0.55] });
 
@@ -865,15 +889,34 @@
 
     // scroll fallback "tátil"
     window.addEventListener("scroll", function () {
-      tick();
+      scheduleFocus();
     }, { passive: true });
 
     window.addEventListener("resize", function () {
-      tick();
+      scheduleFocus();
     });
+
+    if (window.matchMedia && window.matchMedia("(min-width: 981px)").matches) {
+      card.addEventListener("mouseenter", function () {
+        isHovering = true;
+      });
+
+      card.addEventListener("mousemove", function (e) {
+        if (!isHovering) return;
+        handlePointerMove(e);
+      });
+
+      card.addEventListener("mouseleave", function () {
+        isHovering = false;
+        card.style.setProperty("--mx", "50%");
+        card.style.setProperty("--my", "20%");
+      });
+    }
 
     // estado inicial
     setOff();
-    tick();
+    applyFocus();
+    card.style.setProperty("--mx", "50%");
+    card.style.setProperty("--my", "20%");
   })();
 })();
