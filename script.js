@@ -795,6 +795,40 @@
     }
   }
 
+  // =========================
+  // SEÇÃO 06: setas horizontais
+  // =========================
+  (function () {
+    var track = document.querySelector("[data-sec6-track]");
+    if (!track) return;
+
+    var arrows = document.querySelectorAll("[data-sec6-arrow]");
+    if (!arrows.length) return;
+
+    function getScrollAmount() {
+      var firstTile = track.querySelector(".sec6-tile");
+      if (firstTile) {
+        var trackStyle = window.getComputedStyle(track);
+        var gap = parseFloat(trackStyle.columnGap || trackStyle.gap || 0);
+        return firstTile.offsetWidth + gap;
+      }
+      return Math.max(track.clientWidth * 0.8, 240);
+    }
+
+    function handleArrowClick(dir) {
+      var amount = getScrollAmount();
+      track.scrollBy({ left: dir === "next" ? amount : -amount, behavior: "smooth" });
+    }
+
+    var a;
+    for (a = 0; a < arrows.length; a++) {
+      arrows[a].addEventListener("click", function () {
+        var dir = this.getAttribute("data-sec6-arrow");
+        handleArrowClick(dir);
+      });
+    }
+  })();
+
   // ==========================================================
   // ✅ SEÇÃO 07: APARECE / DESAPARECE COM O SCROLL (GLASS / BLUR)
   // Requisito: o HTML da seção 07 precisa ter:
