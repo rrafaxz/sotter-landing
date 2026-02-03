@@ -28,6 +28,7 @@
   // ✅ MENU: EFEITO REDIMENSIONAR NO SCROLL (DESKTOP)
   // =========================
   var topbar = document.querySelector(".topbar");
+  var topbarWrap = document.querySelector(".topbar-wrap");
 
   function isDesktopForCompact() {
     return window.matchMedia && window.matchMedia("(min-width: 981px)").matches;
@@ -41,6 +42,11 @@
 
     if (compact) topbar.classList.add("is-compact");
     else topbar.classList.remove("is-compact");
+
+    if (topbarWrap) {
+      if (y > 12) topbarWrap.classList.add("is-scrolled");
+      else topbarWrap.classList.remove("is-scrolled");
+    }
   }
 
   window.addEventListener("scroll", function () {
