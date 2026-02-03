@@ -474,6 +474,58 @@
   bindCarousel();
 
   // =========================
+  // SEÇÃO 03: Entrada com scroll (Como a Zacx trabalha)
+  // =========================
+  (function () {
+    var sec3Work = document.querySelector(".sec3-work");
+    if (!sec3Work) return;
+
+    function setOn() {
+      sec3Work.classList.add("is-in");
+    }
+
+    function setOff() {
+      sec3Work.classList.remove("is-in");
+    }
+
+    function inView(el) {
+      if (!el) return false;
+      var r = el.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (r.bottom <= 0 || r.top >= vh) return false;
+      return r.top < (vh * 0.75);
+    }
+
+    function tick() {
+      if (inView(sec3Work)) setOn();
+      else setOff();
+    }
+
+    if ("IntersectionObserver" in window) {
+      var io3 = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (!entries[i]) continue;
+          if (entries[i].isIntersecting) setOn();
+          else setOff();
+        }
+      }, { threshold: 0.25 });
+
+      io3.observe(sec3Work);
+    } else {
+      window.addEventListener("scroll", function () {
+        tick();
+      }, { passive: true });
+
+      window.addEventListener("resize", function () {
+        tick();
+      });
+    }
+
+    tick();
+  })();
+
+  // =========================
   // SEÇÃO 05: Interação dos caminhos
   // ✅ cada um abre sozinho (sem abrir o outro automaticamente)
   // =========================
