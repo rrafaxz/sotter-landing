@@ -480,6 +480,7 @@
     var sec3Work = document.querySelector(".sec3-work");
     if (!sec3Work) return;
     var tracks = sec3Work.querySelectorAll(".sec3-work-track");
+    var marquee = sec3Work.querySelector(".sec3-work-marquee");
 
     if (tracks && tracks.length) {
       tracks.forEach(function (track) {
@@ -493,6 +494,37 @@
         });
         track.dataset.cloned = "true";
       });
+    }
+
+    function isMobileMarquee() {
+      return window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+    }
+
+    function setMarqueePaused(paused) {
+      if (!marquee) return;
+      if (paused) marquee.classList.add("is-paused");
+      else marquee.classList.remove("is-paused");
+    }
+
+    function handlePressStart(e) {
+      if (!isMobileMarquee()) return;
+      if (!closest(e.target, ".sec3-work-card")) return;
+      setMarqueePaused(true);
+    }
+
+    function handlePressEnd() {
+      if (!isMobileMarquee()) return;
+      setMarqueePaused(false);
+    }
+
+    if (marquee) {
+      marquee.addEventListener("pointerdown", handlePressStart);
+      marquee.addEventListener("pointerup", handlePressEnd);
+      marquee.addEventListener("pointercancel", handlePressEnd);
+      marquee.addEventListener("pointerleave", handlePressEnd);
+      marquee.addEventListener("touchstart", handlePressStart, { passive: true });
+      marquee.addEventListener("touchend", handlePressEnd);
+      marquee.addEventListener("touchcancel", handlePressEnd);
     }
 
     function setOn() {
