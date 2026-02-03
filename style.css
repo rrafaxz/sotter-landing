@@ -1424,7 +1424,7 @@ a{ color:inherit; text-decoration:none; }
     padding-top: 48px;
     padding-bottom: 28px;
     --gear-size: 255px;
-    --blocks-shift: -70%;
+    --blocks-shift: 50%;
   }
   .sec7-lines{
     position: absolute;
@@ -1459,7 +1459,7 @@ a{ color:inherit; text-decoration:none; }
     transform: translate3d(0, var(--blocks-shift, 0px), 0);
   }
   .sec7-block--1{
-    margin-top: calc(var(--gear-size) * 0.45);
+    margin-top: calc(var(--gear-size) * 0.7);
   }
   .sec7-block--3{
     transform: translate3d(0, calc(18px + var(--blocks-shift, 0px)), 0);
