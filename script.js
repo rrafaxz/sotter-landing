@@ -64,7 +64,7 @@
   function closeMobile() {
     if (!mobileMenu) return;
 
-    mobileMenu.style.display = "none";
+    mobileMenu.classList.remove("is-open");
     mobileMenu.setAttribute("aria-hidden", "true");
     if (burgerMobile) burgerMobile.setAttribute("aria-expanded", "false");
     if (burgerDesktop) burgerDesktop.setAttribute("aria-expanded", "false");
@@ -73,7 +73,7 @@
   function openMobile() {
     if (!mobileMenu) return;
 
-    mobileMenu.style.display = "block";
+    mobileMenu.classList.add("is-open");
     mobileMenu.setAttribute("aria-hidden", "false");
     if (burgerMobile) burgerMobile.setAttribute("aria-expanded", "true");
     if (burgerDesktop) burgerDesktop.setAttribute("aria-expanded", "true");
