@@ -755,9 +755,9 @@ a{ color:inherit; text-decoration:none; }
 .sec4-gear{
   z-index: 3;
   position:absolute;
-  left: 47.5%;
-  top: 29%;
-  width: 26%;
+  left: 50%;
+  top: 34%;
+  width: 28%;
   height: auto;
   transform: translate(-50%, -50%);
   transform-origin: 50% 50%;
@@ -1208,7 +1208,7 @@ a{ color:inherit; text-decoration:none; }
   stroke-linecap: round;
   stroke-dasharray: 6 10;
   stroke-dashoffset: 220;
-  transition: stroke-dashoffset 1800ms ease;
+  transition: stroke-dashoffset 2600ms ease;
 }
 .sec7.is-in .sec7-line{
   stroke-dashoffset: 0;
@@ -1217,12 +1217,13 @@ a{ color:inherit; text-decoration:none; }
   position: absolute;
   left: 50%;
   top: 46%;
-  transform: translate(-50%, -50%);
-  width: 220px;
-  height: 220px;
+  transform: translate(calc(-50% + var(--move-x, 0px)), calc(-50% + var(--move-y, 0px)));
+  width: 230px;
+  height: 230px;
   display: grid;
   place-items: center;
   filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.45));
+  transition: transform 360ms ease;
 }
 .sec7-gear{
   width: 100%;
@@ -1234,7 +1235,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .sec7-logo{
   position: absolute;
-  width: 48%;
+  width: 50%;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
@@ -1258,7 +1259,7 @@ a{ color:inherit; text-decoration:none; }
   --base-x: 0px;
   --base-y: 24px;
   transform: translate3d(calc(var(--base-x) + var(--move-x, 0px)), calc(var(--base-y) + var(--move-y, 0px)), 0);
-  transition: opacity 1100ms ease, transform 700ms ease;
+  transition: opacity 1600ms ease, transform 900ms ease;
   transition-delay: var(--delay, 0ms);
   overflow: hidden;
   isolation: isolate;
@@ -1360,7 +1361,7 @@ a{ color:inherit; text-decoration:none; }
 
   .sec7-stage{ min-height: 620px; }
   .sec7-block{ width: 230px; }
-  .sec7-gear-wrap{ width: 190px; height: 190px; }
+  .sec7-gear-wrap{ width: 200px; height: 200px; }
   .sec7-block--2{ left: 0; top: 300px; }
   .sec7-block--4{ right: 0; top: 300px; }
 }
@@ -1482,7 +1483,7 @@ a{ color:inherit; text-decoration:none; }
   }
   .sec4-title{ font-size: 28px; }
   .sec4-how{ font-size: 22px; }
-  .sec4-gear{ width: 34%; top: 41%; }
+  .sec4-gear{ width: 38%; top: 44%; }
 
   /* ✅ PATROCINADORES MOBILE */
   .sec3{
