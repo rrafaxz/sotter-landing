@@ -1194,6 +1194,7 @@ a{ color:inherit; text-decoration:none; }
   margin: 48px auto 0;
   min-height: 540px;
   transition: transform 240ms ease;
+  --gear-size: 320px;
 }
 .sec7-lines{
   position: absolute;
@@ -1222,8 +1223,8 @@ a{ color:inherit; text-decoration:none; }
   left: 50%;
   top: 46%;
   transform: translate(calc(-50% + var(--move-x, 0px)), calc(-50% + var(--move-y, 0px)));
-  width: 270px;
-  height: 270px;
+  width: var(--gear-size);
+  height: var(--gear-size);
   display: grid;
   place-items: center;
   filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.45));
@@ -1244,6 +1245,9 @@ a{ color:inherit; text-decoration:none; }
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   transition: transform 320ms ease;
 }
 .sec7-stage:hover .sec7-gear-wrap,
@@ -1255,7 +1259,7 @@ a{ color:inherit; text-decoration:none; }
   transform: scale(1.05);
 }
 .sec7-stage:hover .sec7-logo{
-  transform: scale(1.08);
+  transform: translate(-50%, -50%) scale(1.08);
 }
 .sec7-stage:hover .sec7-block,
 .sec7-stage:focus-within .sec7-block{
@@ -1386,9 +1390,11 @@ a{ color:inherit; text-decoration:none; }
   .sec6-card{ max-width: 980px; border-radius: 54px; }
   .sec6-title{ font-size: 30px; }
 
-  .sec7-stage{ min-height: 620px; }
+  .sec7-stage{
+    min-height: 620px;
+    --gear-size: 280px;
+  }
   .sec7-block{ width: 230px; }
-  .sec7-gear-wrap{ width: 220px; height: 220px; }
   .sec7-block--2{ left: 0; top: 300px; }
   .sec7-block--4{ right: 0; top: 300px; }
 }
@@ -1413,6 +1419,7 @@ a{ color:inherit; text-decoration:none; }
     justify-items: center;
     padding-top: 12px;
     padding-bottom: 12px;
+    --gear-size: 300px;
   }
   .sec7-lines,
   .sec7-gear-wrap{
@@ -1423,14 +1430,12 @@ a{ color:inherit; text-decoration:none; }
   .sec7-lines{ display: none; }
   .sec7-gear-wrap{
     order: 0;
-    width: 230px;
-    height: 230px;
   }
   .sec7-stage::before{
     content: "";
     position: absolute;
     left: 50%;
-    top: 240px;
+    top: calc(var(--gear-size) + 12px);
     bottom: 10px;
     width: 2px;
     transform: translateX(-50%);
