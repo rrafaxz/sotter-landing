@@ -479,6 +479,21 @@
   (function () {
     var sec3Work = document.querySelector(".sec3-work");
     if (!sec3Work) return;
+    var tracks = sec3Work.querySelectorAll(".sec3-work-track");
+
+    if (tracks && tracks.length) {
+      tracks.forEach(function (track) {
+        if (!track || track.dataset.cloned === "true") return;
+        var items = Array.prototype.slice.call(track.children);
+        items.forEach(function (item) {
+          var clone = item.cloneNode(true);
+          clone.setAttribute("aria-hidden", "true");
+          clone.classList.add("is-duplicate");
+          track.appendChild(clone);
+        });
+        track.dataset.cloned = "true";
+      });
+    }
 
     function setOn() {
       sec3Work.classList.add("is-in");
