@@ -468,75 +468,6 @@
   bindCarousel();
 
   // =========================
-  // SEÇÃO 04: animação por scroll (1 -> 5 sequencial)
-  // =========================
-  var sec4 = document.getElementById("sec4");
-  var steps = document.querySelectorAll(".sec4-step");
-  var gear = document.querySelector(".sec4-gear");
-  var hasRun = false;
-
-  var startSec4 = function () {
-    if (hasRun) return;
-    hasRun = true;
-
-    if (gear) gear.classList.add("is-spinning");
-
-    var ordered = [];
-    var i;
-    for (i = 0; i < steps.length; i++) ordered.push(steps[i]);
-    ordered.sort(function (a, b) {
-      var aa = parseInt(a.getAttribute("data-step") || "0", 10);
-      var bb = parseInt(b.getAttribute("data-step") || "0", 10);
-      return aa - bb;
-    });
-
-    var baseDelay = 900;
-    var gap = 1200;
-
-    var showAt = function (el, delayMs) {
-      window.setTimeout(function () {
-        el.classList.add("is-visible");
-      }, delayMs);
-    };
-
-    for (i = 0; i < ordered.length; i++) {
-      showAt(ordered[i], baseDelay + (i * gap));
-    }
-  };
-
-  var inViewport = function (el) {
-    if (!el) return false;
-    var r = el.getBoundingClientRect();
-    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-    return (r.top <= vh * 0.65) && (r.bottom >= vh * 0.20);
-  };
-
-  if (sec4 && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      var j;
-      for (j = 0; j < entries.length; j++) {
-        if (entries[j] && entries[j].isIntersecting) {
-          startSec4();
-          io.disconnect();
-          break;
-        }
-      }
-    }, { threshold: 0.25 });
-
-    io.observe(sec4);
-  } else if (sec4) {
-    var onScroll = function () {
-      if (inViewport(sec4)) {
-        startSec4();
-        window.removeEventListener("scroll", onScroll);
-      }
-    };
-
-    window.addEventListener("scroll", onScroll);
-    onScroll();
-  }
-
-  // =========================
   // SEÇÃO 05: Interação dos caminhos
   // ✅ cada um abre sozinho (sem abrir o outro automaticamente)
   // =========================
@@ -759,41 +690,6 @@
   }
 
   bindSec5();
-
-  // =========================
-  // SEÇÃO 06: animação suave por scroll (entrada)
-  // =========================
-  var rows = document.querySelectorAll("[data-sec6-row]");
-  if (rows && rows.length) {
-    var revealRow = function (el, delay) {
-      window.setTimeout(function () {
-        el.classList.add("is-in");
-      }, delay);
-    };
-
-    if ("IntersectionObserver" in window) {
-      var io6 = new IntersectionObserver(function (entries) {
-        var i;
-        for (i = 0; i < entries.length; i++) {
-          if (entries[i] && entries[i].isIntersecting) {
-            var j;
-            for (j = 0; j < rows.length; j++) {
-              revealRow(rows[j], 90 + (j * 120));
-            }
-            io6.disconnect();
-            break;
-          }
-        }
-      }, { threshold: 0.25 });
-
-      io6.observe(rows[0]);
-    } else {
-      var j2;
-      for (j2 = 0; j2 < rows.length; j2++) {
-        revealRow(rows[j2], 90 + (j2 * 120));
-      }
-    }
-  }
 
   // ==========================================================
   // ✅ SEÇÃO 07: ENTRADA DOS BLOCOS + LINHAS
