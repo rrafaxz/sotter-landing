@@ -1193,6 +1193,7 @@ a{ color:inherit; text-decoration:none; }
   max-width: 1100px;
   margin: 48px auto 0;
   min-height: 540px;
+  transition: transform 240ms ease;
 }
 .sec7-lines{
   position: absolute;
@@ -1225,7 +1226,7 @@ a{ color:inherit; text-decoration:none; }
   display: grid;
   place-items: center;
   filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.45));
-  transition: transform 360ms ease;
+  transition: transform 360ms ease, filter 360ms ease;
 }
 .sec7-gear{
   width: 100%;
@@ -1237,10 +1238,21 @@ a{ color:inherit; text-decoration:none; }
 }
 .sec7-logo{
   position: absolute;
-  width: 50%;
+  width: clamp(64px, 42%, 120px);
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+}
+.sec7-stage:hover .sec7-gear-wrap,
+.sec7-stage:focus-within .sec7-gear-wrap{
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.55));
+}
+.sec7-stage:hover .sec7-block,
+.sec7-stage:focus-within .sec7-block{
+  transform: translate3d(calc(var(--base-x) + var(--move-x, 0px)), calc(var(--base-y) + var(--move-y, 0px) - 6px), 0);
+}
+.sec7-stage:hover{
+  transform: translateY(-4px);
 }
 
 @keyframes sec7-spin{
@@ -1385,6 +1397,7 @@ a{ color:inherit; text-decoration:none; }
     min-height: 0;
     display: grid;
     gap: 20px;
+    justify-items: center;
   }
   .sec7-lines,
   .sec7-gear-wrap{
@@ -1393,11 +1406,15 @@ a{ color:inherit; text-decoration:none; }
     margin: 0 auto;
   }
   .sec7-lines{ display: none; }
-  .sec7-gear-wrap{ order: 1; }
+  .sec7-gear-wrap{
+    order: 1;
+    width: 180px;
+    height: 180px;
+  }
   .sec7-block{
     position: relative;
     width: 100%;
-    max-width: 420px;
+    max-width: 360px;
     left: auto;
     right: auto;
     top: auto;
