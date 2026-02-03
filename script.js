@@ -862,14 +862,16 @@
     }
 
     if (stage) {
-      var moveEvent = ("onpointermove" in window) ? "pointermove" : "mousemove";
-      stage.addEventListener(moveEvent, function (e) {
+      var handleMove = function (e) {
         var rect = stage.getBoundingClientRect();
         if (!rect || !rect.width || !rect.height) return;
         var nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
         var ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
         setMove(nx * maxMove, ny * (maxMove * 0.6));
-      });
+      };
+
+      stage.addEventListener("pointermove", handleMove);
+      stage.addEventListener("mousemove", handleMove);
 
       stage.addEventListener("mouseleave", function () {
         setMove(0, 0);
