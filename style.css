@@ -1196,6 +1196,7 @@ a{ color:inherit; text-decoration:none; }
   min-height: 540px;
   transition: transform 240ms ease;
   --gear-size: 272px;
+  --blocks-shift: -30%;
 }
 .sec7-lines{
   position: absolute;
@@ -1281,7 +1282,11 @@ a{ color:inherit; text-decoration:none; }
   opacity: 0;
   --base-x: 0px;
   --base-y: 24px;
-  transform: translate3d(calc(var(--base-x) + var(--move-x, 0px)), calc(var(--base-y) + var(--move-y, 0px)), 0);
+  transform: translate3d(
+    calc(var(--base-x) + var(--move-x, 0px)),
+    calc(var(--base-y) + var(--move-y, 0px) + var(--blocks-shift, 0px)),
+    0
+  );
   transition: opacity 2000ms ease, transform 1100ms ease;
   transition-delay: var(--delay, 0ms);
   overflow: hidden;
