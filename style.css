@@ -1218,11 +1218,12 @@ a{ color:inherit; text-decoration:none; }
 }
 .sec7-gear-wrap{
   position: absolute;
+  z-index: 2;
   left: 50%;
   top: 46%;
   transform: translate(calc(-50% + var(--move-x, 0px)), calc(-50% + var(--move-y, 0px)));
-  width: 230px;
-  height: 230px;
+  width: 270px;
+  height: 270px;
   display: grid;
   place-items: center;
   filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.45));
@@ -1232,9 +1233,10 @@ a{ color:inherit; text-decoration:none; }
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transition: transform 320ms ease;
 }
 .sec7.is-in .sec7-gear{
-  animation: sec7-spin 18s linear infinite;
+  animation: sec7-spin 16s linear infinite;
 }
 .sec7-logo{
   position: absolute;
@@ -1242,17 +1244,25 @@ a{ color:inherit; text-decoration:none; }
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+  transition: transform 320ms ease;
 }
 .sec7-stage:hover .sec7-gear-wrap,
 .sec7-stage:focus-within .sec7-gear-wrap{
-  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 18px 38px rgba(0, 0, 0, 0.6));
+}
+.sec7-stage:hover .sec7-gear{
+  animation-duration: 6s;
+  transform: scale(1.05);
+}
+.sec7-stage:hover .sec7-logo{
+  transform: scale(1.08);
 }
 .sec7-stage:hover .sec7-block,
 .sec7-stage:focus-within .sec7-block{
-  transform: translate3d(calc(var(--base-x) + var(--move-x, 0px)), calc(var(--base-y) + var(--move-y, 0px) - 6px), 0);
+  transform: translate3d(calc(var(--base-x) + var(--move-x, 0px)), calc(var(--base-y) + var(--move-y, 0px) - 10px), 0) scale(1.01);
 }
 .sec7-stage:hover{
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
 
 @keyframes sec7-spin{
@@ -1262,6 +1272,7 @@ a{ color:inherit; text-decoration:none; }
 
 .sec7-block{
   position: absolute;
+  z-index: 2;
   width: 260px;
   padding: 18px 18px 20px;
   border-radius: 18px;
@@ -1269,6 +1280,7 @@ a{ color:inherit; text-decoration:none; }
   border: 1px solid rgba(16, 16, 22, 0.2);
   color: #101016;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+  text-align: center;
   opacity: 0;
   --base-x: 0px;
   --base-y: 24px;
@@ -1302,6 +1314,7 @@ a{ color:inherit; text-decoration:none; }
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 10px;
+  justify-content: center;
 }
 .sec7-icons span{
   padding: 6px 10px;
@@ -1375,7 +1388,7 @@ a{ color:inherit; text-decoration:none; }
 
   .sec7-stage{ min-height: 620px; }
   .sec7-block{ width: 230px; }
-  .sec7-gear-wrap{ width: 200px; height: 200px; }
+  .sec7-gear-wrap{ width: 220px; height: 220px; }
   .sec7-block--2{ left: 0; top: 300px; }
   .sec7-block--4{ right: 0; top: 300px; }
 }
@@ -1396,8 +1409,10 @@ a{ color:inherit; text-decoration:none; }
   .sec7-stage{
     min-height: 0;
     display: grid;
-    gap: 20px;
+    gap: 18px;
     justify-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
   .sec7-lines,
   .sec7-gear-wrap{
@@ -1407,12 +1422,25 @@ a{ color:inherit; text-decoration:none; }
   }
   .sec7-lines{ display: none; }
   .sec7-gear-wrap{
-    order: 1;
-    width: 180px;
-    height: 180px;
+    order: 0;
+    width: 230px;
+    height: 230px;
+  }
+  .sec7-stage::before{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 240px;
+    bottom: 10px;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, rgba(232, 255, 61, 0.85), rgba(232, 255, 61, 0.2));
+    box-shadow: 0 0 12px rgba(232, 255, 61, 0.4);
+    z-index: 1;
   }
   .sec7-block{
     position: relative;
+    order: 2;
     width: 100%;
     max-width: 360px;
     left: auto;

@@ -847,7 +847,7 @@
     var blocks = sec7.querySelectorAll("[data-sec7-block]");
     var gearWrap = sec7.querySelector(".sec7-gear-wrap");
     var stage = sec7.querySelector("[data-sec7-stage]") || sec7;
-    var maxMove = 4;
+    var maxMove = 12;
 
     function setMove(x, y) {
       var i;
@@ -862,7 +862,8 @@
     }
 
     if (stage) {
-      stage.addEventListener("mousemove", function (e) {
+      var moveEvent = ("onpointermove" in window) ? "pointermove" : "mousemove";
+      stage.addEventListener(moveEvent, function (e) {
         var rect = stage.getBoundingClientRect();
         if (!rect || !rect.width || !rect.height) return;
         var nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
@@ -871,6 +872,10 @@
       });
 
       stage.addEventListener("mouseleave", function () {
+        setMove(0, 0);
+      });
+
+      stage.addEventListener("pointerleave", function () {
         setMove(0, 0);
       });
     }
