@@ -681,6 +681,11 @@ a{ color:inherit; text-decoration:none; }
   transition-delay: var(--delay, 0ms);
 }
 
+.sec3-work-row--bottom .sec3-work-card{
+  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .sec3-work-card:before{
   content: none;
 }
