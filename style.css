@@ -636,14 +636,7 @@ a{ color:inherit; text-decoration:none; }
 
 .sec3-work-marquee:before,
 .sec3-work-marquee:after{
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 12%;
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(90deg, rgba(244,244,244,0.98), rgba(244,244,244,0));
+  content: none;
 }
 
 .sec3-work-marquee:after{
