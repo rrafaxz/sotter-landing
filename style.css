@@ -615,7 +615,8 @@ a{ color:inherit; text-decoration:none; }
   justify-content:center;
   opacity: .30;
   transform: scale(.92);
-  transition: opacity .22s ease, transform .22s ease;
+  filter: blur(2px);
+  transition: opacity .22s ease, transform .22s ease, filter .22s ease;
 }
 
 .sec3-link{
@@ -638,6 +639,7 @@ a{ color:inherit; text-decoration:none; }
 .sec3-item.is-center{
   opacity: 1;
   transform: scale(1);
+  filter: blur(0);
 }
 .sec3-item.is-edge{
   opacity: .48;
@@ -1244,7 +1246,7 @@ a{ color:inherit; text-decoration:none; }
   transition: transform 320ms ease, filter 320ms ease;
 }
 .sec7.is-in .sec7-gear{
-  animation: sec7-spin 32s linear infinite;
+  animation: sec7-spin 16s linear infinite;
 }
 .sec7-logo{
   position: absolute;
@@ -1258,7 +1260,7 @@ a{ color:inherit; text-decoration:none; }
   transition: transform 320ms ease;
 }
 .sec7-stage:hover .sec7-gear{
-  animation-duration: 4.5s;
+  animation-duration: 2.25s;
   transform: scale(1.2);
   filter: drop-shadow(0 28px 60px rgba(0, 0, 0, 0.7));
 }
@@ -1405,7 +1407,7 @@ a{ color:inherit; text-decoration:none; }
     transition-delay: 0ms;
   }
   .sec7.is-in .sec7-gear{
-    animation-duration: 21.33s;
+    animation-duration: 10.66s;
   }
   .sec5-grid{
     flex-direction: column;
@@ -1497,6 +1499,10 @@ a{ color:inherit; text-decoration:none; }
     max-width: 100%;
     width: 100%;
     margin: 10px 0 0;
+  }
+
+  .sec3-item{
+    filter: none;
   }
 
   .brand img{ height: 17px; }

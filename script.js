@@ -369,7 +369,7 @@
     if (state.visible === 4) {
       if (items[0]) items[0].classList.add("is-edge");
       if (items[1]) items[1].classList.add("is-center");
-      if (items[2]) items[2].classList.add("is-center");
+      if (items[2]) items[2].classList.add("is-edge");
       if (items[3]) items[3].classList.add("is-edge");
     } else {
       if (items[0]) items[0].classList.add("is-center");
