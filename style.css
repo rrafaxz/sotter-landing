@@ -9,8 +9,8 @@ html, body{
 body{
   margin:0;
   font-family:"Sora", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: #f4f4f4; /* ✅ FUNDO ÚNICO */
-  color:#101016;
+  background: #0b0c10;
+  color:#e9eaee;
 }
 
 /* ✅ trava gestos de zoom e “pinch” na UI (mobile) */
@@ -137,7 +137,7 @@ a{ color:inherit; text-decoration:none; }
   font-size: 14px;
   transition: opacity 200ms ease, transform 200ms ease;
 }
-.navlinks a{ opacity:.95; }
+.navlinks a{ opacity:.95; color: #ffffff; }
 .navlinks a:hover{ opacity:1; }
 
 /* CTA direita */
@@ -236,6 +236,7 @@ a{ color:inherit; text-decoration:none; }
   padding: 14px 14px;
   border-radius: 10px;
   font-weight: 500;
+  color: #ffffff;
   opacity:.95;
 }
 .mobile-menu a:hover{ opacity:1; }
@@ -615,7 +616,7 @@ a{ color:inherit; text-decoration:none; }
 }
 
 .sec3-work.is-in .sec3-work-title{
-  animation: sec3TitlePulse 4s ease-in-out infinite;
+  animation: none;
 }
 
 .sec3-work-marquee{
@@ -681,7 +682,7 @@ a{ color:inherit; text-decoration:none; }
   border-radius: 20px;
   background: #0006ff;
   border: 1px solid rgba(0, 6, 255, 0.35);
-  box-shadow: none;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.18);
   min-width: 280px;
   max-width: 320px;
   transform: translateY(24px);
@@ -738,8 +739,8 @@ a{ color:inherit; text-decoration:none; }
   letter-spacing: 0.2px;
   opacity: 0;
   transform: translateY(6px);
-  animation: sec3-typing 6s ease-in-out infinite;
-  animation-delay: var(--typing-delay, 0s);
+  transition: opacity 700ms ease, transform 700ms ease;
+  transition-delay: var(--typing-delay, 0s);
 }
 
 .sec3-work.is-in .sec3-work-card{
@@ -754,6 +755,7 @@ a{ color:inherit; text-decoration:none; }
 
 .sec3-work.is-in .sec3-work-typing{
   opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes sec3-marquee{
@@ -761,17 +763,6 @@ a{ color:inherit; text-decoration:none; }
   100%{ transform: translateX(-50%); }
 }
 
-@keyframes sec3-typing{
-  0%, 15%{ opacity: 0; transform: translateY(8px); }
-  25%, 60%{ opacity: 1; transform: translateY(0); }
-  100%{ opacity: 0; transform: translateY(-6px); }
-}
-
-@keyframes sec3TitlePulse{
-  0%{ letter-spacing: -0.6px; transform: translateY(0); }
-  50%{ letter-spacing: 0.6px; transform: translateY(-2px); }
-  100%{ letter-spacing: -0.6px; transform: translateY(0); }
-}
 
 @media (hover: hover){
   .sec3-work-marquee:hover .sec3-work-card{
