@@ -845,14 +845,19 @@
     }
 
     var blocks = sec7.querySelectorAll("[data-sec7-block]");
+    var gearWrap = sec7.querySelector(".sec7-gear-wrap");
     var stage = sec7.querySelector("[data-sec7-stage]") || sec7;
-    var maxMove = 8;
+    var maxMove = 4;
 
     function setMove(x, y) {
       var i;
       for (i = 0; i < blocks.length; i++) {
         blocks[i].style.setProperty("--move-x", x + "px");
         blocks[i].style.setProperty("--move-y", y + "px");
+      }
+      if (gearWrap) {
+        gearWrap.style.setProperty("--move-x", (x * 0.6) + "px");
+        gearWrap.style.setProperty("--move-y", (y * 0.6) + "px");
       }
     }
 
