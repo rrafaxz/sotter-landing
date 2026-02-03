@@ -1394,7 +1394,7 @@ a{ color:inherit; text-decoration:none; }
 
 @media (max-width: 760px){
   .sec7{
-    --sec7-lines-delay: 9800ms;
+    --sec7-lines-delay: 5000ms;
   }
   .sec5-grid{
     flex-direction: column;
@@ -1450,7 +1450,7 @@ a{ color:inherit; text-decoration:none; }
     transform: translate3d(0, 0, 0);
   }
   .sec7-block--1{
-    margin-top: calc(var(--gear-size) * 0.55);
+    margin-top: calc(var(--gear-size) * 0.9);
   }
   .sec7-block--3{
     transform: translate3d(0, 18px, 0);
