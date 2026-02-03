@@ -1404,6 +1404,9 @@ a{ color:inherit; text-decoration:none; }
   .sec7-lines--mobile .sec7-line{
     transition-delay: 0ms;
   }
+  .sec7.is-in .sec7-gear{
+    animation-duration: 21.33s;
+  }
   .sec5-grid{
     flex-direction: column;
     align-items: center;
@@ -1570,7 +1573,9 @@ a{ color:inherit; text-decoration:none; }
 
   .sec3-track{
     gap: 18px;
-    padding: 6px calc(50vw - var(--centerHalf));
+    padding: 6px 0;
+    margin-left: calc(50% - var(--centerHalf));
+    margin-right: calc(50% - var(--centerHalf));
   }
 
   .sec3-item{
