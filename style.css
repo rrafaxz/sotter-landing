@@ -1257,9 +1257,9 @@ a{ color:inherit; text-decoration:none; }
   transition: transform 320ms ease;
 }
 .sec7-stage:hover .sec7-gear{
-  animation-duration: 4.5s;
-  transform: scale(1.1);
-  filter: drop-shadow(0 20px 44px rgba(0, 0, 0, 0.65));
+  animation-duration: 2.25s;
+  transform: scale(1.2);
+  filter: drop-shadow(0 28px 60px rgba(0, 0, 0, 0.7));
 }
 
 @keyframes sec7-spin{

@@ -743,7 +743,7 @@
     var blocks = sec7.querySelectorAll("[data-sec7-block]");
     var gearWrap = sec7.querySelector(".sec7-gear-wrap");
     var stage = sec7.querySelector("[data-sec7-stage]") || sec7;
-    var maxMove = 12;
+    var maxMove = 24;
 
     function setMove(x, y) {
       var i;
@@ -752,8 +752,8 @@
         blocks[i].style.setProperty("--move-y", y + "px");
       }
       if (gearWrap) {
-        gearWrap.style.setProperty("--move-x", (x * 0.6) + "px");
-        gearWrap.style.setProperty("--move-y", (y * 0.6) + "px");
+        gearWrap.style.setProperty("--move-x", (x * 1.2) + "px");
+        gearWrap.style.setProperty("--move-y", (y * 1.2) + "px");
       }
     }
 
