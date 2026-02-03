@@ -665,10 +665,6 @@ a{ color:inherit; text-decoration:none; }
   animation-duration: 30s;
 }
 
-.sec3-work-row:hover .sec3-work-track{
-  animation-play-state: paused;
-}
-
 .sec3-work-card{
   --card-scale: 1;
   position: relative;
@@ -763,6 +759,10 @@ a{ color:inherit; text-decoration:none; }
 
 
 @media (hover: hover){
+  .sec3-work-row:hover .sec3-work-track{
+    animation-play-state: paused;
+  }
+
   .sec3-work-marquee:hover .sec3-work-card{
     filter: blur(2px);
     opacity: 0.55;
