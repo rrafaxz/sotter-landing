@@ -1196,7 +1196,7 @@ a{ color:inherit; text-decoration:none; }
   min-height: 540px;
   transition: transform 240ms ease;
   --gear-size: 272px;
-  --blocks-shift: -70%;
+  --blocks-shift: 0%;
 }
 .sec7-lines{
   position: absolute;
@@ -1244,7 +1244,7 @@ a{ color:inherit; text-decoration:none; }
   transition: transform 320ms ease, filter 320ms ease;
 }
 .sec7.is-in .sec7-gear{
-  animation: sec7-spin 16s linear infinite;
+  animation: sec7-spin 32s linear infinite;
 }
 .sec7-logo{
   position: absolute;
@@ -1258,7 +1258,7 @@ a{ color:inherit; text-decoration:none; }
   transition: transform 320ms ease;
 }
 .sec7-stage:hover .sec7-gear{
-  animation-duration: 2.25s;
+  animation-duration: 4.5s;
   transform: scale(1.2);
   filter: drop-shadow(0 28px 60px rgba(0, 0, 0, 0.7));
 }
@@ -1287,7 +1287,7 @@ a{ color:inherit; text-decoration:none; }
     calc(var(--base-y) + var(--move-y, 0px) + var(--blocks-shift, 0px)),
     0
   );
-  transition: opacity 2000ms ease, transform 1100ms ease;
+  transition: opacity 900ms ease, transform 900ms ease;
   transition-delay: var(--delay, 0ms);
   overflow: hidden;
   isolation: isolate;
@@ -1399,10 +1399,10 @@ a{ color:inherit; text-decoration:none; }
 
 @media (max-width: 760px){
   .sec7{
-    --sec7-lines-delay: 5000ms;
+    --sec7-lines-delay: 0ms;
   }
   .sec7-lines--mobile .sec7-line{
-    transition-delay: 5000ms;
+    transition-delay: 0ms;
   }
   .sec5-grid{
     flex-direction: column;
@@ -1424,6 +1424,7 @@ a{ color:inherit; text-decoration:none; }
     padding-top: 48px;
     padding-bottom: 28px;
     --gear-size: 255px;
+    --blocks-shift: -70%;
   }
   .sec7-lines{
     position: absolute;
@@ -1452,20 +1453,20 @@ a{ color:inherit; text-decoration:none; }
     right: auto;
     top: auto;
     bottom: auto;
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, calc(18px + var(--blocks-shift, 0px)), 0);
   }
   .sec7.is-in .sec7-block{
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, var(--blocks-shift, 0px), 0);
   }
   .sec7-block--1{
     margin-top: calc(var(--gear-size) * 0.45);
   }
   .sec7-block--3{
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, calc(18px + var(--blocks-shift, 0px)), 0);
     bottom: auto;
   }
   .sec7.is-in .sec7-block--3{
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, var(--blocks-shift, 0px), 0);
   }
 }
 
