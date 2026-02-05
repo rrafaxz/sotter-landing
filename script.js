@@ -594,6 +594,7 @@
     var nodes = secChoose.querySelectorAll("[data-node][data-step]");
     var points = secChoose.querySelectorAll("[data-choose-point]");
     var linePath = secChoose.querySelector("[data-choose-line]");
+    var floatNodes = secChoose.querySelectorAll(".sec-choose-node");
     var lineDuration = prefersReduce ? 0 : 1400;
     var linePlayed = false;
 
@@ -617,6 +618,9 @@
     function setActiveStep(stepIndex) {
       var i;
       for (i = 0; i < nodes.length; i++) {
+        if (i <= stepIndex) nodes[i].classList.add("is-revealed");
+        else nodes[i].classList.remove("is-revealed");
+
         if (i === stepIndex) nodes[i].classList.add("is-active");
         else nodes[i].classList.remove("is-active");
       }
@@ -639,6 +643,11 @@
     function runGraphAnimation() {
       if (!linePath || linePlayed) return;
       linePlayed = true;
+      secChoose.classList.add("is-line-animating");
+
+      window.setTimeout(function () {
+        secChoose.classList.remove("is-line-animating");
+      }, 1200);
 
       if (prefersReduce) {
         drawLineProgress(1);
@@ -675,6 +684,26 @@
       window.requestAnimationFrame(frame);
     }
 
+    function updateFloatByScroll() {
+      if (prefersReduce || !floatNodes.length) return;
+      var rect = secChoose.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (!vh) return;
+
+      var start = vh * 0.9;
+      var end = -rect.height * 0.25;
+      var raw = (start - rect.top) / (start - end);
+      if (raw < 0) raw = 0;
+      if (raw > 1) raw = 1;
+
+      var i;
+      for (i = 0; i < floatNodes.length; i++) {
+        var wave = Math.sin((raw * Math.PI * 1.4) + (i * 0.55));
+        var y = wave * 9;
+        floatNodes[i].style.setProperty("--float-y", y.toFixed(2) + "px");
+      }
+    }
+
     function tick() {
       if (inView(secChoose)) {
         setOn();
@@ -682,6 +711,7 @@
       } else {
         setOff();
       }
+      updateFloatByScroll();
     }
 
     if ("IntersectionObserver" in window) {
@@ -698,6 +728,8 @@
         }
       }, { threshold: 0.3 });
       ioChoose.observe(secChoose);
+      window.addEventListener("scroll", updateFloatByScroll, { passive: true });
+      window.addEventListener("resize", updateFloatByScroll);
     } else {
       window.addEventListener("scroll", tick, { passive: true });
       window.addEventListener("resize", tick);
@@ -737,6 +769,7 @@
     }
 
     tick();
+    updateFloatByScroll();
   })();
 
 
