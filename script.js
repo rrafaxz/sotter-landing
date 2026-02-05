@@ -24,6 +24,10 @@
     return fn.call(el, selector);
   }
 
+  function trimStr(s) {
+    return (s || "").replace(/^\s+|\s+$/g, "");
+  }
+
   // =========================
   // ✅ MENU: EFEITO REDIMENSIONAR NO SCROLL (DESKTOP)
   // =========================
@@ -87,8 +91,8 @@
 
   function toggleMobile() {
     if (!mobileMenu) return;
-    var hidden = mobileMenu.getAttribute("aria-hidden") === "true";
-    if (hidden) openMobile();
+    var hiddenState = mobileMenu.getAttribute("aria-hidden") === "true";
+    if (hiddenState) openMobile();
     else closeMobile();
   }
 
@@ -153,9 +157,9 @@
       var item = closest(e.target, ".select-item");
       if (!item) return;
 
-      var value = item.getAttribute("data-value") || (item.textContent || "").replace(/^\s+|\s+$/g, "");
-      hidden.value = value;
-      label.textContent = value;
+      var value = item.getAttribute("data-value") || trimStr(item.textContent || "");
+      if (hidden) hidden.value = value;
+      if (label) label.textContent = value;
 
       closeList();
     });
@@ -225,7 +229,7 @@
 
   function isValidEmail(email) {
     if (!email) return false;
-    var e = email.replace(/^\s+|\s+$/g, "");
+    var e = trimStr(email);
     var at = e.indexOf("@");
     if (at <= 0) return false;
     var dotAfter = e.indexOf(".", at + 2);
@@ -283,10 +287,10 @@
     var empresa = form.querySelector('input[name="empresa"]');
     var telefone = form.querySelector('input[name="telefone"]');
 
-    if (!nome || !nome.value || !nome.value.replace(/^\s+|\s+$/g, "")) return setError("Preencha seu nome e sobrenome.");
-    if (!email || !email.value || !email.value.replace(/^\s+|\s+$/g, "")) return setError("Preencha seu e-mail corporativo.");
+    if (!nome || !nome.value || !trimStr(nome.value)) return setError("Preencha seu nome e sobrenome.");
+    if (!email || !email.value || !trimStr(email.value)) return setError("Preencha seu e-mail corporativo.");
     if (!isValidEmail(email.value)) return setError("E-mail não foi preenchido corretamente (ex: nome@empresa.com).");
-    if (!empresa || !empresa.value || !empresa.value.replace(/^\s+|\s+$/g, "")) return setError("Preencha o nome da sua empresa.");
+    if (!empresa || !empresa.value || !trimStr(empresa.value)) return setError("Preencha o nome da sua empresa.");
 
     var telDigits = (telefone && telefone.value) ? telefone.value.replace(/\D/g, "") : "";
     if (telDigits.length !== 11) return setError("Telefone deve estar no formato (DD) 912345678.");
@@ -479,21 +483,27 @@
   (function () {
     var sec3Work = document.querySelector(".sec3-work");
     if (!sec3Work) return;
+
     var tracks = sec3Work.querySelectorAll(".sec3-work-track");
     var marquee = sec3Work.querySelector(".sec3-work-marquee");
 
+    // ✅ clones (sem forEach)
     if (tracks && tracks.length) {
-      tracks.forEach(function (track) {
-        if (!track || track.dataset.cloned === "true") return;
-        var items = Array.prototype.slice.call(track.children);
-        items.forEach(function (item) {
-          var clone = item.cloneNode(true);
+      var t;
+      for (t = 0; t < tracks.length; t++) {
+        var tr = tracks[t];
+        if (!tr || tr.dataset.cloned === "true") continue;
+
+        var items = Array.prototype.slice.call(tr.children);
+        var j;
+        for (j = 0; j < items.length; j++) {
+          var clone = items[j].cloneNode(true);
           clone.setAttribute("aria-hidden", "true");
           clone.classList.add("is-duplicate");
-          track.appendChild(clone);
-        });
-        track.dataset.cloned = "true";
-      });
+          tr.appendChild(clone);
+        }
+        tr.dataset.cloned = "true";
+      }
     }
 
     function isMobileMarquee() {
@@ -776,7 +786,7 @@
       }
     }
 
-    var walkBtns = sec5.querySelectorAll(".sec5-walk");
+    var walkBtns = sec5 ? sec5.querySelectorAll(".sec5-walk") : [];
     var w;
     for (w = 0; w < walkBtns.length; w++) {
       walkBtns[w].addEventListener("click", function () {
@@ -797,7 +807,7 @@
   bindSec5();
 
   // ==========================================================
-  // ✅ SEÇÃO 07: ENTRADA DOS BLOCOS + LINHAS
+  // ✅ SEÇÃO 07: ENTRADA DOS BLOCOS + LINHAS + PARALLAX
   // ==========================================================
   (function () {
     var sec7 = document.getElementById("sec7");
@@ -882,6 +892,45 @@
         setMove(0, 0);
       });
     }
+
+    // ==========================================================
+    // ✅ TILT (SEM const/let/arrow/template-string/forEach)
+    // Aplica tilt em .sec7-block e .sec3-work-card
+    // ==========================================================
+    (function () {
+      var cards = document.querySelectorAll(".sec7-block, .sec3-work-card");
+      var i;
+
+      function onMoveFactory(card) {
+        return function (e) {
+          var r = card.getBoundingClientRect();
+          var x = e.clientX - r.left;
+          var y = e.clientY - r.top;
+
+          var rx = ((y / r.height) - 0.5) * 10;
+          var ry = ((x / r.width) - 0.5) * -10;
+
+          // sem template string
+          card.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-6px)";
+        };
+      }
+
+      function onLeaveFactory(card) {
+        return function () {
+          card.style.transform = "";
+        };
+      }
+
+      for (i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        if (!card) continue;
+
+        card.classList.add("tilt");
+
+        card.addEventListener("mousemove", onMoveFactory(card));
+        card.addEventListener("mouseleave", onLeaveFactory(card));
+      }
+    })();
 
     tick();
   })();
