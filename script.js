@@ -583,6 +583,130 @@
   })();
 
   // =========================
+  // SESSÃO: POR QUE ESCOLHER A ZACX
+  // =========================
+  (function () {
+    var secChoose = document.getElementById("por-que-zacx");
+    if (!secChoose) return;
+
+    var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var isCoarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    var points = secChoose.querySelectorAll(".sec-choose-point");
+    var progressTimers = [];
+
+    function clearProgressTimers() {
+      while (progressTimers.length) {
+        window.clearTimeout(progressTimers.pop());
+      }
+    }
+
+    function setActivePoint(idx) {
+      var i;
+      for (i = 0; i < points.length; i++) {
+        if (!points[i]) continue;
+        if (i === idx) points[i].classList.add("is-active");
+        else points[i].classList.remove("is-active");
+      }
+    }
+
+    function runGrowthProgress() {
+      if (prefersReduce || !points.length) {
+        secChoose.classList.add("is-complete");
+        return;
+      }
+
+      clearProgressTimers();
+      secChoose.classList.remove("is-complete");
+      setActivePoint(-1);
+
+      var i;
+      for (i = 0; i < points.length; i++) {
+        (function (index) {
+          progressTimers.push(window.setTimeout(function () {
+            setActivePoint(index);
+            if (index === (points.length - 1)) secChoose.classList.add("is-complete");
+          }, 220 + (index * 220)));
+        })(i);
+      }
+    }
+
+    function setOn() {
+      secChoose.classList.add("is-in");
+      runGrowthProgress();
+    }
+
+    function setOff() {
+      secChoose.classList.remove("is-in");
+      secChoose.classList.remove("is-complete");
+      clearProgressTimers();
+      setActivePoint(-1);
+    }
+
+    function inView(el) {
+      if (!el) return false;
+      var r = el.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (r.bottom <= 0 || r.top >= vh) return false;
+      return r.top < (vh * 0.8);
+    }
+
+    function tick() {
+      if (inView(secChoose)) setOn();
+      else setOff();
+    }
+
+    if ("IntersectionObserver" in window) {
+      var ioChoose = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          if (!entries[i]) continue;
+          if (entries[i].isIntersecting) setOn();
+          else setOff();
+        }
+      }, { threshold: 0.25 });
+      ioChoose.observe(secChoose);
+    } else {
+      window.addEventListener("scroll", tick, { passive: true });
+      window.addEventListener("resize", tick);
+    }
+
+    if (!prefersReduce && !isCoarse) {
+      var tx = 0.5;
+      var ty = 0.5;
+      var cx = 0.5;
+      var cy = 0.5;
+
+      function animateAura() {
+        cx += (tx - cx) * 0.06;
+        cy += (ty - cy) * 0.06;
+        secChoose.style.setProperty("--mouse-x", (cx * 100).toFixed(2) + "%");
+        secChoose.style.setProperty("--mouse-y", (cy * 100).toFixed(2) + "%");
+        window.requestAnimationFrame(animateAura);
+      }
+
+      secChoose.addEventListener("pointermove", function (e) {
+        var rect = secChoose.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        tx = (e.clientX - rect.left) / rect.width;
+        ty = (e.clientY - rect.top) / rect.height;
+        if (tx < 0) tx = 0;
+        if (tx > 1) tx = 1;
+        if (ty < 0) ty = 0;
+        if (ty > 1) ty = 1;
+      });
+
+      secChoose.addEventListener("pointerleave", function () {
+        tx = 0.5;
+        ty = 0.5;
+      });
+
+      window.requestAnimationFrame(animateAura);
+    }
+
+    tick();
+  })();
+
+  // =========================
   // SEÇÃO 05: Interação dos caminhos
   // ✅ cada um abre sozinho (sem abrir o outro automaticamente)
   // =========================
