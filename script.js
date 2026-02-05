@@ -591,7 +591,11 @@
 
     var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var isCoarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
-    var nodes = secChoose.querySelectorAll("[data-node]");
+    var nodes = secChoose.querySelectorAll("[data-node][data-step]");
+    var points = secChoose.querySelectorAll("[data-choose-point]");
+    var linePath = secChoose.querySelector("[data-choose-line]");
+    var lineDuration = prefersReduce ? 120 : 1300;
+    var linePlayed = false;
 
     function setOn() {
       secChoose.classList.add("is-in");
@@ -609,9 +613,64 @@
       return r.top < (vh * 0.8);
     }
 
+    function setActiveStep(stepIndex) {
+      var i;
+      for (i = 0; i < nodes.length; i++) {
+        if (i === stepIndex) nodes[i].classList.add("is-active");
+        else nodes[i].classList.remove("is-active");
+      }
+      for (i = 0; i < points.length; i++) {
+        if (i === stepIndex) points[i].classList.add("is-active");
+        else points[i].classList.remove("is-active");
+      }
+    }
+
+    function drawLineProgress(progress) {
+      if (!linePath) return;
+      var p = progress;
+      if (p < 0) p = 0;
+      if (p > 1) p = 1;
+      var length = linePath.getTotalLength();
+      linePath.style.strokeDasharray = length;
+      linePath.style.strokeDashoffset = length * (1 - p);
+    }
+
+    function runGraphAnimation() {
+      if (!linePath || linePlayed) return;
+      linePlayed = true;
+      setActiveStep(0);
+      drawLineProgress(0);
+
+      var startAt = performance.now();
+
+      function frame(now) {
+        var elapsed = now - startAt;
+        var t = elapsed / lineDuration;
+        if (t < 0) t = 0;
+        if (t > 1) t = 1;
+
+        var easeOut = 1 - Math.pow(1 - t, 3);
+        drawLineProgress(easeOut);
+
+        var activeIndex = Math.min(nodes.length - 1, Math.floor(easeOut * nodes.length));
+        setActiveStep(activeIndex);
+
+        if (t < 1) {
+          window.requestAnimationFrame(frame);
+          return;
+        }
+      }
+
+      window.requestAnimationFrame(frame);
+    }
+
     function tick() {
-      if (inView(secChoose)) setOn();
-      else setOff();
+      if (inView(secChoose)) {
+        setOn();
+        runGraphAnimation();
+      } else {
+        setOff();
+      }
     }
 
     if ("IntersectionObserver" in window) {
@@ -619,10 +678,14 @@
         var i;
         for (i = 0; i < entries.length; i++) {
           if (!entries[i]) continue;
-          if (entries[i].isIntersecting) setOn();
-          else setOff();
+          if (entries[i].isIntersecting) {
+            setOn();
+            runGraphAnimation();
+          } else {
+            setOff();
+          }
         }
-      }, { threshold: 0.25 });
+      }, { threshold: 0.3 });
       ioChoose.observe(secChoose);
     } else {
       window.addEventListener("scroll", tick, { passive: true });
@@ -662,23 +725,9 @@
       window.requestAnimationFrame(animateAura);
     }
 
-    if (!isCoarse) {
-      var n;
-      for (n = 0; n < nodes.length; n++) {
-        (function (node) {
-          if (!node) return;
-          node.addEventListener("pointerenter", function () {
-            node.classList.add("is-focus");
-          });
-          node.addEventListener("pointerleave", function () {
-            node.classList.remove("is-focus");
-          });
-        })(nodes[n]);
-      }
-    }
-
     tick();
   })();
+
 
   // =========================
   // SEÇÃO 05: Interação dos caminhos
