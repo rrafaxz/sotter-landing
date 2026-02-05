@@ -594,7 +594,7 @@
     var nodes = secChoose.querySelectorAll("[data-node][data-step]");
     var points = secChoose.querySelectorAll("[data-choose-point]");
     var linePath = secChoose.querySelector("[data-choose-line]");
-    var lineDuration = prefersReduce ? 120 : 1300;
+    var lineDuration = prefersReduce ? 0 : 1400;
     var linePlayed = false;
 
     function setOn() {
@@ -603,6 +603,7 @@
 
     function setOff() {
       secChoose.classList.remove("is-in");
+      if (!linePlayed) secChoose.classList.remove("is-sales-visible");
     }
 
     function inView(el) {
@@ -638,6 +639,14 @@
     function runGraphAnimation() {
       if (!linePath || linePlayed) return;
       linePlayed = true;
+
+      if (prefersReduce) {
+        drawLineProgress(1);
+        setActiveStep(nodes.length - 1);
+        secChoose.classList.add("is-sales-visible");
+        return;
+      }
+
       setActiveStep(0);
       drawLineProgress(0);
 
@@ -659,6 +668,8 @@
           window.requestAnimationFrame(frame);
           return;
         }
+
+        secChoose.classList.add("is-sales-visible");
       }
 
       window.requestAnimationFrame(frame);
