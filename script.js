@@ -595,6 +595,7 @@
     var points = secChoose.querySelectorAll("[data-choose-point]");
     var linePath = secChoose.querySelector("[data-choose-line]");
     var floatNodes = secChoose.querySelectorAll(".sec-choose-node");
+    var floatLayers = secChoose.querySelectorAll(".sec-choose-title, .sec-choose-line-wrap, .sec-choose-right, .sec-choose-sales");
     var lineDuration = prefersReduce ? 0 : 1400;
     var linePlayed = false;
 
@@ -618,11 +619,13 @@
     function setActiveStep(stepIndex) {
       var i;
       for (i = 0; i < nodes.length; i++) {
-        if (i <= stepIndex) nodes[i].classList.add("is-revealed");
-        else nodes[i].classList.remove("is-revealed");
-
-        if (i === stepIndex) nodes[i].classList.add("is-active");
-        else nodes[i].classList.remove("is-active");
+        if (i === stepIndex) {
+          nodes[i].classList.add("is-revealed");
+          nodes[i].classList.add("is-active");
+        } else {
+          nodes[i].classList.remove("is-revealed");
+          nodes[i].classList.remove("is-active");
+        }
       }
       for (i = 0; i < points.length; i++) {
         if (i === stepIndex) points[i].classList.add("is-active");
@@ -670,7 +673,8 @@
         var easeOut = 1 - Math.pow(1 - t, 3);
         drawLineProgress(easeOut);
 
-        var activeIndex = Math.min(nodes.length - 1, Math.floor(easeOut * nodes.length));
+        var stepDuration = lineDuration / Math.max(nodes.length, 1);
+        var activeIndex = Math.min(nodes.length - 1, Math.floor(elapsed / stepDuration));
         setActiveStep(activeIndex);
 
         if (t < 1) {
@@ -696,7 +700,20 @@
       if (raw < 0) raw = 0;
       if (raw > 1) raw = 1;
 
+      var driftY = Math.sin(raw * Math.PI * 1.25) * 8;
+      var driftX = Math.cos(raw * Math.PI * 0.95) * 4;
+      secChoose.style.setProperty("--drift-y", driftY.toFixed(2) + "px");
+      secChoose.style.setProperty("--drift-x", driftX.toFixed(2) + "px");
+
       var i;
+      for (i = 0; i < floatLayers.length; i++) {
+        var layerPhase = i * 0.4;
+        var layerY = driftY + Math.sin((raw * Math.PI * 1.6) + layerPhase) * 3;
+        var layerX = driftX + Math.cos((raw * Math.PI * 1.2) + layerPhase) * 1.6;
+        floatLayers[i].style.setProperty("--drift-y", layerY.toFixed(2) + "px");
+        floatLayers[i].style.setProperty("--drift-x", layerX.toFixed(2) + "px");
+      }
+
       for (i = 0; i < floatNodes.length; i++) {
         var wave = Math.sin((raw * Math.PI * 1.4) + (i * 0.55));
         var y = wave * 9;
