@@ -619,16 +619,14 @@
     function setActiveStep(stepIndex) {
       var i;
       for (i = 0; i < nodes.length; i++) {
-        if (i === stepIndex) {
-          nodes[i].classList.add("is-revealed");
-          nodes[i].classList.add("is-active");
-        } else {
-          nodes[i].classList.remove("is-revealed");
-          nodes[i].classList.remove("is-active");
-        }
+        if (i <= stepIndex) nodes[i].classList.add("is-revealed");
+        else nodes[i].classList.remove("is-revealed");
+
+        if (i === stepIndex) nodes[i].classList.add("is-active");
+        else nodes[i].classList.remove("is-active");
       }
       for (i = 0; i < points.length; i++) {
-        if (i === stepIndex) points[i].classList.add("is-active");
+        if (i <= stepIndex) points[i].classList.add("is-active");
         else points[i].classList.remove("is-active");
       }
     }
@@ -775,11 +773,18 @@
         if (tx > 1) tx = 1;
         if (ty < 0) ty = 0;
         if (ty > 1) ty = 1;
+
+        var pullX = (tx - 0.5) * 14;
+        var pullY = (ty - 0.5) * 10;
+        secChoose.style.setProperty("--hover-pull-x", pullX.toFixed(2) + "px");
+        secChoose.style.setProperty("--hover-pull-y", pullY.toFixed(2) + "px");
       });
 
       secChoose.addEventListener("pointerleave", function () {
         tx = 0.5;
         ty = 0.5;
+        secChoose.style.setProperty("--hover-pull-x", "0px");
+        secChoose.style.setProperty("--hover-pull-y", "0px");
       });
 
       window.requestAnimationFrame(animateAura);
