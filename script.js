@@ -1005,13 +1005,9 @@
       for (j = 0; j < sections.length; j++) {
         var section = sections[j];
         if (!section) continue;
-        var rect = section.getBoundingClientRect();
-        var sectionSpeed = toNumber(section.getAttribute("data-speed"), 0.03);
-        var centerOffset = (rect.top + rect.height * 0.5) - (vh * 0.5);
-        var moveY = centerOffset * -sectionSpeed;
-        if (moveY > 26) moveY = 26;
-        if (moveY < -26) moveY = -26;
-        section.style.setProperty("--parallax-y", moveY.toFixed(2) + "px");
+
+        // ✅ evita mover a section inteira no scroll (mantém o fluxo natural)
+        section.style.setProperty("--parallax-y", "0px");
 
         var items = section.querySelectorAll(".parallax-item");
         var k;

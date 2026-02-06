@@ -18,10 +18,10 @@ body{
   color:#e9eaee;
 }
 
-/* ✅ trava gestos de zoom e “pinch” na UI (mobile) */
+/* ✅ mantém o scroll nativo do body/html (evita travas por overscroll/touch-action) */
 html, body{
-  overscroll-behavior: none;
-  touch-action: manipulation;
+  overscroll-behavior: auto;
+  touch-action: pan-y;
 }
 
 main{
@@ -1644,9 +1644,10 @@ a{ color:inherit; text-decoration:none; }
    PARALLAX GLOBAL (SEÇÕES)
    ========================= */
 section[data-parallax-section]{
+  /* ✅ não move a section inteira (evita sensação de "scroll por seção") */
   --parallax-y: 0px;
-  translate: 0 var(--parallax-y);
-  will-change: translate;
+  translate: 0 0;
+  will-change: auto;
 }
 .parallax-item{
   --move-x: 0px;
