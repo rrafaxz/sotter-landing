@@ -817,51 +817,6 @@
     updateFloatByScroll();
   })();
 
-  // =========================
-  // FUNDO GLOBAL: GLOW SEGUINDO O MOUSE
-  // =========================
-  (function () {
-    var root = document.documentElement;
-    if (!root) return;
-
-    var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var isCoarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
-
-    if (prefersReduce || isCoarse) {
-      root.style.setProperty("--mx", "50%");
-      root.style.setProperty("--my", "35%");
-      return;
-    }
-
-    var tx = 0.5;
-    var ty = 0.35;
-    var cx = 0.5;
-    var cy = 0.35;
-
-    function handleMove(e) {
-      var w = window.innerWidth || document.documentElement.clientWidth || 1;
-      var h = window.innerHeight || document.documentElement.clientHeight || 1;
-      tx = e.clientX / w;
-      ty = e.clientY / h;
-      if (tx < 0) tx = 0;
-      if (tx > 1) tx = 1;
-      if (ty < 0) ty = 0;
-      if (ty > 1) ty = 1;
-    }
-
-    function animateGlow() {
-      cx += (tx - cx) * 0.06;
-      cy += (ty - cy) * 0.06;
-      root.style.setProperty("--mx", (cx * 100).toFixed(2) + "%");
-      root.style.setProperty("--my", (cy * 100).toFixed(2) + "%");
-      window.requestAnimationFrame(animateGlow);
-    }
-
-    window.addEventListener("pointermove", handleMove, { passive: true });
-    window.addEventListener("mousemove", handleMove, { passive: true });
-    window.requestAnimationFrame(animateGlow);
-  })();
-
 
   // ==========================================================
   // ✅ SEÇÃO 07: ENTRADA DOS BLOCOS + LINHAS + PARALLAX

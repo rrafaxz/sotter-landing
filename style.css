@@ -18,45 +18,6 @@ body{
   color:#e9eaee;
 }
 
-/* =========================
-   FUNDO GLOBAL (GRID + GLOW)
-   ========================= */
-:root{
-  --mx: 50%;
-  --my: 50%;
-}
-
-.zacxys-bg,
-.zacxys-bg-glow{
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.zacxys-bg{
-  background: #121212;
-}
-
-.zacxys-bg::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.05;
-  background-image: linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
-  background-size: 120px 100%;
-}
-
-.zacxys-bg-glow{
-  background: radial-gradient(520px circle at var(--mx) var(--my), rgba(240,255,0,0.06), rgba(240,255,0,0) 72%);
-  filter: blur(38px);
-}
-
-body > *:not(.zacxys-bg):not(.zacxys-bg-glow){
-  position: relative;
-  z-index: 1;
-}
-
 /* ✅ mantém o scroll nativo do body/html (evita travas por overscroll/touch-action) */
 html, body{
   overscroll-behavior: auto;
@@ -1208,7 +1169,6 @@ a{ color:inherit; text-decoration:none; }
   position: absolute;
   inset: 0;
   pointer-events: none;
-  display: none;
 }
 .sec-choose-layer--aura{
   z-index: 0;
