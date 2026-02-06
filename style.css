@@ -1152,7 +1152,7 @@ a{ color:inherit; text-decoration:none; }
   --mouse-x: 50%;
   --mouse-y: 50%;
   position: relative;
-  padding: 120px 0 108px;
+  padding: 114px 0 103px;
   background: #121212;
   overflow: hidden;
   isolation: isolate;
@@ -1380,7 +1380,7 @@ a{ color:inherit; text-decoration:none; }
   100%{ filter: drop-shadow(0 0 7px rgba(240,255,0,0.36)); }
 }
 @media (max-width: 980px){
-  .sec-choose{ padding: 96px 0; }
+  .sec-choose{ padding: 91px 0; }
   .sec-choose-shell{ gap: 40px; padding: 0 28px; }
   .sec-choose-layout{ grid-template-columns: 1fr; gap: 32px; }
   .sec-choose-left{ grid-template-columns: minmax(0,1fr) 44px; gap: 20px; transform: none; }
