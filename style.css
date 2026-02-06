@@ -3,13 +3,12 @@ html,body{ height:100%; }
 
 /* ✅ garante um único container de scroll (evita scrollbar duplicada) */
 html{
-  overflow: hidden;
+  overflow-x: hidden;
 }
 /* ✅ BLOQUEIA A TELA DE IR PRO LADO (overflow horizontal) */
 body{
   min-height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
 }
 
 body{
