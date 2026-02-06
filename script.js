@@ -1154,18 +1154,15 @@
     var sections = document.querySelectorAll("section");
     if (!sections.length) return;
 
-    var prefersReduceQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
-    var coarseQuery = window.matchMedia ? window.matchMedia("(hover: none), (pointer: coarse)") : null;
-    var prefersReduce = prefersReduceQuery ? prefersReduceQuery.matches : false;
-    var isCoarse = coarseQuery ? coarseQuery.matches : false;
+    var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var isCoarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
     var vw = window.innerWidth || document.documentElement.clientWidth || 0;
     var vh = window.innerHeight || document.documentElement.clientHeight || 0;
     var mouseTX = 0;
     var mouseTY = 0;
     var mouseX = 0;
     var mouseY = 0;
-    var dirty = true;
-    var rafId = 0;
+    var ticking = false;
 
     function toNumber(v, fallback) {
       var n = parseFloat(v);
@@ -1173,67 +1170,34 @@
       return n;
     }
 
-    function ensureDecorLayer(section, idx) {
-      if (!section) return;
-      if (section.querySelector('.parallax-item--decor')) return;
+    var i;
+    for (i = 0; i < sections.length; i++) {
+      var sec = sections[i];
+      if (!sec) continue;
+      sec.setAttribute("data-parallax-section", "true");
+      if (!sec.getAttribute("data-speed")) sec.setAttribute("data-speed", "0.03");
 
-      var glow = document.createElement('div');
-      glow.className = 'parallax-item parallax-item--decor parallax-item--decor-' + idx;
-      glow.setAttribute('aria-hidden', 'true');
-      glow.setAttribute('data-speed', idx % 2 === 0 ? '0.02' : '0.05');
-      section.appendChild(glow);
-    }
-
-    function markParallaxItems(section) {
-      var candidates = section.querySelectorAll(':scope > .hero-inner, :scope > .sec2-shell, :scope > .sec3-shell, :scope > .sec7-shell, :scope > .sec-choose-shell, :scope > .sec5-shell, :scope > .placeholder, :scope > h1, :scope > h2, :scope > h3, :scope > p, :scope > div, :scope > article');
-      var hasMarked = false;
-      var i;
-      for (i = 0; i < candidates.length; i++) {
-        var node = candidates[i];
-        if (!node || node.classList.contains('parallax-item') || node.classList.contains('parallax-item--decor')) continue;
-        if (node.classList.contains('topbar-wrap') || node.classList.contains('mobile-menu')) continue;
-
-        node.classList.add('parallax-item');
-        if (!node.getAttribute('data-speed')) {
-          node.setAttribute('data-speed', i % 3 === 0 ? '0.02' : (i % 3 === 1 ? '0.05' : '0.08'));
+      var base = sec.querySelectorAll(":scope > div, :scope > article, :scope > h1, :scope > h2, :scope > h3");
+      var b;
+      for (b = 0; b < base.length; b++) {
+        var el = base[b];
+        if (!el || el.classList.contains("parallax-item")) continue;
+        el.classList.add("parallax-item");
+        if (!el.getAttribute("data-speed")) {
+          el.setAttribute("data-speed", b % 3 === 0 ? "0.02" : (b % 3 === 1 ? "0.05" : "0.08"));
         }
-        hasMarked = true;
       }
-
-      if (!hasMarked) ensureDecorLayer(section, 1);
-      else ensureDecorLayer(section, 2);
     }
 
-    function bootstrapSections() {
-      var i;
-      for (i = 0; i < sections.length; i++) {
-        var sec = sections[i];
-        if (!sec) continue;
-
-        sec.classList.add('parallax-section');
-        if (!sec.getAttribute('data-speed')) sec.setAttribute('data-speed', '0.022');
-        markParallaxItems(sec);
-      }
+    function schedule() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(applyFrame);
     }
 
     function applyFrame() {
-      rafId = 0;
-      if (!dirty) return;
-      dirty = false;
-
-      if (prefersReduce) {
-        var r;
-        for (r = 0; r < sections.length; r++) {
-          sections[r].style.setProperty('--sy', '0px');
-          var resetItems = sections[r].querySelectorAll('.parallax-item');
-          var rr;
-          for (rr = 0; rr < resetItems.length; rr++) {
-            resetItems[rr].style.setProperty('--mx', '0px');
-            resetItems[rr].style.setProperty('--my', '0px');
-          }
-        }
-        return;
-      }
+      ticking = false;
+      if (prefersReduce) return;
 
       mouseX += (mouseTX - mouseX) * 0.08;
       mouseY += (mouseTY - mouseY) * 0.08;
@@ -1242,86 +1206,49 @@
       for (j = 0; j < sections.length; j++) {
         var section = sections[j];
         if (!section) continue;
-
         var rect = section.getBoundingClientRect();
-        var sectionCenter = rect.top + (rect.height * 0.5);
-        var viewportCenter = vh * 0.5;
-        var distance = sectionCenter - viewportCenter;
-        var sectionSpeed = toNumber(section.getAttribute('data-speed'), 0.022);
-        var moveY = distance * -sectionSpeed;
+        var sectionSpeed = toNumber(section.getAttribute("data-speed"), 0.03);
+        var centerOffset = (rect.top + rect.height * 0.5) - (vh * 0.5);
+        var moveY = centerOffset * -sectionSpeed;
+        if (moveY > 26) moveY = 26;
+        if (moveY < -26) moveY = -26;
+        section.style.setProperty("--parallax-y", moveY.toFixed(2) + "px");
 
-        if (moveY > 18) moveY = 18;
-        if (moveY < -18) moveY = -18;
-        section.style.setProperty('--sy', moveY.toFixed(2) + 'px');
-
-        var items = section.querySelectorAll('.parallax-item');
+        var items = section.querySelectorAll(".parallax-item");
         var k;
         for (k = 0; k < items.length; k++) {
           var item = items[k];
           if (!item) continue;
-
-          var speed = toNumber(item.getAttribute('data-speed'), 0.04);
-          var ix = isCoarse ? 0 : (mouseX * (speed * 56));
-          var iy = isCoarse ? 0 : (mouseY * (speed * 42));
-
-          item.style.setProperty('--mx', ix.toFixed(2) + 'px');
-          item.style.setProperty('--my', iy.toFixed(2) + 'px');
+          var speed = toNumber(item.getAttribute("data-speed"), 0.04);
+          var ix = isCoarse ? 0 : (mouseX * (speed * 48));
+          var iy = isCoarse ? 0 : (mouseY * (speed * 36));
+          item.style.setProperty("--move-x", ix.toFixed(2) + "px");
+          item.style.setProperty("--move-y", iy.toFixed(2) + "px");
         }
       }
 
-      if (!isCoarse) requestTick();
+      if (!isCoarse) window.requestAnimationFrame(applyFrame);
     }
 
-    function requestTick() {
-      dirty = true;
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(applyFrame);
-    }
-
-    function onScroll() {
-      requestTick();
-    }
-
-    function onResize() {
+    function onScrollOrResize() {
       vw = window.innerWidth || document.documentElement.clientWidth || 0;
       vh = window.innerHeight || document.documentElement.clientHeight || 0;
-      requestTick();
+      schedule();
     }
 
-    // Parallax global:
-    // - Toda <section> recebe automaticamente .parallax-section.
-    // - Itens animados usam .parallax-item com data-speed (ex.: 0.02, 0.05, 0.08).
-    // - Para ajustar intensidade: altere data-speed por elemento/seção (padrão item = 0.04, seção = 0.022).
-
-    bootstrapSections();
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
 
     if (!isCoarse) {
-      window.addEventListener('pointermove', function (e) {
+      window.addEventListener("pointermove", function (e) {
         if (!vw || !vh) return;
         mouseTX = ((e.clientX / vw) - 0.5) * 2;
         mouseTY = ((e.clientY / vh) - 0.5) * 2;
-        requestTick();
       }, { passive: true });
     }
 
-    if (prefersReduceQuery && prefersReduceQuery.addEventListener) {
-      prefersReduceQuery.addEventListener('change', function (e) {
-        prefersReduce = !!(e && e.matches);
-        requestTick();
-      });
-    }
-
-    if (coarseQuery && coarseQuery.addEventListener) {
-      coarseQuery.addEventListener('change', function (e) {
-        isCoarse = !!(e && e.matches);
-        requestTick();
-      });
-    }
-
-    onScroll();
-    onResize();
+    onScrollOrResize();
+    if (!prefersReduce && !isCoarse) window.requestAnimationFrame(applyFrame);
   })();
+
 })();
