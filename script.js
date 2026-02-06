@@ -486,6 +486,8 @@
 
     var tracks = sec3Work.querySelectorAll(".sec3-work-track");
     var marquee = sec3Work.querySelector(".sec3-work-marquee");
+    var typingNodes = sec3Work.querySelectorAll(".sec3-work-typing");
+    var typingTimers = [];
 
     // ✅ clones (sem forEach)
     if (tracks && tracks.length) {
@@ -537,12 +539,87 @@
       marquee.addEventListener("touchcancel", handlePressEnd);
     }
 
+    function parseDelayToMs(value) {
+      if (!value) return 0;
+      var raw = ("" + value).trim();
+      if (!raw) return 0;
+      if (raw.indexOf("ms") > -1) {
+        var ms = parseFloat(raw);
+        return isNaN(ms) ? 0 : ms;
+      }
+      var sec = parseFloat(raw);
+      return isNaN(sec) ? 0 : sec * 1000;
+    }
+
+    function clearTypingTimers() {
+      while (typingTimers.length) {
+        window.clearTimeout(typingTimers.pop());
+      }
+    }
+
+    function startTypingLine(node, delay) {
+      if (!node) return;
+      var fullText = node.getAttribute("data-typing-text") || node.textContent || "";
+      node.setAttribute("data-typing-text", fullText);
+      node.textContent = "";
+
+      var startTimer = window.setTimeout(function () {
+        var i = 0;
+        var charDelay = 52;
+
+        function step() {
+          i += 1;
+          node.textContent = fullText.slice(0, i);
+          if (i < fullText.length) {
+            var nextTimer = window.setTimeout(step, charDelay);
+            typingTimers.push(nextTimer);
+          }
+        }
+
+        step();
+      }, delay);
+
+      typingTimers.push(startTimer);
+    }
+
+    function runTyping() {
+      if (!typingNodes || !typingNodes.length) return;
+      clearTypingTimers();
+
+      var i;
+      for (i = 0; i < typingNodes.length; i++) {
+        var node = typingNodes[i];
+        var rawDelay = node.style.getPropertyValue("--typing-delay");
+        var delay = parseDelayToMs(rawDelay);
+        startTypingLine(node, delay + 260);
+      }
+    }
+
+    function resetTyping() {
+      if (!typingNodes || !typingNodes.length) return;
+      clearTypingTimers();
+
+      var i;
+      for (i = 0; i < typingNodes.length; i++) {
+        var node = typingNodes[i];
+        var fullText = node.getAttribute("data-typing-text") || node.textContent || "";
+        node.setAttribute("data-typing-text", fullText);
+        node.textContent = "";
+      }
+    }
+
     function setOn() {
+      if (!sec3Work.classList.contains("is-in")) {
+        sec3Work.classList.add("is-in");
+        runTyping();
+        return;
+      }
       sec3Work.classList.add("is-in");
     }
 
     function setOff() {
       sec3Work.classList.remove("is-in");
+      resetTyping();
     }
 
     function inView(el) {
@@ -579,6 +656,7 @@
       });
     }
 
+    resetTyping();
     tick();
   })();
 
