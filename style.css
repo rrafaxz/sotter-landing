@@ -603,11 +603,6 @@ a{ color:inherit; text-decoration:none; }
   margin: 0;
   font-size: clamp(28px, 4vw, 42px);
   color: #1114a4;
-  background: linear-gradient(125deg, #4c4c45 0%, #1114a4 50%, #4c4c45 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   font-weight: 600;
 }
 
@@ -649,7 +644,7 @@ a{ color:inherit; text-decoration:none; }
 }
 
 .sec3-work.is-in .sec3-work-title{
-  animation: none;
+  animation: sec3-title-shift 6.8s ease-in-out infinite;
 }
 
 .sec3-work-marquee{
@@ -821,6 +816,12 @@ a{ color:inherit; text-decoration:none; }
   0%{ background-position: 0% 50%; }
   50%{ background-position: 100% 50%; }
   100%{ background-position: 0% 50%; }
+}
+
+@keyframes sec3-title-shift{
+  0%,
+  100%{ color: #1114a4; }
+  50%{ color: #4c4c45; }
 }
 
 @media (hover: hover){
