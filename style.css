@@ -1429,209 +1429,6 @@ section[data-parallax-section]{
 }
 
 /* =========================
-   SEÇÃO 05 (INTERATIVA - CAMINHOS)
-   ========================= */
-.sec5{ padding: 92px 16px 86px; background: #0b0c10; }
-.sec5-shell{ max-width: 1240px; margin: 0 auto; }
-.sec5-title{ margin: -80px 0 34px 0; text-align:center; font-weight:400; font-size:30px; letter-spacing:-0.6px; color:#e9eaee; }
-.sec5-title strong{ font-weight:700; }
-.sec5-grid{ display:flex; align-items:flex-start; justify-content:center; gap:56px; }
-.sec5-col{ width: 360px; max-width:360px; display:flex; flex-direction:column; align-items:stretch; gap:14px; }
-
-.sec5-topbtn{
-  width:100%;
-  height:54px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.20);
-  background: rgba(255,255,255,.06);
-  color: rgba(233,234,238,.92);
-  font-family:"Sora", sans-serif;
-  font-weight:600;
-  font-size:12px;
-  letter-spacing:.2px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  cursor:pointer;
-  box-shadow: 0 18px 55px rgba(0,0,0,.38);
-}
-.sec5-topbtn--green{ background:#dfff06; border-color: rgba(223,255,6,.65); color:#101016; }
-.sec5-topbtn--gray{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16); color: rgba(233,234,238,.86); }
-.sec5-verified{ width:16px; height:16px; object-fit:contain; display:block; }
-
-.sec5-panel{
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: #0f1015;
-  box-shadow: 0 24px 80px rgba(0,0,0,.55);
-  overflow:hidden;
-  max-height: 0;
-  opacity: 0;
-  transform: translate3d(0, -8px, 0);
-  transition: max-height 520ms ease, opacity 420ms ease, transform 520ms ease;
-  will-change: max-height, opacity, transform;
-  position: relative;
-}
-.sec5-panel.is-open{ opacity:1; transform: translate3d(0,0,0); }
-.sec5-panel-inner{ position:relative; padding:16px 18px 16px; }
-.sec5-panel--with{ border-color: rgba(223,255,6,.55); box-shadow: 0 26px 90px rgba(0,0,0,.60); }
-.sec5-panel--without{ border-color: rgba(255,255,255,.12); opacity:.60; filter:saturate(.1); }
-
-/* ✅ SPOILER/PEEK: aparece um pedaço, sem “bloco pesado” */
-.sec5-panel--peek{
-  max-height: 120px;
-  opacity: 1;
-  transform: translate3d(0,0,0);
-  background: transparent;
-  border-color: transparent;
-  box-shadow: none;
-}
-.sec5-panel--peek::after{
-  content:"";
-  position:absolute;
-  left:0; right:0;
-  bottom:0;
-  height: 62px;
-  pointer-events:none;
-  background: linear-gradient(180deg, rgba(11,12,16,0) 0%, rgba(11,12,16,.92) 72%, rgba(11,12,16,1) 100%);
-  opacity: .95;
-}
-
-.sec5-items{ display:flex; flex-direction:column; gap:14px; padding: 6px 34px 6px 10px; }
-.sec5-item{ text-align:center; opacity:0; transform: translate3d(0,8px,0); transition: opacity 380ms ease, transform 380ms ease; will-change: opacity, transform; }
-.sec5-item.is-visible{ opacity:1; transform: translate3d(0,0,0); }
-
-.sec5-item:not(:last-child)::after{
-  content:"";
-  display:block;
-  width:82%;
-  height:10px;
-  margin: 12px auto 0;
-  background-image: url("https://i.ibb.co/rKFWYcNp/Forma-2.png");
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:contain;
-  opacity:.95;
-  pointer-events:none;
-}
-.sec5-panel--without .sec5-item:not(:last-child)::after{ opacity:.55; filter: grayscale(1); }
-
-.sec5-item-title{
-  margin:0;
-  font-size:12.3px;
-  line-height:1.22;
-  color:#dfff06;
-  font-weight:600;
-  height: calc(1.22em * 3);
-  overflow:hidden;
-}
-.sec5-panel--without .sec5-item-title{ color: rgba(233,234,238,.74); }
-
-.sec5-item-sub{
-  margin:2px 0 0;
-  font-size:12.1px;
-  line-height:1.22;
-  font-weight:300;
-  color: rgba(233,234,238,.70);
-  height: calc(1.22em * 3);
-  overflow:hidden;
-}
-.sec5-panel--without .sec5-item-sub{ color: rgba(233,234,238,.56); }
-
-.sec5-walk{
-  position:absolute;
-  right:10px;
-  top:34px;
-  width:34px;
-  height:34px;
-  border-radius:999px;
-  border:none;
-  background:transparent;
-  padding:0;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition: top 420ms ease;
-  will-change: top;
-}
-.sec5-walk img{ width:34px; height:34px; display:block; object-fit:contain; }
-
-.sec5-walk.is-pulsing{ animation: sec5HopLoop 1.1s ease-in-out infinite; }
-.sec5-walk.is-clickhop{ animation: sec5HopBurst 260ms ease-in-out 4; }
-
-@keyframes sec5HopLoop{
-  0%{ transform: translate3d(0,0,0) scale(1); }
-  18%{ transform: translate3d(0,-6px,0) scale(1.02); }
-  36%{ transform: translate3d(0,0,0) scale(1); }
-  100%{ transform: translate3d(0,0,0) scale(1); }
-}
-@keyframes sec5HopBurst{
-  0%{ transform: translate3d(0,0,0) scale(1); }
-  45%{ transform: translate3d(0,-7px,0) scale(1.03); }
-  100%{ transform: translate3d(0,0,0) scale(1); }
-}
-
-.sec5-bottom{
-  width:100%;
-  height:56px;
-  border-radius:14px;
-  background:transparent;
-  font-family:"Sora", sans-serif;
-  font-weight:700;
-  letter-spacing:.3px;
-  font-size:12px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-top:4px;
-  transition: transform 220ms ease, background 220ms ease, color 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
-}
-
-.sec5-bottom--with{
-  border: 2px solid rgba(223,255,6,.70);
-  color:#dfff06;
-  box-shadow: 0 18px 70px rgba(0,0,0,.55);
-}
-
-.sec5-bottom--without{
-  border: 2px solid rgba(233,234,238,.30);
-  color: rgba(233,234,238,.62);
-  box-shadow: 0 18px 70px rgba(0,0,0,.45);
-}
-
-.sec5-bottom--with .sec5-verified--bottom{
-  filter: brightness(0) saturate(100%) invert(88%) sepia(93%) saturate(980%) hue-rotate(16deg) brightness(110%) contrast(104%);
-}
-
-.sec5-bottom--with.is-complete{
-  background: #dfff06;
-  color: #0b0c10;
-  border-color: rgba(223,255,6,.95);
-  transform: scale(1.02);
-}
-.sec5-bottom--with.is-complete .sec5-verified--bottom{ filter: brightness(0) saturate(100%); }
-.sec5-bottom--with.is-complete.is-pop{ animation: sec5Pop 260ms ease-out 1; }
-
-.sec5-bottom--without.is-complete{
-  background: #ff0000;
-  color: #ffffff;
-  border-color: rgba(255,0,0,.98);
-  box-shadow: 0 18px 70px rgba(255,0,0,.18), 0 18px 70px rgba(0,0,0,.45);
-  transform: scale(1.02);
-}
-.sec5-bottom--without.is-complete.is-pop{ animation: sec5Pop 260ms ease-out 1; }
-
-@keyframes sec5Pop{
-  0%{ transform: scale(1); }
-  60%{ transform: scale(1.05); }
-  100%{ transform: scale(1.02); }
-}
-
-/* =========================
    SEÇÃO 06 (mantida)
    ========================= */
 .sec6{
@@ -2092,10 +1889,6 @@ section[data-parallax-section]{
   .sec3-item{ flex-basis: 210px; }
   .sec3-item img{ max-height: 48px; max-width: 250px; }
 
-  .sec5-grid{ gap: 28px; }
-  .sec5-col{ width: 340px; max-width: 340px; }
-  .sec5-title{ font-size: 28px; }
-
   .sec6-card{ max-width: 980px; border-radius: 54px; }
   .sec6-title{ font-size: 30px; }
 
@@ -2153,16 +1946,6 @@ section[data-parallax-section]{
   .sec7.is-in .sec7-gear{
     animation-duration: 10.66s;
   }
-  .sec5-grid{
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-  }
-  .sec5-col{
-    width: 100%;
-    max-width: 420px;
-  }
-
   .sec6-card{ border-radius: 46px; }
 
   .sec7-stage{
@@ -2350,13 +2133,6 @@ section[data-parallax-section]{
     max-height: 42px;
     max-width: 210px;
   }
-
-  .sec5{ padding-top: 72px; padding-bottom: 78px; }
-  .sec5-title{ font-size: 24px; margin: -18px 0 18px 0; }
-  .sec5-topbtn{ height: 52px; border-radius: 12px; }
-  .sec5-panel-inner{ padding: 14px 14px 14px; }
-  .sec5-items{ padding-right: 34px; }
-  .sec5-bottom{ height: 54px; border-radius: 14px; }
 
   /* SEC6 mobile */
   .sec6{ padding-top: 76px; padding-bottom: 72px; }
