@@ -45,7 +45,7 @@ body{
 }
 
 .global-bg__glow{
-  background: radial-gradient(600px circle at var(--global-mouse-x, 50%) var(--global-mouse-y, 50%), rgba(210,220,255,0.14), rgba(210,220,255,0) 70%);
+  background: radial-gradient(600px circle at var(--global-mouse-x, 50%) var(--global-mouse-y, 50%), rgba(176,255,92,0.16), rgba(176,255,92,0) 70%);
   opacity: 0.7;
   transition: opacity 220ms ease;
 }
@@ -1904,7 +1904,7 @@ section[data-parallax-section]{
    ========================= */
 .sec7{
   padding: 96px 0 128px;
-  background: #0b0c10;
+  background: transparent;
   --sec7-lines-delay: 6800ms;
 }
 .sec7-shell{
