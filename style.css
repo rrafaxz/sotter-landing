@@ -2136,6 +2136,9 @@ section[data-parallax-section]{
   .sec3-work-line--title,
   .sec3-work-line--sub{
     animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
     width: auto;
     white-space: normal;
     border-right: 0;
