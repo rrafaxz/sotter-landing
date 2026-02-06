@@ -946,6 +946,92 @@
 
     tick();
   })();
+
+  // =========================
+  // Scroll Section Indicator
+  // =========================
+  (function () {
+    var indicator = document.querySelector(".zacxys-scroll-indicator");
+    if (!indicator) return;
+
+    var sections = document.querySelectorAll("section[data-section]");
+    if (!sections || !sections.length) return;
+
+    var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var dots = [];
+    var ratios = [];
+
+    indicator.innerHTML = "";
+
+    function setActiveDot(activeIndex) {
+      var i;
+      for (i = 0; i < dots.length; i++) {
+        if (i === activeIndex) dots[i].classList.add("is-active");
+        else dots[i].classList.remove("is-active");
+      }
+    }
+
+    var i;
+    for (i = 0; i < sections.length; i++) {
+      var section = sections[i];
+      section.__zacxysIndex = i;
+      ratios[i] = 0;
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "zacxys-dot";
+      btn.setAttribute("aria-label", "Ir para a seção " + (i + 1));
+      btn.setAttribute("data-index", String(i));
+
+      btn.addEventListener("click", function () {
+        var idx = parseInt(this.getAttribute("data-index"), 10);
+        if (isNaN(idx) || !sections[idx]) return;
+        sections[idx].scrollIntoView({
+          behavior: prefersReduce ? "auto" : "smooth",
+          block: "start"
+        });
+      });
+
+      indicator.appendChild(btn);
+      dots.push(btn);
+    }
+
+    function pickActive() {
+      var maxRatio = 0;
+      var maxIndex = 0;
+      var j;
+      for (j = 0; j < ratios.length; j++) {
+        if (ratios[j] > maxRatio) {
+          maxRatio = ratios[j];
+          maxIndex = j;
+        }
+      }
+      if (maxRatio > 0) setActiveDot(maxIndex);
+    }
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        var j;
+        for (j = 0; j < entries.length; j++) {
+          var entry = entries[j];
+          if (!entry || !entry.target) continue;
+          var idx = entry.target.__zacxysIndex;
+          if (idx === undefined) continue;
+          ratios[idx] = entry.intersectionRatio || 0;
+        }
+        pickActive();
+      }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+      for (i = 0; i < sections.length; i++) {
+        observer.observe(sections[i]);
+      }
+    } else {
+      setActiveDot(0);
+    }
+
+    setActiveDot(0);
+  })();
+
   // =========================
   // PARALLAX GLOBAL (SCROLL + MOUSE)
   // =========================

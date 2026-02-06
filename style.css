@@ -2386,6 +2386,76 @@ section[data-parallax-section]{
 }
 
 /* =========================
+   Scroll Section Indicator
+   ========================= */
+.zacxys-scroll-indicator{
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 4px;
+  pointer-events: auto;
+}
+
+.zacxys-dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #2a2a2f;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.65;
+  transition:
+    height 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    background 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transform-origin: center;
+}
+
+.zacxys-dot.is-active{
+  height: 18px;
+  background: #dfff06;
+  opacity: 1;
+  transform: scaleY(1.15);
+  box-shadow: 0 0 12px rgba(223, 255, 6, 0.55);
+}
+
+.zacxys-dot:focus-visible{
+  outline: 2px solid rgba(223, 255, 6, 0.65);
+  outline-offset: 3px;
+}
+
+@media (max-width: 520px){
+  .zacxys-scroll-indicator{
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .zacxys-dot{
+    width: 4px;
+    height: 4px;
+  }
+
+  .zacxys-dot.is-active{
+    height: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .zacxys-dot{
+    transition: none;
+  }
+}
+
+/* =========================
    REMOVE SCROLLBAR (TOTAL)
    ========================= */
 html, body{
