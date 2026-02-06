@@ -1147,4 +1147,108 @@
 
     tick();
   })();
+  // =========================
+  // PARALLAX GLOBAL (SCROLL + MOUSE)
+  // =========================
+  (function () {
+    var sections = document.querySelectorAll("section");
+    if (!sections.length) return;
+
+    var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var isCoarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    var mouseTX = 0;
+    var mouseTY = 0;
+    var mouseX = 0;
+    var mouseY = 0;
+    var ticking = false;
+
+    function toNumber(v, fallback) {
+      var n = parseFloat(v);
+      if (isNaN(n)) return fallback;
+      return n;
+    }
+
+    var i;
+    for (i = 0; i < sections.length; i++) {
+      var sec = sections[i];
+      if (!sec) continue;
+      sec.setAttribute("data-parallax-section", "true");
+      if (!sec.getAttribute("data-speed")) sec.setAttribute("data-speed", "0.03");
+
+      var base = sec.querySelectorAll(":scope > div, :scope > article, :scope > h1, :scope > h2, :scope > h3");
+      var b;
+      for (b = 0; b < base.length; b++) {
+        var el = base[b];
+        if (!el || el.classList.contains("parallax-item")) continue;
+        el.classList.add("parallax-item");
+        if (!el.getAttribute("data-speed")) {
+          el.setAttribute("data-speed", b % 3 === 0 ? "0.02" : (b % 3 === 1 ? "0.05" : "0.08"));
+        }
+      }
+    }
+
+    function schedule() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(applyFrame);
+    }
+
+    function applyFrame() {
+      ticking = false;
+      if (prefersReduce) return;
+
+      mouseX += (mouseTX - mouseX) * 0.08;
+      mouseY += (mouseTY - mouseY) * 0.08;
+
+      var j;
+      for (j = 0; j < sections.length; j++) {
+        var section = sections[j];
+        if (!section) continue;
+        var rect = section.getBoundingClientRect();
+        var sectionSpeed = toNumber(section.getAttribute("data-speed"), 0.03);
+        var centerOffset = (rect.top + rect.height * 0.5) - (vh * 0.5);
+        var moveY = centerOffset * -sectionSpeed;
+        if (moveY > 26) moveY = 26;
+        if (moveY < -26) moveY = -26;
+        section.style.setProperty("--parallax-y", moveY.toFixed(2) + "px");
+
+        var items = section.querySelectorAll(".parallax-item");
+        var k;
+        for (k = 0; k < items.length; k++) {
+          var item = items[k];
+          if (!item) continue;
+          var speed = toNumber(item.getAttribute("data-speed"), 0.04);
+          var ix = isCoarse ? 0 : (mouseX * (speed * 48));
+          var iy = isCoarse ? 0 : (mouseY * (speed * 36));
+          item.style.setProperty("--move-x", ix.toFixed(2) + "px");
+          item.style.setProperty("--move-y", iy.toFixed(2) + "px");
+        }
+      }
+
+      if (!isCoarse) window.requestAnimationFrame(applyFrame);
+    }
+
+    function onScrollOrResize() {
+      vw = window.innerWidth || document.documentElement.clientWidth || 0;
+      vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      schedule();
+    }
+
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
+
+    if (!isCoarse) {
+      window.addEventListener("pointermove", function (e) {
+        if (!vw || !vh) return;
+        mouseTX = ((e.clientX / vw) - 0.5) * 2;
+        mouseTY = ((e.clientY / vh) - 0.5) * 2;
+      }, { passive: true });
+    }
+
+    onScrollOrResize();
+    if (!prefersReduce && !isCoarse) window.requestAnimationFrame(applyFrame);
+  })();
+
 })();

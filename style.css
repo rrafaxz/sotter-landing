@@ -1147,14 +1147,14 @@ a{ color:inherit; text-decoration:none; }
 .sec-choose-title span{
   font-size: clamp(50px, 4.7vw, 62px);
   line-height: 0.98;
-  font-weight: 700;
+  font-weight: 300;
   color: #ededed;
   letter-spacing: -0.015em;
   white-space: nowrap;
 }
 .sec-choose-title strong{
   color: #deff00;
-  font-weight: inherit;
+  font-weight: 700;
 }
 .sec-choose-subtitle{
   grid-column: 1;
@@ -1163,17 +1163,15 @@ a{ color:inherit; text-decoration:none; }
   max-width: 260px;
   font-size: 15px;
   line-height: 1.45;
-  color: #8f8f8f;
+  color: #ffffff;
 }
 .sec-choose-line-wrap{
-  grid-column: 2;
-  grid-row: 1 / 3;
   align-self: start;
   display: grid;
   justify-items: center;
   grid-template-rows: 1fr;
   padding-top: 0;
-  transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px)), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
+  transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px) + 20%), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
 }
 .sec-choose-sales{
   margin-bottom: 10px;
@@ -1234,9 +1232,13 @@ a{ color:inherit; text-decoration:none; }
   transition: transform 220ms ease-out, background-color 220ms ease-out, box-shadow 220ms ease-out;
 }
 .sec-choose-right{
-  width: min(100%, 760px);
+  width: min(100%, 780px);
   margin-left: 12px;
-  transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px)), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 46px;
+  align-items: start;
+  transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px) + 20%), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
 }
 .sec-choose-list{
   height: 360px;
@@ -1276,7 +1278,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .sec-choose-support,
 .sec-choose-context{
-  font-size: 18px;
+  font-size: 16.2px;
   color: #b8b8b8;
 }
 .sec-choose-node.is-active .sec-choose-support,
@@ -1285,7 +1287,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .sec-choose-context--one{ color: #b8b8b8; }
 .sec-choose-main{
-  font-size: 16px;
+  font-size: 14.4px;
   font-weight: 500;
   color: #a9a9a9;
 }
@@ -1309,17 +1311,38 @@ a{ color:inherit; text-decoration:none; }
   .sec-choose-subtitle{ max-width: 100%; font-size: 14px; }
   .sec-choose-line-body,
   .sec-choose-list{ height: 340px; }
-  .sec-choose-right{ width: min(100%, 700px); margin-left: 10px; }
-  .sec-choose-support, .sec-choose-context{ font-size: 16px; }
-  .sec-choose-main{ font-size: 16px; }
+  .sec-choose-right{
+    width: min(100%, 700px);
+    margin-left: 10px;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 20px;
+    transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px)), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
+  }
+  .sec-choose-line-wrap{
+    transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px)), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
+  }
+  .sec-choose-support, .sec-choose-context{ font-size: 14px; }
+  .sec-choose-main{ font-size: 14px; }
 }
 @media (max-width: 640px){
   .sec-choose-shell{ padding: 0 18px; }
-  .sec-choose-left{ grid-template-columns: minmax(0,1fr) 36px; gap: 16px; }
+  .sec-choose-left{ grid-template-columns: 1fr; gap: 16px; }
   .sec-choose-title span{ font-size: clamp(40px, 11vw, 50px); }
   .sec-choose-subtitle{ margin-top: 6px; }
+  .sec-choose-right{
+    margin-left: 0;
+    grid-template-columns: 14px minmax(0, 1fr);
+    gap: 14px;
+    transform: translate3d(calc(var(--drift-x, 0px) + var(--hover-pull-x, 0px)), calc(var(--drift-y, 0px) + var(--hover-pull-y, 0px)), 0);
+  }
   .sec-choose-line-body,
   .sec-choose-list{ height: 332px; }
+  .sec-choose-support,
+  .sec-choose-context,
+  .sec-choose-main{
+    font-size: 13px;
+    line-height: 1.35;
+  }
 }
 @media (prefers-reduced-motion: reduce){
   .sec-choose-node,
@@ -1331,6 +1354,28 @@ a{ color:inherit; text-decoration:none; }
   .sec-choose-line-wrap,
   .sec-choose-right,
   .sec-choose-node{ transform: none !important; }
+}
+
+
+/* =========================
+   PARALLAX GLOBAL (SEÇÕES)
+   ========================= */
+section[data-parallax-section]{
+  --parallax-y: 0px;
+  translate: 0 var(--parallax-y);
+  will-change: translate;
+}
+.parallax-item{
+  --move-x: 0px;
+  --move-y: 0px;
+  translate: var(--move-x) var(--move-y);
+  will-change: translate;
+}
+@media (prefers-reduced-motion: reduce){
+  section[data-parallax-section],
+  .parallax-item{
+    translate: 0 0 !important;
+  }
 }
 
 /* =========================
