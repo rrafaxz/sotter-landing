@@ -18,6 +18,67 @@ body{
   color:#e9eaee;
 }
 
+/* =========================
+   FUNDO GLOBAL (GRID + GLOW)
+   ========================= */
+.global-bg{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #121212;
+  transition: opacity 260ms ease;
+}
+
+.global-bg__grid,
+.global-bg__glow{
+  position: absolute;
+  inset: 0;
+}
+
+.global-bg__grid{
+  background-image:
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.22;
+}
+
+.global-bg__glow{
+  background: radial-gradient(600px circle at var(--global-mouse-x, 50%) var(--global-mouse-y, 50%), rgba(210,220,255,0.14), rgba(210,220,255,0) 70%);
+  opacity: 0.7;
+  transition: opacity 220ms ease;
+}
+
+.global-bg.is-disabled{
+  opacity: 0;
+}
+
+.global-bg.is-reduced .global-bg__glow{
+  opacity: 0;
+}
+
+/* ✅ garante conteúdo acima do fundo fixo */
+.topbar-wrap,
+main,
+.site-footer,
+.zacxys-scroll-indicator{
+  position: relative;
+  z-index: 1;
+}
+
+/* ✅ remove fundos sólidos escuros para o grid aparecer */
+.sec3-work,
+.sec3,
+.sec6,
+.sec7{
+  background: transparent;
+}
+
+@media (hover: none), (pointer: coarse){
+  .global-bg__glow{ opacity: 0; }
+}
+
 /* ✅ mantém o scroll nativo do body/html (evita travas por overscroll/touch-action) */
 html, body{
   overscroll-behavior: auto;
@@ -2453,6 +2514,16 @@ section[data-parallax-section]{
   .zacxys-dot{
     transition: none;
   }
+}
+
+/* =========================
+   AJUSTE FUNDO GLOBAL
+   ========================= */
+.sec3-work,
+.sec3,
+.sec6,
+.sec7{
+  background: transparent;
 }
 
 /* =========================

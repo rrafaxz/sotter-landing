@@ -1033,6 +1033,93 @@
   })();
 
   // =========================
+  // FUNDO GLOBAL (GRID + GLOW)
+  // =========================
+  (function () {
+    var bg = document.querySelector(".global-bg");
+    if (!bg) return;
+
+    var prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var isCoarse = window.matchMedia && window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    var targetX = 0.5;
+    var targetY = 0.5;
+    var currentX = 0.5;
+    var currentY = 0.5;
+
+    function setGlow(x, y) {
+      bg.style.setProperty("--global-mouse-x", (x * 100).toFixed(2) + "%");
+      bg.style.setProperty("--global-mouse-y", (y * 100).toFixed(2) + "%");
+    }
+
+    setGlow(0.5, 0.5);
+
+    if (prefersReduce || isCoarse) {
+      bg.classList.add("is-reduced");
+    } else {
+      window.addEventListener("pointermove", function (e) {
+        var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+        var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+        if (!vw || !vh) return;
+        targetX = e.clientX / vw;
+        targetY = e.clientY / vh;
+        if (targetX < 0) targetX = 0;
+        if (targetX > 1) targetX = 1;
+        if (targetY < 0) targetY = 0;
+        if (targetY > 1) targetY = 1;
+      }, { passive: true });
+
+      (function animateGlow() {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        setGlow(currentX, currentY);
+        window.requestAnimationFrame(animateGlow);
+      })();
+    }
+
+    var disableSection = document.querySelector("[data-disable-global-bg]");
+    if (!disableSection) return;
+
+    function setDisabled(disabled) {
+      if (disabled) bg.classList.add("is-disabled");
+      else bg.classList.remove("is-disabled");
+    }
+
+    function calcDominance() {
+      var rect = disableSection.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (!vh) return setDisabled(false);
+      var top = Math.max(rect.top, 0);
+      var bottom = Math.min(rect.bottom, vh);
+      var visible = bottom - top;
+      if (visible < 0) visible = 0;
+      var base = Math.min(rect.height, vh) || 1;
+      var ratio = visible / base;
+      setDisabled(ratio >= 0.6);
+    }
+
+    if ("IntersectionObserver" in window) {
+      var ioBg = new IntersectionObserver(function (entries) {
+        var i;
+        for (i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          if (!entry) continue;
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            setDisabled(true);
+            return;
+          }
+        }
+        setDisabled(false);
+      }, { threshold: [0, 0.25, 0.5, 0.65, 0.8, 1] });
+
+      ioBg.observe(disableSection);
+    } else {
+      window.addEventListener("scroll", calcDominance, { passive: true });
+      window.addEventListener("resize", calcDominance);
+      calcDominance();
+    }
+  })();
+
+  // =========================
   // PARALLAX GLOBAL (SCROLL + MOUSE)
   // =========================
   (function () {
