@@ -2390,7 +2390,7 @@ section[data-parallax-section]{
    ========================= */
 .zacxys-scroll-indicator{
   position: fixed;
-  right: 14px;
+  right: 28px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 9999;
