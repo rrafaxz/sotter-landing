@@ -313,7 +313,11 @@ a{ color:inherit; text-decoration:none; }
 /* =========================
    SEÇÃO 02
    ========================= */
-.sec2{ padding: 26px 16px 56px; }
+.sec2{
+  padding: 26px 16px 56px;
+  position: relative;
+  z-index: 2;
+}
 
 .sec2-shell{
   max-width: 1240px;
@@ -815,6 +819,8 @@ a{ color:inherit; text-decoration:none; }
 .sec3{
   padding: 92px 16px 48px;
   background: #0b0c10;
+  position: relative;
+  z-index: 1;
 }
 
 .sec3-shell{
