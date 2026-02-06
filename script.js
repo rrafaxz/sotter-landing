@@ -125,6 +125,12 @@
     }
   }
 
+  window.addEventListener("resize", function () {
+    if (window.matchMedia && window.matchMedia("(min-width: 981px)").matches) {
+      closeMobile();
+    }
+  });
+
   // =========================
   // Select custom (abre pra cima)
   // =========================
@@ -220,6 +226,7 @@
 
   function markSuccess() {
     if (!submitBtn) return;
+    clearError();
     submitBtn.textContent = "REUNIÃO AGENDADA!";
     submitBtn.style.background = "#dfff06";
     submitBtn.style.color = "#1d10d7";

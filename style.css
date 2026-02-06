@@ -1,9 +1,15 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 
+/* ✅ garante um único container de scroll (evita scrollbar duplicada) */
+html{
+  overflow: hidden;
+}
 /* ✅ BLOQUEIA A TELA DE IR PRO LADO (overflow horizontal) */
-html, body{
+body{
+  min-height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body{
