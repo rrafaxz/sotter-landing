@@ -603,9 +603,25 @@
       secChoose.classList.add("is-in");
     }
 
+    function resetGraphState() {
+      linePlayed = false;
+      secChoose.classList.remove("is-sales-visible");
+      secChoose.classList.remove("is-line-animating");
+      drawLineProgress(0);
+
+      var i;
+      for (i = 0; i < nodes.length; i++) {
+        nodes[i].classList.remove("is-revealed");
+        nodes[i].classList.remove("is-active");
+      }
+      for (i = 0; i < points.length; i++) {
+        points[i].classList.remove("is-active");
+      }
+    }
+
     function setOff() {
       secChoose.classList.remove("is-in");
-      if (!linePlayed) secChoose.classList.remove("is-sales-visible");
+      resetGraphState();
     }
 
     function inView(el) {
