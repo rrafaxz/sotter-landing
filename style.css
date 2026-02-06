@@ -1544,7 +1544,7 @@ a{ color:inherit; text-decoration:none; }
    RODAPÉ
    ========================= */
 .site-footer{
-  background: #000;
+  background: transparent;
   color: #e9eaee;
   padding: 34px 24px 42px;
 }
