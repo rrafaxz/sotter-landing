@@ -26,26 +26,77 @@
     <div class="global-bg__glow"></div>
   </div>
 
-  <header class="topbar" id="topbar">
-    <div class="topbar-inner">
-      <span class="topbar-spacer" aria-hidden="true"></span>
-      <div class="topbar-logo" aria-label="Zacx">ZACX</div>
-      <a class="topbar-cta" href="#contato">
-        FALE COM A ZACX <span class="cta-icon" aria-hidden="true">↗</span>
+  <!-- =========================
+       MENU FIXO
+       ========================= -->
+  <header class="topbar-wrap">
+    <nav class="topbar" aria-label="Menu principal">
+
+      <div class="topbar-left">
+        <!-- ✅ ESQUERDA: PÁGINAS (DESKTOP) -->
+        <ul class="navlinks" role="list" aria-label="Páginas">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#cases">Cases</a></li>
+        </ul>
+
+        <!-- ✅ ESQUERDA (APENAS NO SCROLL DESKTOP): vira ícone 3 traços -->
+        <button class="hamburger hamburger--desktop" type="button" aria-label="Abrir páginas" aria-expanded="false" aria-controls="mobileMenu">
+          <img
+            src="https://blogger.googleusercontent.com/img/a/AVvXsEiaMOHhiIXYLuqEJmBfvDUSmMMg4lYeXNTXiXYqCryWz2YWGIS-bf9V2HzRRxjltvVmowCoOzLqEDRTLE3dwrzlCvQUtvnaSpkUwx5DuBH7h4uHRoV2t60ZLf3UoRxZo6e4UsZFAp_FbkREl0qY3o5PBbDED2SERG3kKZ_shkfMIzpzjGkBJFiU-bOF_GM"
+            alt=""
+          />
+        </button>
+      </div>
+
+      <!-- ✅ CENTRO: LOGO -->
+      <a class="brand" href="#home" aria-label="ZGCX">
+        <img
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEiqS93HwfTnAdxQWeOJR_U2XCwAFLTJ85Pbo37nInltAh-qq3mi2Z0PvxYpe90pmrwBEf4hEw1fIyWhoRyOR7iRtuIC70ZTxQGbKcpUa6qrmQo3u10_msqSCYLG9vaf_XYqLhygOXoT1E2WFgdcfuhfl6rIwfnVMmmuxjuvca11wviyxicQndsfTi_BJ3Y"
+          alt="ZGCX"
+        />
       </a>
-      <button class="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu">
-        <span class="hamburger-line" aria-hidden="true"></span>
-        <span class="hamburger-line" aria-hidden="true"></span>
-        <span class="hamburger-line" aria-hidden="true"></span>
-      </button>
+
+      <div class="topbar-right">
+        <!-- ✅ DIREITA: CTA -->
+        <a class="cta-outline cta-desktop" href="#contato">
+          FALE COM A ZACX
+          <img
+            class="cta-arrow"
+            src="https://blogger.googleusercontent.com/img/a/AVvXsEgHBkzkCLleZlLkTtSzu5KDIyEKsrhKtqiNjFl3TOm3Sjf7GN7vYkMjj6IrE-NpihDmDBzO0NB0nEflFwCy9I5B1_rVfWfngdmXmtjchS9_X72UbZM1lt7f_xR3IKQQYGEWj9W_HQwbHgb3Xz4LCacfaYHePh1WLcnhUF5EQ5zhXGs5HK1rMhQVrxyl9UE"
+            alt=""
+          />
+        </a>
+
+        <!-- ✅ MOBILE: botão do menu -->
+        <button class="hamburger hamburger--mobile" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+          <img
+            src="https://blogger.googleusercontent.com/img/a/AVvXsEiaMOHhiIXYLuqEJmBfvDUSmMMg4lYeXNTXiXYqCryWz2YWGIS-bf9V2HzRRxjltvVmowCoOzLqEDRTLE3dwrzlCvQUtvnaSpkUwx5DuBH7h4uHRoV2t60ZLf3UoRxZo6e4UsZFAp_FbkREl0qY3o5PBbDED2SERG3kKZ_shkfMIzpzjGkBJFiU-bOF_GM"
+            alt=""
+          />
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <a href="#home">Home</a>
+      <a href="#blog">Blog</a>
+      <a href="#cases">Cases</a>
+
+      <!-- CTA MOBILE (somente aqui dentro) -->
+      <a class="mobile-cta" href="#contato">
+        FALE COM A ZACX
+        <img
+          class="cta-arrow"
+          src="https://blogger.googleusercontent.com/img/a/AVvXsEgHBkzkCLleZlLkTtSzu5KDIyEKsrhKtqiNjFl3TOm3Sjf7GN7vYkMjj6IrE-NpihDmDBzO0NB0nEflFwCy9I5B1_rVfWfngdmXmtjchS9_X72UbZM1lt7f_xR3IKQQYGEWj9W_HQwbHgb3Xz4LCacfaYHePh1WLcnhUF5EQ5zhXGs5HK1rMhQVrxyl9UE"
+          alt=""
+        />
+      </a>
     </div>
   </header>
 
-  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <a class="mobile-cta" href="#contato">
-      FALE COM A ZACX <span class="cta-icon" aria-hidden="true">↗</span>
-    </a>
-  </div>
+  <div class="topbar-spacer" aria-hidden="true"></div>
 
   <main id="home">
     <!-- =========================
@@ -61,8 +112,7 @@
         </h1>
 
         <p class="hero-sub">
-          <span class="hero-sub-line">Marketing, posicionamento digital e estrutura comercial integrados para</span>
-          <span class="hero-sub-line">imobiliárias, incorporadoras e administradoras de condomínios.</span>
+          Marketing, posicionamento digital e estrutura comercial integrados para imobiliárias, incorporadoras e administradoras de condomínios.
         </p>
 
         <a class="cta-solid" href="#contato">
