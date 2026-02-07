@@ -108,6 +108,7 @@ body.no-scroll{
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 .hamburger-line{
@@ -115,6 +116,25 @@ body.no-scroll{
   height: 2px;
   background: #dfff06;
   border-radius: 999px;
+  transition: transform 180ms ease, opacity 180ms ease;
+  transform-origin: center;
+}
+
+.hamburger.is-open{
+  background: rgba(223, 255, 6, 0.12);
+  border-color: rgba(223, 255, 6, 0.7);
+}
+
+.hamburger.is-open .hamburger-line:nth-child(1){
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-open .hamburger-line:nth-child(2){
+  opacity: 0;
+}
+
+.hamburger.is-open .hamburger-line:nth-child(3){
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .mobile-menu{
