@@ -48,6 +48,9 @@
     else topbar.classList.remove("is-compact");
 
     if (topbarWrap) {
+      if (y > 10) topbarWrap.classList.add("is-blur");
+      else topbarWrap.classList.remove("is-blur");
+
       if (y > 12) topbarWrap.classList.add("is-scrolled");
       else topbarWrap.classList.remove("is-scrolled");
     }

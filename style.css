@@ -125,10 +125,10 @@ a{ color:inherit; text-decoration:none; }
     border-radius 280ms ease,
     transform 280ms ease,
     margin 280ms ease,
-    background 320ms ease,
+    background 200ms ease,
     box-shadow 320ms ease,
     border-color 320ms ease,
-    backdrop-filter 320ms ease;
+    backdrop-filter 200ms ease;
   will-change: max-width, padding, border-radius, transform, margin, background, box-shadow, border-color, backdrop-filter;
 }
 
@@ -143,13 +143,13 @@ a{ color:inherit; text-decoration:none; }
   margin-right: auto;
 }
 
-/* ✅ estado com blur + degradê no scroll */
-.topbar-wrap.is-scrolled .topbar{
-  background: linear-gradient(120deg, rgba(25,84,216,0.78) 0%, rgba(34,214,196,0.72) 55%, rgba(223,255,6,0.25) 100%);
-  border-color: rgba(223,255,6,0.18);
+/* ✅ estado com blur no scroll */
+.topbar-wrap.is-blur .topbar{
+  background: rgba(29,16,215,0.72);
+  border-color: rgba(29,16,215,0.28);
   box-shadow: 0 20px 64px rgba(0,0,0,.4);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* colunas do "grid" (agora flex) */
@@ -281,13 +281,18 @@ a{ color:inherit; text-decoration:none; }
   transform: translateY(-6px);
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 220ms ease, transform 220ms ease, visibility 0ms linear 220ms;
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease,
+    visibility 0ms linear 220ms,
+    background 200ms ease,
+    backdrop-filter 200ms ease;
 }
-.topbar-wrap.is-scrolled .mobile-menu{
-  background: linear-gradient(120deg, rgba(25,84,216,0.78) 0%, rgba(34,214,196,0.72) 55%, rgba(223,255,6,0.25) 100%);
-  border: 1px solid rgba(223,255,6,0.15);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
+.topbar-wrap.is-blur .mobile-menu{
+  background: rgba(29,16,215,0.72);
+  border: 1px solid rgba(29,16,215,0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .mobile-menu.is-open{
   opacity: 1;
