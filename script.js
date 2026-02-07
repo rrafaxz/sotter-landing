@@ -39,6 +39,7 @@
   function setMenuOpen(open) {
     if (!mobileMenu || !hamburger) return;
     mobileMenu.classList.toggle("is-open", open);
+    hamburger.classList.toggle("is-open", open);
     hamburger.setAttribute("aria-expanded", open ? "true" : "false");
     mobileMenu.setAttribute("aria-hidden", open ? "false" : "true");
     document.body.classList.toggle("no-scroll", open);
