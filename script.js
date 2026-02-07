@@ -29,6 +29,67 @@
   }
 
   // =========================
+  // Topbar + Menu mobile
+  // =========================
+  var topbar = document.querySelector(".topbar");
+  var hamburger = document.querySelector(".hamburger");
+  var mobileMenu = document.querySelector(".mobile-menu");
+  var mobileCta = document.querySelector(".mobile-cta");
+
+  function setMenuOpen(open) {
+    if (!mobileMenu || !hamburger) return;
+    mobileMenu.classList.toggle("is-open", open);
+    hamburger.setAttribute("aria-expanded", open ? "true" : "false");
+    mobileMenu.setAttribute("aria-hidden", open ? "false" : "true");
+    document.body.classList.toggle("no-scroll", open);
+  }
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
+  function toggleMenu() {
+    if (!mobileMenu) return;
+    var open = !mobileMenu.classList.contains("is-open");
+    setMenuOpen(open);
+  }
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", function (e) {
+      e.preventDefault();
+      toggleMenu();
+    });
+
+    if (mobileCta) {
+      mobileCta.addEventListener("click", function () {
+        closeMenu();
+      });
+    }
+
+    document.addEventListener("click", function (e) {
+      if (!mobileMenu.classList.contains("is-open")) return;
+      var insideMenu = closest(e.target, ".mobile-menu");
+      var insideToggle = closest(e.target, ".hamburger");
+      if (!insideMenu && !insideToggle) closeMenu();
+    });
+
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMenu();
+    });
+  }
+
+  function updateTopbarScroll() {
+    if (!topbar) return;
+    if (window.scrollY > 10) topbar.classList.add("is-scrolled");
+    else topbar.classList.remove("is-scrolled");
+  }
+
+  if (topbar) {
+    updateTopbarScroll();
+    window.addEventListener("scroll", updateTopbarScroll, { passive: true });
+  }
+
+  // =========================
   // Select custom (abre pra cima)
   // =========================
   var btn = document.getElementById("segmentoBtn");

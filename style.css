@@ -18,6 +18,154 @@ body{
   color:#e9eaee;
 }
 
+body.no-scroll{
+  overflow: hidden;
+}
+
+/* =========================
+   TOPBAR
+   ========================= */
+.topbar{
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  height: 64px;
+  background: #1465ff;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(6, 20, 48, 0.28);
+  z-index: 20;
+  transition: background 220ms ease, backdrop-filter 220ms ease, box-shadow 220ms ease;
+}
+
+.topbar.is-scrolled{
+  background: rgba(20, 101, 255, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 26px rgba(4, 12, 30, 0.32);
+}
+
+.topbar-inner{
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.topbar-spacer{
+  width: 44px;
+  height: 1px;
+}
+
+.topbar-logo{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #dfff06;
+}
+
+.topbar-cta{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 2px solid #dfff06;
+  border-radius: 999px;
+  color: #dfff06;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  background: transparent;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.topbar-cta:focus-visible,
+.mobile-cta:focus-visible,
+.hamburger:focus-visible{
+  outline: 2px solid #dfff06;
+  outline-offset: 3px;
+}
+
+.topbar-cta:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(7, 20, 48, 0.24);
+  background: rgba(223, 255, 6, 0.08);
+}
+
+.hamburger{
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(223, 255, 6, 0.4);
+  background: rgba(7, 30, 86, 0.35);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger-line{
+  width: 18px;
+  height: 2px;
+  background: #dfff06;
+  border-radius: 999px;
+}
+
+.mobile-menu{
+  position: fixed;
+  top: calc(16px + 64px + 12px);
+  left: 16px;
+  right: 16px;
+  background: #1465ff;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 16px 30px rgba(6, 20, 48, 0.3);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 19;
+}
+
+.mobile-menu.is-open{
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobile-cta{
+  width: 100%;
+  min-height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border: 2px solid #dfff06;
+  border-radius: 16px;
+  color: #dfff06;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: transparent;
+}
+
+@media (max-width: 720px){
+  .topbar{ height: 58px; }
+  .topbar-inner{ padding: 0 14px; }
+  .topbar-cta{ display: none; }
+  .hamburger{ display: inline-flex; }
+  .mobile-menu{ top: calc(16px + 58px + 12px); }
+}
+
+@media (min-width: 721px){
+  .mobile-menu{ display: none !important; }
+}
+
 /* =========================
    FUNDO GLOBAL (GRID + GLOW)
    ========================= */
