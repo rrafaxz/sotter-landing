@@ -224,6 +224,8 @@
     if (note) note.textContent = "";
   }
 
+  var defaultBtnText = submitBtn ? submitBtn.textContent : "Agendar uma Reunião";
+
   function markSuccess() {
     if (!submitBtn) return;
     clearError();
@@ -272,6 +274,28 @@
     return true;
   }
 
+  function buildPayload() {
+    if (!leadForm) return "";
+    var fields = ["nome", "email", "empresa", "telefone", "segmento"];
+    var parts = [];
+    var i;
+    for (i = 0; i < fields.length; i++) {
+      var name = fields[i];
+      var input = leadForm.querySelector('[name="' + name + '"]');
+      if (!input) continue;
+      var value = input.value || "";
+      parts.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
+    }
+    return parts.join("&");
+  }
+
+  function resetSubmitState() {
+    if (!submitBtn) return;
+    submitBtn.textContent = defaultBtnText;
+    submitBtn.disabled = false;
+    submitBtn.style.cursor = "pointer";
+  }
+
   function sendForminit() {
     if (!leadForm) return;
 
@@ -280,28 +304,32 @@
     var url = leadForm.getAttribute("action");
 
     // monta os dados
-    var fd = new FormData(leadForm);
+    var payload = buildPayload();
 
     // evita duplo clique
     if (submitBtn) {
+      submitBtn.textContent = "Enviando...";
       submitBtn.disabled = true;
       submitBtn.style.cursor = "wait";
     }
 
     fetch(url, {
       method: "POST",
-      body: fd
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: payload
     })
     .then(function (res) {
       if (res && (res.ok || res.status === 0)) {
         markSuccess();
       } else {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.style.cursor = "pointer"; }
+        resetSubmitState();
         setError("Não foi possível enviar agora. Tente novamente.");
       }
     })
     .catch(function () {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.style.cursor = "pointer"; }
+      resetSubmitState();
       setError("Falha ao enviar. Teste no site publicado (Hostinger).");
     });
   }
