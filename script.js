@@ -48,9 +48,6 @@
     else topbar.classList.remove("is-compact");
 
     if (topbarWrap) {
-      if (y > 10) topbarWrap.classList.add("is-blur");
-      else topbarWrap.classList.remove("is-blur");
-
       if (y > 12) topbarWrap.classList.add("is-scrolled");
       else topbarWrap.classList.remove("is-scrolled");
     }
@@ -211,11 +208,11 @@
       }
     });
   }
-
+	
   // =========================
-  // Envio Netlify sem sair da página (XHR)
+  // ✅ FORM: Envio para FORMINIT (sem Netlify)
   // =========================
-  var form = document.querySelector('form[name="zacxys-leads"]');
+  var leadForm = document.getElementById("leadForm");
   var submitBtn = document.getElementById("submitBtn");
   var note = document.getElementById("formNote");
 
@@ -237,9 +234,13 @@
     submitBtn.style.cursor = "default";
   }
 
-  function isValidEmail(email) {
+  function trimStr2(s) {
+    return (s || "").replace(/^\s+|\s+$/g, "");
+  }
+
+  function isValidEmail2(email) {
     if (!email) return false;
-    var e = trimStr(email);
+    var e = trimStr2(email);
     var at = e.indexOf("@");
     if (at <= 0) return false;
     var dotAfter = e.indexOf(".", at + 2);
@@ -248,85 +249,73 @@
     return true;
   }
 
-  function encodeURIComponentPlus(str) {
-    return encodeURIComponent(str).replace(/%20/g, "+");
-  }
+  function runValidation() {
+    if (!leadForm) return false;
 
-  function serializeForm(formEl) {
-    var pairs = [];
-    var els = formEl.elements;
-    var i;
+    var nome = leadForm.querySelector('input[name="nome"]');
+    var email = leadForm.querySelector('input[name="email"]');
+    var empresa = leadForm.querySelector('input[name="empresa"]');
+    var telefone = leadForm.querySelector('input[name="telefone"]');
+    var segmento = document.getElementById("segmentoValue");
 
-    for (i = 0; i < els.length; i++) {
-      var el = els[i];
-      if (!el || !el.name || el.disabled) continue;
-
-      var type = (el.type || "").toLowerCase();
-
-      if (type === "checkbox" || type === "radio") {
-        if (!el.checked) continue;
-      }
-
-      pairs.push(encodeURIComponentPlus(el.name) + "=" + encodeURIComponentPlus(el.value || ""));
-    }
-
-    return pairs.join("&");
-  }
-
-  function sendNetlify(formEl, onOk, onFail) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) return;
-      if (xhr.status >= 200 && xhr.status < 300) onOk();
-      else onFail();
-    };
-
-    xhr.send(serializeForm(formEl));
-  }
-
-  function runValidationAndSend() {
-    if (!form) return;
-
-    clearError();
-
-    var nome = form.querySelector('input[name="nome"]');
-    var email = form.querySelector('input[name="email"]');
-    var empresa = form.querySelector('input[name="empresa"]');
-    var telefone = form.querySelector('input[name="telefone"]');
-
-    if (!nome || !nome.value || !trimStr(nome.value)) return setError("Preencha seu nome e sobrenome.");
-    if (!email || !email.value || !trimStr(email.value)) return setError("Preencha seu e-mail corporativo.");
-    if (!isValidEmail(email.value)) return setError("E-mail não foi preenchido corretamente (ex: nome@empresa.com).");
-    if (!empresa || !empresa.value || !trimStr(empresa.value)) return setError("Preencha o nome da sua empresa.");
+    if (!nome || !trimStr2(nome.value)) { setError("Preencha seu nome e sobrenome."); return false; }
+    if (!email || !trimStr2(email.value)) { setError("Preencha seu e-mail corporativo."); return false; }
+    if (!isValidEmail2(email.value)) { setError("E-mail inválido (ex: nome@empresa.com)."); return false; }
+    if (!empresa || !trimStr2(empresa.value)) { setError("Preencha o nome da sua empresa."); return false; }
 
     var telDigits = (telefone && telefone.value) ? telefone.value.replace(/\D/g, "") : "";
-    if (telDigits.length !== 11) return setError("Telefone deve estar no formato (DD) 912345678.");
+    if (telDigits.length !== 11) { setError("Telefone deve ter 11 dígitos (DD + número)."); return false; }
 
-    if (!hidden || !hidden.value) return setError("Selecione o segmento da sua empresa.");
+    if (!segmento || !trimStr2(segmento.value)) { setError("Selecione o segmento da sua empresa."); return false; }
 
-    sendNetlify(
-      form,
-      function () { markSuccess(); },
-      function () { setError("Não foi possível enviar agora. Tente novamente."); }
-    );
+    clearError();
+    return true;
   }
 
-  if (submitBtn) {
-    submitBtn.addEventListener("click", function () {
-      runValidationAndSend();
+  function sendForminit() {
+    if (!leadForm) return;
+
+    // 🔥 Se você está testando em file:// pode falhar.
+    // No domínio (Hostinger) funciona 100%.
+    var url = leadForm.getAttribute("action");
+
+    // monta os dados
+    var fd = new FormData(leadForm);
+
+    // evita duplo clique
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.style.cursor = "wait";
+    }
+
+    fetch(url, {
+      method: "POST",
+      body: fd
+    })
+    .then(function (res) {
+      if (res && (res.ok || res.status === 0)) {
+        markSuccess();
+      } else {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.style.cursor = "pointer"; }
+        setError("Não foi possível enviar agora. Tente novamente.");
+      }
+    })
+    .catch(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.style.cursor = "pointer"; }
+      setError("Falha ao enviar. Teste no site publicado (Hostinger).");
     });
   }
 
-  if (form) {
-    form.addEventListener("submit", function (e) {
+  // Intercepta o submit padrão e envia via fetch
+  if (leadForm) {
+    leadForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      runValidationAndSend();
+      if (!runValidation()) return;
+      sendForminit();
     });
   }
 
+  
   // =========================
   // SEÇÃO 03: Carrossel infinito REAL (sem clones, sem pulo)
   // =========================
