@@ -215,6 +215,8 @@
   var leadForm = document.getElementById("leadForm");
   var submitBtn = document.getElementById("submitBtn");
   var note = document.getElementById("formNote");
+  var forminit = window.Forminit ? new window.Forminit() : null;
+  var FORM_ID = "4htydnlqbxn";
 
   function setError(msg) {
     if (note) note.textContent = msg;
@@ -274,19 +276,38 @@
     return true;
   }
 
-  function buildPayload() {
-    if (!leadForm) return "";
-    var fields = ["nome", "email", "empresa", "telefone", "segmento"];
-    var parts = [];
-    var i;
-    for (i = 0; i < fields.length; i++) {
-      var name = fields[i];
-      var input = leadForm.querySelector('[name="' + name + '"]');
-      if (!input) continue;
-      var value = input.value || "";
-      parts.push(encodeURIComponent(name) + "=" + encodeURIComponent(value));
-    }
-    return parts.join("&");
+  function buildForminitData() {
+    if (!leadForm) return null;
+    var nomeInput = leadForm.querySelector('input[name="nome"]');
+    var emailInput = leadForm.querySelector('input[name="email"]');
+    var empresaInput = leadForm.querySelector('input[name="empresa"]');
+    var telefoneInput = leadForm.querySelector('input[name="telefone"]');
+    var segmentoInput = leadForm.querySelector('input[name="segmento"]');
+
+    var fullName = nomeInput ? trimStr2(nomeInput.value) : "";
+    var nameParts = fullName ? fullName.split(/\s+/) : [];
+    var firstName = nameParts.length ? nameParts[0] : fullName;
+    var lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
+
+    var messageLines = [
+      "Empresa: " + (empresaInput ? trimStr2(empresaInput.value) : ""),
+      "Telefone: " + (telefoneInput ? trimStr2(telefoneInput.value) : ""),
+      "Segmento: " + (segmentoInput ? trimStr2(segmentoInput.value) : "")
+    ];
+
+    var data = new FormData();
+    data.append("fi-sender-firstName", firstName);
+    data.append("fi-sender-lastName", lastName);
+    data.append("fi-sender-email", emailInput ? trimStr2(emailInput.value) : "");
+    data.append("fi-text-message", messageLines.join("\n"));
+
+    if (nomeInput) data.append("nome", nomeInput.value || "");
+    if (emailInput) data.append("email", emailInput.value || "");
+    if (empresaInput) data.append("empresa", empresaInput.value || "");
+    if (telefoneInput) data.append("telefone", telefoneInput.value || "");
+    if (segmentoInput) data.append("segmento", segmentoInput.value || "");
+
+    return data;
   }
 
   function resetSubmitState() {
@@ -298,40 +319,34 @@
 
   function sendForminit() {
     if (!leadForm) return;
+    if (!forminit) {
+      setError("Forminit não carregou. Verifique o script do SDK.");
+      return;
+    }
 
-    // 🔥 Se você está testando em file:// pode falhar.
-    // No domínio (Hostinger) funciona 100%.
-    var url = leadForm.getAttribute("action");
-
-    // monta os dados
-    var payload = buildPayload();
-
-    // evita duplo clique
     if (submitBtn) {
       submitBtn.textContent = "Enviando...";
       submitBtn.disabled = true;
       submitBtn.style.cursor = "wait";
     }
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: payload
-    })
-    .then(function (res) {
-      if (res && (res.ok || res.status === 0)) {
+    var payload = buildForminitData();
+
+    forminit.submit(FORM_ID, payload)
+      .then(function (result) {
+        if (result && result.error) {
+          resetSubmitState();
+          setError(result.error.message || "Não foi possível enviar agora. Tente novamente.");
+          return;
+        }
+
         markSuccess();
-      } else {
+        if (leadForm) leadForm.reset();
+      })
+      .catch(function () {
         resetSubmitState();
-        setError("Não foi possível enviar agora. Tente novamente.");
-      }
-    })
-    .catch(function () {
-      resetSubmitState();
-      setError("Falha ao enviar. Teste no site publicado (Hostinger).");
-    });
+        setError("Falha ao enviar. Teste no site publicado (Hostinger).");
+      });
   }
 
   // Intercepta o submit padrão e envia via fetch
