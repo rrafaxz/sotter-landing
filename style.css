@@ -179,14 +179,14 @@ a{ color:inherit; text-decoration:none; }
   flex: 0 0 auto;
 }
 .brand img{
-  height: 27px;
+  height: 24px;
   width: auto;
   display:block;
   transform: translateZ(0);
   transition: height 280ms ease;
 }
 .topbar.is-compact .brand img{
-  height: 25.5px;
+  height: 22.5px;
 }
 
 /* Páginas esquerda (desktop) */
@@ -2338,7 +2338,7 @@ section[data-parallax-section]{
     filter: none;
   }
 
-  .brand img{ height: 25.5px; }
+  .brand img{ height: 22.5px; }
   .cta-desktop{ display:none; }
 
   .hero{ padding-top: 54px; padding-bottom: 44px; }
