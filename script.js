@@ -208,9 +208,9 @@
       }
     });
   }
-	
+
   // =========================
-  // ✅ FORM: Envio para FORMINIT (sem Netlify)
+  // ✅ FORM: Envio para WEBHOOK + FORMINIT
   // =========================
   var leadForm = document.getElementById("leadForm");
   var submitBtn = document.getElementById("submitBtn");
@@ -219,7 +219,10 @@
   var FORM_ID = "4htydnlqbxn";
 
   function setError(msg) {
-    if (note) note.textContent = msg;
+    if (note) {
+        note.textContent = msg;
+        note.style.color = "#ff4444"; // Garante cor de erro
+    }
   }
 
   function clearError() {
@@ -231,6 +234,12 @@
   function markSuccess() {
     if (!submitBtn) return;
     clearError();
+    // Feedback visual de sucesso
+    if(note) {
+        note.style.color = "#00ff88"; 
+        note.textContent = "Solicitação enviada com sucesso! Em breve entraremos em contato.";
+    }
+    
     submitBtn.textContent = "REUNIÃO AGENDADA!";
     submitBtn.style.background = "#dfff06";
     submitBtn.style.color = "#1d10d7";
@@ -330,6 +339,37 @@
       submitBtn.style.cursor = "wait";
     }
 
+    // --- 1. Envio para Webhook (N8N/Autozap) ---
+    try {
+        var formDataWebhook = new FormData(leadForm);
+        var jsonData = {};
+        formDataWebhook.forEach(function(value, key){
+            jsonData[key] = value;
+        });
+        
+        // Pega a URL do action do form no HTML
+        var webhookUrl = leadForm.action; 
+
+        if(webhookUrl) {
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            }).then(function(res) {
+                console.log("Webhook enviado com status:", res.status);
+            }).catch(function(err) {
+                console.error("Erro no envio do Webhook:", err);
+            });
+        }
+    } catch (e) {
+        console.error("Erro ao processar dados para webhook", e);
+    }
+    // --- Fim lógica Webhook ---
+
+
+    // --- 2. Envio para Forminit (Backup e Validação) ---
     var payload = buildForminitData();
 
     forminit.submit(FORM_ID, payload)
@@ -342,6 +382,10 @@
 
         markSuccess();
         if (leadForm) leadForm.reset();
+
+        // Reseta o Label do Select Customizado
+        if (label) label.textContent = "Qual é o segmento da sua empresa?";
+        if (hidden) hidden.value = "";
       })
       .catch(function () {
         resetSubmitState();
@@ -349,7 +393,7 @@
       });
   }
 
-  // Intercepta o submit padrão e envia via fetch
+  // Intercepta o submit padrão
   if (leadForm) {
     leadForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -358,7 +402,7 @@
     });
   }
 
-  
+
   // =========================
   // SEÇÃO 03: Carrossel infinito REAL (sem clones, sem pulo)
   // =========================
