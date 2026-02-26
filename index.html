@@ -1,13 +1,73 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MM2TC4XQ');</script>
+<!-- End Google Tag Manager -->
+    
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17949669657"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17949669657');
+</script>
+
+<!-- Event snippet for Contato conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17949669657/NmKQCPPvxfcbEJnyiO9C',
+      'value': 1.0,
+      'currency': 'BRL',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+<!-- Event snippet for Visualização de página conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17949669657/lbtrCIG_xfcbEJnyiO9C',
+      'value': 1.0,
+      'currency': 'BRL',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+
+
+	<link rel="icon" href="/FAVICON.ico" type="image/x-icon"><link rel="shortcut icon" href="/FAVICON.ico">
+
   <meta charset="utf-8" />
   <!-- ✅ TRAVA ZOOM NO MOBILE -->
   <meta
     name="viewport"
     content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
   />
-  <title>Zacxys - Landing Page</title>
+  <title>Grupo Zacx | Marketing Imobiliário e Condominial</title>
 
   <!-- Fonte Sora -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +78,15 @@
 </head>
 
 <body>
+    <script>
+  fbq('track', 'Lead');
+</script>
+    
+      <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM2TC4XQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
   <!-- =========================
        FUNDO GLOBAL (GRID + GLOW)
        ========================= -->
@@ -174,7 +243,7 @@
           <div class="sec2-right">
             <div class="form-area">
               <div class="form-wrap">
-                <form id="leadForm" action="https://forminit.com/f/4htydnlqbxn" method="POST">
+                <form id="leadForm" action="https://autozapwebhook.neosites.com.br/webhook/b1e46ac5-d7c4-4558-84f0-8840b704329e" method="POST">
 
 
               
@@ -703,5 +772,10 @@
 
   <script src="https://forminit.com/sdk/v1/forminit.js"></script>
   <script src="script.js"></script>
+  
+  
+  
+
 </body>
+
 </html>
